@@ -1,0 +1,4 @@
+# MCopy project dependencies
+PySide6>=6.0.0
+# pywin32 is required for clipboard functionality on Windows
+pywin32; sys_platform == 'win32'

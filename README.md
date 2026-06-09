@@ -1,170 +1,120 @@
 <div align="center">
+<br>
+
+# ◈𝐌𝐂𝐎𝐏𝐘
+
+[![Version](https://img.shields.io/badge/Version-v1.0.0-c4a7e7?style=for-the-badge&labelColor=1a1a2e)](https://github.com/MaaruAX/MCopy/releases)
+[![Status](https://img.shields.io/badge/Status-Stable-c4a7e7?style=for-the-badge&labelColor=1a1a2e)](https://github.com/MaaruAX/MCopy)
+![free](https://img.shields.io/badge/Works_on_FREE_Resolve-1a1a2e?style=for-the-badge&labelColor=1a1a2e)
+<br>
+
+**Cross-platform Fusion node preset manager for DaVinci Resolve**
+*Save, search, and instantly recall node graphs with a single click*
 
 <br>
 
-# ◈ MCopy
-
-![early-access](https://img.shields.io/badge/⚠_EARLY_ACCESS-ff6b6b?style=for-the-badge&labelColor=1a1a2e)
+![Windows](https://img.shields.io/badge/Windows-9ccfd8?style=flat-square&logo=windows&logoColor=1a1a2e)
 &nbsp;
-![version](https://img.shields.io/badge/version-1.0-f5c842?style=for-the-badge&labelColor=1a1a2e)
+![macOS](https://img.shields.io/badge/macOS-ebbcba?style=flat-square&logo=apple&logoColor=1a1a2e)
 &nbsp;
-![free](https://img.shields.io/badge/Works_on_FREE_Resolve-31c48d?style=for-the-badge&labelColor=1a1a2e)
+![Linux](https://img.shields.io/badge/Linux-f6c177?style=flat-square&logo=linux&logoColor=1a1a2e)
+&nbsp;
+![Python](https://img.shields.io/badge/Python_3.9+-c4a7e7?style=flat-square&logo=python&logoColor=1a1a2e)
+&nbsp;
+![Resolve](https://img.shields.io/badge/DaVinci_Resolve_18+-eb6f92?style=flat-square&logoColor=1a1a2e)
 
 <br>
-
-**A Fusion node preset manager for DaVinci Resolve.**
-
-*Copy any node group. Save it. Paste it into any composition, forever.*
-
-<br>
-
-![Windows](https://img.shields.io/badge/Windows-f5c842?style=flat-square&logo=windows&logoColor=1a1a2e)
-&nbsp;
-![macOS](https://img.shields.io/badge/macOS-f5c842?style=flat-square&logo=apple&logoColor=1a1a2e)
-&nbsp;
-![Linux](https://img.shields.io/badge/Linux-f5c842?style=flat-square&logo=linux&logoColor=1a1a2e)
-&nbsp;
-![Python](https://img.shields.io/badge/Python_3.9+-f5c842?style=flat-square&logo=python&logoColor=1a1a2e)
-&nbsp;
-![Resolve](https://img.shields.io/badge/DaVinci_Resolve_18+-f5c842?style=flat-square&logoColor=1a1a2e)
-
-<br>
-
-> ⚠️ **Early access release.** Bugs are expected and features are actively being added. Your feedback directly shapes what gets built next — see how to reach us below.
-
-<br>
-
 </div>
 
----
+![What is MCopy](https://img.shields.io/badge/◈_WHAT_IS_MCOPY-eb6f92?style=flat-square&labelColor=1a1a2e)
 
-## ![what](https://img.shields.io/badge/◈_WHAT_IS_MCOPY-f5c842?style=flat-square&labelColor=1a1a2e)
+MCopy is an elegant, ultra-fast preset manager designed for DaVinci Resolve and Fusion editors. Developed as part of the MMarket ecosystem, it bridges your system clipboard with a lightweight local SQLite database to index, search, and organize complex node trees. 
 
-Every Fusion artist has node groups they rebuild from scratch over and over — a glow setup, a recolor stack, a particular merge chain. **MCopy is a persistent library for all of them.**
+Instead of cluttering your power bins or saving endless settings files, copy your node chains inside Fusion, hit capture in MCopy, and build a localized, searchable library of utility setups, custom expressions, and complex node structures.
 
-Copy any nodes in Fusion, capture them in MCopy, give them a name. Done. They're stored locally and searchable by name or description. Next time you need them, select the preset, hit Paste, and Ctrl+V in Fusion. Works on both the free and Studio editions of DaVinci Resolve.
+<br>
 
-<table>
-<tr>
-<td>
+![Features](https://img.shields.io/badge/◈_FEATURES_&_STYLING-f6c177?style=flat-square&labelColor=1a1a2e)
 
-![capture](https://img.shields.io/badge/Capture_&_Save-f5c842?style=flat-square&labelColor=26233a)
+![Capture Clipboard](https://img.shields.io/badge/Capture_Clipboard-9ccfd8?style=flat-square&labelColor=26233a) &nbsp; Grab any selected nodes from Fusion immediately using standard copying behaviors.
 
-```
-Ctrl+C in Fusion → Capture in MCopy
-Name it, add an optional description
-Saved locally, available forever
-```
+![Instant Presets](https://img.shields.io/badge/Instant_Presets-f6c177?style=flat-square&labelColor=26233a) &nbsp; Save captured graphs with customized names, notes, metadata, and timestamps.
 
-</td>
-<td>
+![FTS5 Search Engine](https://img.shields.io/badge/FTS5_Search-eb6f92?style=flat-square&labelColor=26233a) &nbsp; Real-time, lightning-fast database searching using native SQLite virtual tables.
 
-![search](https://img.shields.io/badge/Search_&_Paste-555?style=flat-square&labelColor=26233a)
+![Quick Paste](https://img.shields.io/badge/Quick_Paste-c4a7e7?style=flat-square&labelColor=26233a) &nbsp; Paste presets directly back into your clipboard with one click, ready for Fusion viewport deployment.
 
-```
-Full-text search across names & descriptions
-Select any preset → Paste
-Ctrl+V in Fusion — done
-```
+![Visual Themes](https://img.shields.io/badge/Themes_Included-9ccfd8?style=flat-square&labelColor=26233a) &nbsp; Beautiful built-in templates matching Rosé Pine, MMarket, and Gruvbox aesthetics.
 
-</td>
-</tr>
-</table>
+![Multi-Language UI](https://img.shields.io/badge/Localized-f6c177?style=flat-square&labelColor=26233a) &nbsp; Full built-in translations for English, Spanish, German, and Hindi.
 
----
+<br>
 
-## ![features](https://img.shields.io/badge/◈_FEATURES-f5c842?style=flat-square&labelColor=1a1a2e)
+![Execution Modes](https://img.shields.io/badge/◈_EXECUTION_MODES-9ccfd8?style=flat-square&labelColor=1a1a2e)
 
-![presets](https://img.shields.io/badge/Persistent_preset_library-f5c842?style=flat-square&labelColor=26233a) &nbsp;Presets are stored in a local SQLite database — they survive restarts, updates, and reinstalls.
+MCopy supports two core capture methodologies designed to align with both standard and advanced automation workflows:
 
-![fts](https://img.shields.io/badge/Full--text_search-555?style=flat-square&labelColor=26233a) &nbsp;Powered by SQLite FTS5. Search by name or description with prefix matching — type `glo` to find anything with "glow" in it.
+| ![Clipboard Mode](https://img.shields.io/badge/Clipboard_Mode-c4a7e7?style=flat-square&labelColor=1a1a2e) | ![Scripting Pro Mode](https://img.shields.io/badge/Scripting_Pro_Mode-9ccfd8?style=flat-square&labelColor=1a1a2e) |
+| :--- | :--- |
+| `• Traditional Ctrl+C / Ctrl+V pipeline` <br> `• Works out of the box on all system variants` <br> `• Zero additional external configuration required` | `• Hands-free API-level capture` <br> `• Utilizes native DaVinci Scripting modules` <br> `• Bypasses manual copy and paste workflows` |
 
-![source](https://img.shields.io/badge/Source_tracking-f5c842?style=flat-square&labelColor=26233a) &nbsp;Each preset shows a badge marking whether it was captured from the clipboard or via the scripting API — useful when you build up a large library over time.
+<br>
 
-![themes](https://img.shields.io/badge/3_themes-555?style=flat-square&labelColor=26233a) &nbsp;MMarket (default), Rosé Pine, and Gruvbox. Swap at any time from Settings without restarting.
+![Installation](https://img.shields.io/badge/◈_INSTALLATION-c4a7e7?style=flat-square&labelColor=1a1a2e)
 
-![accent](https://img.shields.io/badge/Custom_accent_color-f5c842?style=flat-square&labelColor=26233a) &nbsp;Color swatches plus a hex input. Applied instantly across the entire UI.
-
-![fonts](https://img.shields.io/badge/2_display_fonts-555?style=flat-square&labelColor=26233a) &nbsp;Barlow Condensed (default) and Monaspace Neon — both bundled, no internet required.
-
-![i18n](https://img.shields.io/badge/3_languages-f5c842?style=flat-square&labelColor=26233a) &nbsp;English, Español, हिन्दी. Deutsch coming in a future update.
-
----
-
-## ![modes](https://img.shields.io/badge/◈_CAPTURE_MODES-f5c842?style=flat-square&labelColor=1a1a2e)
-
-![clipboard](https://img.shields.io/badge/Clipboard-f5c842?style=flat-square&labelColor=26233a) &nbsp;The standard workflow. Select your nodes in Fusion → **Ctrl+C** → **Capture** in MCopy → name it → **Save**. To use a preset later, select it and click **Paste** — your nodes are on the clipboard ready for **Ctrl+V** in any Fusion composition.
-
-![scripting](https://img.shields.io/badge/Scripting_Pro_(coming_soon)-555?style=flat-square&labelColor=26233a) &nbsp;Captures and pastes directly without Ctrl+C / Ctrl+V. The scripting mode will talk to Resolve's API layer and handle the data transfer automatically — no manual clipboard steps.
-
----
-
-## ![install](https://img.shields.io/badge/◈_INSTALLATION-f5c842?style=flat-square&labelColor=1a1a2e)
+Follow these steps to set up and run MCopy locally on your computer:
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/MaaruAX/MCopy.git
+
+# 2. Navigate to the project directory
+cd MCopy
+
+# 3. Install required Python packages
+pip install -r requirements.txt
+
+# 4. Launch the application
 python main.py
 ```
 
-MCopy runs directly — no installer needed.
+*Note: If running on Windows, make sure `pywin32` is installed to ensure fast, native access to the system clipboard utilities.*
+
+<br>
+
+![Requirements](https://img.shields.io/badge/◈_REQUIREMENTS-ebbcba?style=flat-square&labelColor=1a1a2e)
+
+| Platform / Tool | Minimum System Specifications |
+| :--- | :--- |
+| ![Python Badge](https://img.shields.io/badge/Python-eb6f92?style=flat-square&labelColor=1a1a2e) | Version 3.9 or higher |
+| ![PySide6 Badge](https://img.shields.io/badge/PySide6-c4a7e7?style=flat-square&labelColor=1a1a2e) | PySide6 with QtWebEngine components |
+| ![Resolve Badge](https://img.shields.io/badge/Resolve-9ccfd8?style=flat-square&labelColor=1a1a2e) | DaVinci Resolve or Fusion Studio 17+ |
+
+<br>
 
 <details>
-<summary>
+<summary><img src="https://img.shields.io/badge/◈_TROUBLESHOOTING-f6c177?style=flat-square&labelColor=1a1a2e" alt="Troubleshooting Badge" /></summary>
 
-![trouble](https://img.shields.io/badge/Requirements_/_Troubleshooting-555?style=flat-square&labelColor=26233a)
+### Empty or Black GUI Viewport
+MCopy forces GPU hardware acceleration settings before initializing. If you encounter rendering problems or empty windows, update your system graphics drivers or modify the hardware acceleration flags located inside `main.py`'s entry block.
 
-</summary>
-
-<br>
-
-**Install dependencies manually if needed:**
-
+### Clipboard Issues on Linux Distributions
+On Linux systems, the PySide integration relies on system clipboard fallbacks. Verify that either `xclip` or `xsel` utilities are installed and available inside your system's path variables:
 ```bash
-pip install PySide6
+sudo apt-get install xclip
 ```
 
-On Linux, also install one of these for clipboard support:
-
-```bash
-sudo apt install xclip   # or: sudo apt install xsel
-```
-
-**Python from the Microsoft Store will not work.** Download the standard installer from **[python.org/downloads](https://python.org/downloads)** and check *"Add Python to PATH"* during setup.
-
-<br>
-
-> **Still stuck? Join the Discord.** Post your error message and your OS version — most issues are already solved there.
-
-[![discord](https://img.shields.io/badge/Join_the_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/dvZ9nvN79Y)
-
-<br>
-
+### Pro Scripting Connectivity
+The "Scripting (Pro)" pipeline relies on the external Python integration capabilities provided in DaVinci Resolve Studio. Standard clipboard capture mode remains fully compatible with both the Free and Studio editions of DaVinci Resolve.
 </details>
 
----
-
-## ![req](https://img.shields.io/badge/◈_REQUIREMENTS-f5c842?style=flat-square&labelColor=1a1a2e)
-
-| | |
-|---|---|
-| ![resolve](https://img.shields.io/badge/DaVinci_Resolve_18+-f5c842?style=flat-square&labelColor=26233a) | Free or Studio — both work |
-| ![python](https://img.shields.io/badge/Python_3.9+-f5c842?style=flat-square&labelColor=26233a) | **Must be the `.exe` installer from [python.org](https://python.org/downloads)** |
-| ![pyside](https://img.shields.io/badge/PySide6-555?style=flat-square&labelColor=26233a) | `pip install PySide6` |
-| ![xclip](https://img.shields.io/badge/xclip_or_xsel_(Linux_only)-555?style=flat-square&labelColor=26233a) | `sudo apt install xclip` |
-
----
+<br>
 
 <div align="center">
 
-<br>
+[![OSS](https://img.shields.io/badge/Open_Source-26233a?style=for-the-badge&labelColor=1a1a2e)](https://github.com/MaaruAX/MCopy)
+[![Discord](https://img.shields.io/badge/Discord_Support-5865F2?style=for-the-badge&labelColor=1a1a2e)](https://discord.com/invite/dvZ9nvN79Y)
+[![releases](https://img.shields.io/badge/Releases-eb6f92?style=for-the-badge)](https://codeberg.org/MaaruAx/MCopy/releases)
 
-![oss](https://img.shields.io/badge/Free_&_Open_Source-1a1a2e?style=for-the-badge)
-&nbsp;
-[![discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/dvZ9nvN79Y)
-&nbsp;
-[![releases](https://img.shields.io/badge/Releases-f5c842?style=for-the-badge&labelColor=1a1a2e)](https://codeberg.org/MaaruAx/MCopy/releases)
-
-<br>
-<sub>Part of the MMarket ecosystem. Built for the DaVinci Resolve / Fusion community.</sub>
-<br><br>
-
+<sub>Part of the MMarket ecosystem • Created with love for the DaVinci Resolve community.</sub>
 </div>

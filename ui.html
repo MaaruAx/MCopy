@@ -34,7 +34,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   VARIABLES — tema MMarket por defecto
+   VARIABLES
 ═══════════════════════════════════════════════════════════════════════════ */
 :root {
     --bg:  #0a0a0a;
@@ -55,6 +55,8 @@
     --font-display: 'Barlow Condensed', Impact, sans-serif;
     --font-body:    'Segoe UI', system-ui, sans-serif;
     --font-mono:    'Courier New', monospace;
+    --logo-weight:  900;
+    --logo-wght:    900;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -63,18 +65,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 100%; height: 100%; overflow: hidden; }
 body {
-    display: flex;
-    flex-direction: column;
-    background: var(--bg);
-    color: var(--tx);
-    font-family: var(--font-body);
-    font-size: 11px;
-    border: 2px solid var(--bd);
-    border-radius: var(--r);
-    user-select: none;
-    -webkit-user-select: none;
+    display: flex; flex-direction: column;
+    background: var(--bg); color: var(--tx);
+    font-family: var(--font-body); font-size: 12px; line-height: 1.45;
+    border: 2px solid var(--bd); border-radius: var(--r);
+    user-select: none; -webkit-user-select: none;
 }
-input, textarea, button, select { font-family: var(--font-body); }
+input, textarea, button, select { font-family: var(--font-body); font-size: 12px; }
 input, textarea { user-select: text; -webkit-user-select: text; }
 input:focus, textarea:focus { outline: none; }
 button { cursor: pointer; border: none; background: none; color: inherit; }
@@ -88,145 +85,91 @@ textarea { resize: none; }
    TOPBAR
 ═══════════════════════════════════════════════════════════════════════════ */
 #topbar {
-    height: 38px;
-    min-height: 38px;
-    display: flex;
-    align-items: center;
-    padding: 0 8px 0 12px;
-    background: var(--sf);
-    border-bottom: 2px solid var(--bd);
-    flex-shrink: 0;
-    cursor: default;
+    height: 40px; min-height: 40px;
+    display: flex; align-items: center;
+    padding: 0 9px 0 13px;
+    background: var(--sf); border-bottom: 2px solid var(--bd);
+    flex-shrink: 0; cursor: default;
 }
-#logo-block { display: flex; flex-direction: column; justify-content: center; line-height: 1; gap: 2px; }
+#logo-block { display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+
+/* Logo: usa --font-display pero con peso propio por fuente (900 Barlow, 800 Monaspace) */
 .logo {
     font-family: var(--font-display);
-    font-weight: 900;
-    font-variation-settings: 'wght' 900;
-    font-size: 18px;
-    letter-spacing: .06em;
+    font-weight: var(--logo-weight);
+    font-variation-settings: 'wght' var(--logo-wght);
+    font-size: 19px;
+    letter-spacing: .01em;
     text-transform: uppercase;
     color: var(--tx);
     line-height: 1;
 }
 .logo em { color: var(--ac); font-style: normal; }
 .logo-sub {
-    font-size: 7px;
-    color: var(--tx3);
-    letter-spacing: .1em;
-    text-transform: uppercase;
+    font-size: 8px; color: var(--tx3);
+    letter-spacing: .08em; text-transform: uppercase; line-height: 1;
 }
-#topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    margin-left: auto;
-}
+#topbar-right { display: flex; align-items: center; gap: 2px; margin-left: auto; }
 .wbtn {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    font-size: 12px;
-    color: var(--tx3);
-    cursor: pointer;
-    transition: color var(--tr), background var(--tr);
-    flex-shrink: 0;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; font-size: 13px; color: var(--tx3);
+    cursor: pointer; transition: color var(--tr), background var(--tr); flex-shrink: 0;
 }
 .wbtn:hover { color: var(--tx2); background: var(--sf3); }
 .wbtn.wclose:hover { color: var(--red); background: rgba(224,92,92,.12); }
 .wbtn.wsettings:hover { color: var(--ac); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   LAYOUT PRINCIPAL
+   LAYOUT
 ═══════════════════════════════════════════════════════════════════════════ */
-#main {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-    min-height: 0;
-}
+#main { flex: 1; display: flex; overflow: hidden; min-height: 0; }
 #left {
-    width: 268px;
-    min-width: 268px;
-    max-width: 268px;
-    display: flex;
-    flex-direction: column;
-    padding: 10px 10px 8px;
-    gap: 6px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-right: 2px solid var(--bd);
-    flex-shrink: 0;
+    width: 282px; min-width: 282px; max-width: 282px;
+    display: flex; flex-direction: column;
+    padding: 11px 11px 9px; gap: 7px;
+    overflow-y: auto; overflow-x: hidden;
+    border-right: 2px solid var(--bd); flex-shrink: 0;
 }
-#right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    min-width: 0;
-}
+#right { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    ETIQUETAS DE SECCIÓN
 ═══════════════════════════════════════════════════════════════════════════ */
 .sl {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 8px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--ac);
-    flex-shrink: 0;
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 9px; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--ac); flex-shrink: 0;
 }
 .sl::after { content: ''; flex: 1; height: 1px; background: var(--bd); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   BOTONES DE ACCIÓN PRINCIPALES
+   BOTONES DE ACCIÓN
 ═══════════════════════════════════════════════════════════════════════════ */
 .act-btn {
-    width: 100%;
-    border: 2px solid var(--bd);
-    border-radius: var(--r);
-    padding: 7px 10px 6px;
-    background: var(--sf);
-    cursor: pointer;
+    width: 100%; border: 2px solid var(--bd); border-radius: var(--r);
+    padding: 8px 11px 7px; background: var(--sf); cursor: pointer;
     transition: background var(--tr), border-color var(--tr), filter var(--tr);
-    text-align: left;
-    display: block;
-    flex-shrink: 0;
+    text-align: left; display: block; flex-shrink: 0;
 }
-.act-btn:hover:not(.disabled) { background: var(--sf2); border-color: var(--bd2); }
+.act-btn:hover:not(.disabled)  { background: var(--sf2); border-color: var(--bd2); }
 .act-btn:active:not(.disabled) { background: var(--bg); }
-.act-btn.primary { background: var(--ac); border-color: var(--ac); }
-.act-btn.primary:hover:not(.disabled) { filter: brightness(.88); }
+.act-btn.primary               { background: var(--ac); border-color: var(--ac); }
+.act-btn.primary:hover:not(.disabled)  { filter: brightness(.88); }
 .act-btn.primary:active:not(.disabled) { filter: brightness(.78); }
 .act-btn.disabled { opacity: .35; cursor: not-allowed; }
 .act-btn .lbl {
     display: block;
-    font-family: var(--font-display);
-    font-weight: 900;
+    font-family: var(--font-display); font-weight: 900;
     font-variation-settings: 'wght' 900;
-    font-size: 12px;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    color: var(--tx);
-    line-height: 1;
+    font-size: 13px; letter-spacing: .02em; text-transform: uppercase;
+    color: var(--tx); line-height: 1;
 }
 .act-btn.primary .lbl { color: #000; }
 .act-btn .sub {
-    display: block;
-    font-size: 8px;
-    color: var(--tx3);
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    margin-top: 3px;
-    line-height: 1;
+    display: block; font-size: 9px; color: var(--tx3);
+    text-transform: uppercase; letter-spacing: .03em; margin-top: 3px; line-height: 1;
 }
 .act-btn.primary .sub { color: rgba(0,0,0,.42); }
 .act-btn.loading .lbl { animation: blink .65s ease infinite; }
@@ -236,72 +179,57 @@ textarea { resize: none; }
    ESTADO DE COPIA
 ═══════════════════════════════════════════════════════════════════════════ */
 #copy-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 8px;
-    border: 1px solid var(--bd);
-    border-radius: var(--r);
-    background: var(--sf2);
-    transition: border-color var(--tr);
-    flex-shrink: 0;
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 9px; border: 1px solid var(--bd);
+    border-radius: var(--r); background: var(--sf2);
+    transition: border-color var(--tr); flex-shrink: 0;
 }
 #copy-status.ready { border-color: var(--ac); }
 #cs-dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: var(--tx3); flex-shrink: 0;
-    transition: background var(--tr);
+    background: var(--tx3); flex-shrink: 0; transition: background var(--tr);
 }
 #copy-status.ready #cs-dot { background: var(--ac); }
 #cs-txt {
-    font-size: 8px; font-weight: 700;
-    letter-spacing: .06em; text-transform: uppercase;
-    color: var(--tx3); line-height: 1.3;
-    transition: color var(--tr);
+    font-size: 9px; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--tx3); line-height: 1.3; transition: color var(--tr);
 }
 #copy-status.ready #cs-txt { color: var(--ac); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    FORMULARIO
 ═══════════════════════════════════════════════════════════════════════════ */
-.field { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
+.field { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
 .field label {
-    font-size: 8px; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase;
-    color: var(--tx2);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--tx2);
 }
 .field input, .field textarea {
-    background: var(--sf2);
-    border: 2px solid var(--bd);
-    border-radius: var(--r);
-    color: var(--tx);
-    font-size: 11px;
-    padding: 5px 8px;
-    width: 100%;
-    transition: border-color var(--tr);
-    line-height: 1.4;
+    background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
+    color: var(--tx); font-size: 12px; padding: 6px 9px; width: 100%;
+    transition: border-color var(--tr); line-height: 1.45;
 }
 .field input:focus, .field textarea:focus { border-color: var(--ac); }
 .field input::placeholder, .field textarea::placeholder { color: var(--tx3); }
 #form-actions { display: flex; gap: 5px; flex-shrink: 0; }
 #save-btn {
-    flex: 1; padding: 6px 0;
+    flex: 1; padding: 7px 0;
     background: var(--ac); color: #000;
     border: 2px solid var(--ac); border-radius: var(--r);
     font-family: var(--font-display); font-weight: 900;
     font-variation-settings: 'wght' 900;
-    font-size: 11px; letter-spacing: .05em; text-transform: uppercase;
+    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
     cursor: pointer; transition: filter var(--tr);
 }
-#save-btn:hover:not(.disabled) { filter: brightness(.88); }
+#save-btn:hover:not(.disabled)  { filter: brightness(.88); }
 #save-btn:active:not(.disabled) { filter: brightness(.78); }
 #save-btn.disabled { opacity: .35; cursor: not-allowed; }
 #clear-btn {
-    padding: 6px 12px;
+    padding: 7px 13px;
     background: var(--sf2); color: var(--tx2);
     border: 2px solid var(--bd); border-radius: var(--r);
     font-family: var(--font-display); font-weight: 700;
-    font-size: 11px; letter-spacing: .04em; text-transform: uppercase;
+    font-size: 12px; letter-spacing: .03em; text-transform: uppercase;
     cursor: pointer; transition: border-color var(--tr), color var(--tr);
 }
 #clear-btn:hover { border-color: var(--bd2); color: var(--tx); }
@@ -311,45 +239,54 @@ textarea { resize: none; }
 ═══════════════════════════════════════════════════════════════════════════ */
 #search-wrap {
     display: flex; align-items: center; gap: 7px;
-    padding: 7px 10px;
-    border-bottom: 2px solid var(--bd);
+    padding: 8px 11px; border-bottom: 2px solid var(--bd);
     background: var(--sf); flex-shrink: 0;
 }
-.search-ico { color: var(--tx3); font-size: 15px; flex-shrink: 0; line-height: 1; }
-#search-input {
-    flex: 1; background: none; border: none;
-    color: var(--tx); font-size: 11px; font-family: var(--font-body);
-}
+.search-ico { color: var(--tx3); font-size: 16px; flex-shrink: 0; line-height: 1; }
+#search-input { flex: 1; background: none; border: none; color: var(--tx); font-size: 12px; }
 #search-input::placeholder { color: var(--tx3); }
 #search-count {
-    font-size: 8px; color: var(--tx3); letter-spacing: .06em;
+    font-size: 10px; color: var(--tx3); letter-spacing: .05em;
     text-transform: uppercase; flex-shrink: 0; white-space: nowrap;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    LISTA DE PRESETS
+   FIX: #presets-list es flex column para que .empty-state ocupe el espacio
+   correctamente — el bug anterior era tener #empty-state como hermano,
+   donde #presets-list con flex:1 lo dejaba sin altura visible.
 ═══════════════════════════════════════════════════════════════════════════ */
-#presets-list { flex: 1; overflow-y: auto; overflow-x: hidden; }
-#empty-state {
+#presets-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Empty state renderizado por JS dentro de #presets-list */
+.empty-state {
+    flex: 1;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 10px; height: 100%; color: var(--tx3);
+    gap: 10px; color: var(--tx3);
+    min-height: 200px; /* fallback si el padre no tiene altura */
 }
-.empty-ico { font-size: 30px; opacity: .25; line-height: 1; }
+.empty-ico { font-size: 32px; opacity: .22; line-height: 1; }
 .empty-lbl {
-    font-size: 9px; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase; opacity: .5;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .09em; text-transform: uppercase; opacity: .45;
 }
+
+/* ─ Cards ───────────────────────────────────────────────────────────────── */
 .pcard {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--bd);
+    display: flex; align-items: center; gap: 9px;
+    padding: 9px 11px; border-bottom: 1px solid var(--bd);
     cursor: pointer; transition: background var(--tr);
-    min-height: 54px; position: relative;
+    min-height: 60px; position: relative; flex-shrink: 0;
 }
 .pcard::before {
-    content: ''; position: absolute;
-    left: 0; top: 0; bottom: 0; width: 3px;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
     background: transparent; transition: background var(--tr);
 }
 .pcard:hover { background: var(--sf); }
@@ -357,159 +294,145 @@ textarea { resize: none; }
 .pcard.selected::before { background: var(--ac); }
 .pcard-dot {
     width: 7px; height: 7px; border-radius: 50%;
-    background: var(--ac); flex-shrink: 0;
-    opacity: .55; transition: opacity var(--tr); margin-left: 3px;
+    background: var(--ac); flex-shrink: 0; opacity: .55;
+    transition: opacity var(--tr); margin-left: 3px;
 }
 .pcard.selected .pcard-dot { opacity: 1; }
 .pcard-body { flex: 1; min-width: 0; }
 .pcard-name {
     font-family: var(--font-display); font-weight: 700;
-    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+    font-size: 13px; letter-spacing: .03em; text-transform: uppercase;
     color: var(--tx); white-space: nowrap; overflow: hidden;
     text-overflow: ellipsis; line-height: 1.2; transition: color var(--tr);
 }
 .pcard.selected .pcard-name { color: var(--ac); }
 .pcard-desc {
-    font-size: 9px; color: var(--tx2); margin-top: 2px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3;
+    font-size: 11px; color: var(--tx2); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.35;
 }
 .pcard-meta { display: flex; align-items: center; gap: 5px; margin-top: 3px; }
-.pcard-date { font-size: 8px; color: var(--tx3); letter-spacing: .03em; }
+.pcard-date { font-size: 9px; color: var(--tx3); letter-spacing: .02em; }
 .badge {
-    font-size: 7px; font-weight: 700; letter-spacing: .07em;
-    text-transform: uppercase; padding: 1px 4px;
-    border-radius: 3px; border: 1px solid;
+    font-size: 8px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    padding: 1px 5px; border-radius: 3px; border: 1px solid;
 }
 .badge-cb  { background: rgba(255,255,255,.04); color: var(--tx3); border-color: var(--bd2); }
 .badge-api { background: rgba(92,158,224,.08);  color: var(--blu); border-color: rgba(92,158,224,.3); }
 .pcard-actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
 .pcard-btn {
-    width: 22px; height: 22px; display: flex;
-    align-items: center; justify-content: center;
-    border-radius: 3px; font-size: 11px; color: var(--tx3);
+    width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+    border-radius: 3px; font-size: 12px; color: var(--tx3);
     cursor: pointer; transition: color var(--tr), background var(--tr);
 }
-.pcard-btn:hover { color: var(--tx); background: var(--sf3); }
-.pcard-btn.pbdel:hover  { color: var(--red); background: rgba(224,92,92,.1); }
-.pcard-btn.pbpaste { font-size: 9px; }
-.pcard-btn.pbpaste:hover { color: var(--ac); background: rgba(245,200,66,.1); }
+.pcard-btn:hover         { color: var(--tx);  background: var(--sf3); }
+.pcard-btn.pbdel:hover   { color: var(--red); background: rgba(224,92,92,.1); }
+.pcard-btn.pbpaste       { font-size: 10px; }
+.pcard-btn.pbpaste:hover { color: var(--ac);  background: rgba(245,200,66,.1); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    BARRA DE ESTADO
 ═══════════════════════════════════════════════════════════════════════════ */
 #statusbar {
-    height: 24px; min-height: 24px;
-    display: flex; align-items: center; gap: 7px;
-    padding: 0 10px;
+    height: 26px; min-height: 26px;
+    display: flex; align-items: center; gap: 7px; padding: 0 11px;
     background: var(--sf); border-top: 2px solid var(--bd); flex-shrink: 0;
 }
-#sb-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--tx3); flex-shrink: 0; transition: background var(--tr);
-}
+#sb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--tx3); flex-shrink: 0; transition: background var(--tr); }
 #sb-txt {
-    font-size: 8px; font-weight: 700; letter-spacing: .09em;
-    text-transform: uppercase; color: var(--tx3);
-    transition: color var(--tr); white-space: nowrap;
-    overflow: hidden; text-overflow: ellipsis; flex: 1;
+    font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--tx3); transition: color var(--tr);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
 }
-#sb-version { font-size: 7px; color: var(--tx3); letter-spacing: .06em; opacity: .5; flex-shrink: 0; }
+#sb-version { font-size: 8px; color: var(--tx3); letter-spacing: .05em; opacity: .45; flex-shrink: 0; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   OVERLAY DE AJUSTES
+   OVERLAY DE AJUSTES — más ancho y espacioso
 ═══════════════════════════════════════════════════════════════════════════ */
 #s-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,.8);
+    position: fixed; inset: 0; background: rgba(0,0,0,.82);
     display: none; align-items: center; justify-content: center; z-index: 300;
 }
 #s-overlay.open { display: flex; }
 #s-box {
-    background: var(--sf); border: 2px solid var(--bd);
-    border-radius: var(--r); width: 286px; max-height: 92%;
+    background: var(--sf); border: 2px solid var(--bd); border-radius: var(--r);
+    width: 380px; max-height: 90%;
     display: flex; flex-direction: column; overflow: hidden;
-    box-shadow: 0 16px 48px rgba(0,0,0,.6);
+    box-shadow: 0 20px 60px rgba(0,0,0,.7);
 }
 #s-hdr {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 14px; border-bottom: 2px solid var(--bd); flex-shrink: 0;
+    padding: 13px 18px; border-bottom: 2px solid var(--bd); flex-shrink: 0;
 }
 #s-title {
     font-family: var(--font-display); font-weight: 900;
     font-variation-settings: 'wght' 900;
-    font-size: 15px; letter-spacing: .06em;
-    text-transform: uppercase; color: var(--ac);
+    font-size: 17px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
 }
-#s-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); line-height: 1; }
+#s-close { font-size: 15px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
 #s-close:hover { color: var(--red); }
 #s-body {
-    flex: 1; overflow-y: auto; padding: 12px 14px;
-    display: flex; flex-direction: column; gap: 14px;
+    flex: 1; overflow-y: auto; padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 18px;
 }
-.s-group { display: flex; flex-direction: column; gap: 7px; }
+.s-group { display: flex; flex-direction: column; gap: 9px; }
 .s-glabel {
-    font-size: 8px; font-weight: 700; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--ac);
-    display: flex; align-items: center; gap: 6px;
+    font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ac); display: flex; align-items: center; gap: 6px;
 }
 .s-glabel::after { content: ''; flex: 1; height: 1px; background: var(--bd); }
-.s-row { display: flex; gap: 5px; flex-wrap: wrap; }
+.s-row { display: flex; gap: 6px; flex-wrap: wrap; }
 .s-sel {
-    flex: 1; min-width: 80px; padding: 5px 8px; text-align: center;
-    font-family: var(--font-display); font-size: 10px; font-weight: 700;
-    letter-spacing: .04em; text-transform: uppercase;
+    flex: 1; min-width: 82px; padding: 7px 10px; text-align: center;
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: .03em; text-transform: uppercase;
     border: 2px solid var(--bd); border-radius: var(--r);
     background: var(--sf2); color: var(--tx2); cursor: pointer;
     transition: border-color var(--tr), color var(--tr), background var(--tr);
 }
-.s-sel:hover { border-color: var(--bd2); color: var(--tx); background: var(--sf3); }
-.s-sel.active { border-color: var(--ac); color: var(--ac); background: var(--sf2); }
+.s-sel:hover  { border-color: var(--bd2); color: var(--tx); background: var(--sf3); }
+.s-sel.active { border-color: var(--ac);  color: var(--ac); background: var(--sf2); }
+
 /* Swatches */
-#accent-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+#accent-swatches { display: flex; flex-wrap: wrap; gap: 6px; }
 .swatch {
-    width: 22px; height: 22px; border-radius: 4px;
-    border: 2px solid transparent; cursor: pointer;
-    transition: transform var(--tr), border-color var(--tr); flex-shrink: 0;
+    width: 24px; height: 24px; border-radius: 4px; border: 2px solid transparent;
+    cursor: pointer; transition: transform var(--tr), border-color var(--tr); flex-shrink: 0;
 }
 .swatch:hover { transform: scale(1.15); }
 .swatch.active { border-color: var(--tx); }
-/* Hex — FIX: input con min-width:0, apply con flex-shrink:0 */
-.hex-row { display: flex; gap: 6px; align-items: center; }
+
+/* Hex */
+.hex-row { display: flex; gap: 7px; align-items: center; }
 #hex-input {
-    flex: 1;
-    min-width: 0;
-    background: var(--sf2); border: 2px solid var(--bd);
-    border-radius: var(--r); color: var(--tx);
-    font-size: 11px; font-family: var(--font-mono);
-    padding: 5px 7px; transition: border-color var(--tr);
+    flex: 1; min-width: 0;
+    background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
+    color: var(--tx); font-size: 12px; font-family: var(--font-mono);
+    padding: 7px 9px; transition: border-color var(--tr);
 }
 #hex-input:focus { border-color: var(--ac); }
 #hex-apply {
-    flex-shrink: 0;
-    white-space: nowrap;
-    padding: 5px 9px;
-    background: var(--sf3); border: 2px solid var(--bd2);
-    border-radius: var(--r); color: var(--tx2);
-    font-family: var(--font-display); font-size: 10px;
-    font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    flex-shrink: 0; white-space: nowrap; padding: 7px 12px;
+    background: var(--sf3); border: 2px solid var(--bd2); border-radius: var(--r);
+    color: var(--tx2); font-family: var(--font-display); font-size: 11px;
+    font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
     cursor: pointer; transition: border-color var(--tr), color var(--tr);
 }
 #hex-apply:hover { border-color: var(--ac); color: var(--ac); }
+
 .s-note {
-    font-size: 8px; color: var(--tx3); letter-spacing: .04em;
-    line-height: 1.6; padding: 5px 7px;
-    border: 1px solid var(--bd); border-radius: var(--r); background: var(--sf2);
+    font-size: 10px; color: var(--tx3); letter-spacing: .02em; line-height: 1.6;
+    padding: 8px 10px; border: 1px solid var(--bd); border-radius: var(--r); background: var(--sf2);
 }
 #s-footer {
-    padding: 8px 14px; border-top: 2px solid var(--bd);
+    padding: 11px 18px; border-top: 2px solid var(--bd);
     display: flex; justify-content: flex-end; flex-shrink: 0;
 }
 #s-save {
-    padding: 6px 22px;
-    background: var(--ac); color: #000;
+    padding: 8px 28px; background: var(--ac); color: #000;
     border: 2px solid var(--ac); border-radius: var(--r);
     font-family: var(--font-display); font-weight: 900;
     font-variation-settings: 'wght' 900;
-    font-size: 11px; letter-spacing: .05em; text-transform: uppercase;
+    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
     cursor: pointer; transition: filter var(--tr);
 }
 #s-save:hover { filter: brightness(.88); }
@@ -518,14 +441,13 @@ textarea { resize: none; }
    TOASTS
 ═══════════════════════════════════════════════════════════════════════════ */
 #toasts {
-    position: fixed; bottom: 30px; right: 12px; z-index: 500;
+    position: fixed; bottom: 32px; right: 13px; z-index: 500;
     display: flex; flex-direction: column; gap: 5px; pointer-events: none;
 }
 .toast {
-    padding: 6px 12px; border: 2px solid var(--bd); border-radius: var(--r);
-    font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-    background: var(--sf); color: var(--tx2);
-    animation: tslide .16s ease; white-space: nowrap;
+    padding: 7px 13px; border: 2px solid var(--bd); border-radius: var(--r);
+    font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: var(--sf); color: var(--tx2); animation: tslide .16s ease; white-space: nowrap;
 }
 .toast.ok   { border-color: var(--grn); color: var(--grn); }
 .toast.err  { border-color: var(--red); color: var(--red); }
@@ -551,7 +473,6 @@ textarea { resize: none; }
 
 <!-- MAIN -->
 <div id="main">
-
   <div id="left">
     <div class="sl" data-i18n="section.capture">Capturar</div>
 
@@ -574,12 +495,14 @@ textarea { resize: none; }
 
     <div class="field">
       <label data-i18n="field.name">Nombre</label>
-      <input type="text" id="preset-name" data-i18n-ph="field.name.ph" placeholder="Ej: Glow b&aacute;sico..." maxlength="80">
+      <input type="text" id="preset-name" data-i18n-ph="field.name.ph"
+             placeholder="Ej: Glow b&aacute;sico..." maxlength="80">
     </div>
 
     <div class="field">
       <label data-i18n="field.desc">Descripci&oacute;n</label>
-      <textarea id="preset-desc" rows="3" data-i18n-ph="field.desc.ph" placeholder="Notas opcionales..." maxlength="300"></textarea>
+      <textarea id="preset-desc" rows="3" data-i18n-ph="field.desc.ph"
+                placeholder="Notas opcionales..." maxlength="300"></textarea>
     </div>
 
     <div id="form-actions">
@@ -591,16 +514,13 @@ textarea { resize: none; }
   <div id="right">
     <div id="search-wrap">
       <span class="search-ico">&#8981;</span>
-      <input type="text" id="search-input" data-i18n-ph="search.ph" placeholder="Buscar por nombre o descripci&oacute;n...">
+      <input type="text" id="search-input" data-i18n-ph="search.ph"
+             placeholder="Buscar por nombre o descripci&oacute;n...">
       <span id="search-count"></span>
     </div>
+    <!-- #presets-list contiene tanto las cards como el empty-state (renderizado por JS) -->
     <div id="presets-list"></div>
-    <div id="empty-state">
-      <span class="empty-ico">&#9641;</span>
-      <span class="empty-lbl" data-i18n="empty.label">Sin presets guardados</span>
-    </div>
   </div>
-
 </div>
 
 <!-- STATUSBAR -->
@@ -659,6 +579,7 @@ textarea { resize: none; }
         <div class="s-row">
           <button class="s-sel" data-lang="es">Espa&ntilde;ol</button>
           <button class="s-sel" data-lang="en">English</button>
+          <button class="s-sel" data-lang="de">Deutsch</button>
           <button class="s-sel" data-lang="hi">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</button>
         </div>
       </div>
@@ -678,177 +599,173 @@ textarea { resize: none; }
 ══════════════════════════════════════════════════════════════════════════ */
 var I18N = {
   es: {
-    'logo.sub':            'para DaVinci Resolve \u00b7 Fusion',
-    'section.capture':     'Capturar',
-    'btn.copy.label':      'Copiar nodos',
-    'btn.copy.sub':        'Ctrl+C en Fusion \u2192 capturar aqu\u00ed',
-    'btn.paste.label':     'Pegar nodos',
-    'btn.paste.sub.idle':  'Selecciona un preset primero',
-    'status.idle':         'Sin datos \u2014 Ctrl+C en Fusion primero',
-    'section.save':        'Guardar preset',
-    'field.name':          'Nombre',
-    'field.name.ph':       'Ej: Glow b\u00e1sico...',
-    'field.desc':          'Descripci\u00f3n',
-    'field.desc.ph':       'Notas opcionales...',
-    'btn.save':            'Guardar',
-    'btn.clear':           'Limpiar',
-    'search.ph':           'Buscar por nombre o descripci\u00f3n...',
-    'empty.label':         'Sin presets guardados',
-    'status.init':         'Iniciando...',
-    'settings.title':      'Ajustes',
-    'settings.theme':      'Tema',
-    'settings.accent':     'Color de acento',
-    'settings.apply':      'Aplicar',
-    'settings.font':       'Fuente',
-    'settings.mode':       'Modo de captura',
-    'settings.mode.note':  'Portapapeles: Ctrl+C en Fusion \u2192 Capturar \u2192 Guardar. Scripting (Pro): captura y pega sin Ctrl+C/V.',
-    'settings.lang':       'Idioma',
-    'settings.save':       'Guardar ajustes',
-    'mode.clipboard':      'Portapapeles',
-    'mode.scripting':      'Scripting (Pro)',
-    'sb.ready':            'Listo',
-    'sb.capturing':        'Leyendo portapapeles...',
-    'sb.captured':         'Datos capturados \u2014 rellena los campos y guarda',
-    'sb.writing':          'Escribiendo en portapapeles...',
-    'sb.saving':           'Guardado:',
-    'sb.deleted':          'Preset eliminado',
-    'sb.backend.err':      'Backend no disponible',
-    'toast.captured':      'Datos capturados',
-    'toast.clipboard':     'Portapapeles listo \u2014 Ctrl+V en Fusion',
-    'toast.saved':         'Preset guardado',
-    'toast.deleted':       'Preset eliminado',
-    'toast.settings':      'Ajustes guardados',
-    'toast.hex.err':       'Hex inv\u00e1lido \u2014 usa formato #rrggbb',
-    'toast.scripting':     'Scripting API: funci\u00f3n Pro (pr\u00f3ximamente)',
-    'validate.name':       'El nombre es obligatorio',
-    'validate.no.data':    'Captura nodos primero con el bot\u00f3n COPIAR',
-    'validate.select':     'Selecciona un preset primero',
-    'cs.ready':            'Datos listos ({n} bytes) \u2014 guarda el preset',
-    'count.one':           '{n} preset',
-    'count.many':          '{n} presets'
+    'logo.sub':'para DaVinci Resolve \u00b7 Fusion',
+    'section.capture':'Capturar',
+    'btn.copy.label':'Copiar nodos',
+    'btn.copy.sub':'Ctrl+C en Fusion \u2192 capturar aqu\u00ed',
+    'btn.paste.label':'Pegar nodos',
+    'btn.paste.sub.idle':'Selecciona un preset primero',
+    'status.idle':'Sin datos \u2014 Ctrl+C en Fusion primero',
+    'section.save':'Guardar preset',
+    'field.name':'Nombre','field.name.ph':'Ej: Glow b\u00e1sico...',
+    'field.desc':'Descripci\u00f3n','field.desc.ph':'Notas opcionales...',
+    'btn.save':'Guardar','btn.clear':'Limpiar',
+    'search.ph':'Buscar por nombre o descripci\u00f3n...',
+    'empty.label':'Sin presets guardados',
+    'status.init':'Iniciando...',
+    'settings.title':'Ajustes','settings.theme':'Tema',
+    'settings.accent':'Color de acento','settings.apply':'Aplicar',
+    'settings.font':'Fuente','settings.mode':'Modo de captura',
+    'settings.mode.note':'Portapapeles: Ctrl+C en Fusion \u2192 Capturar \u2192 Guardar. Scripting (Pro): captura y pega sin Ctrl+C/V.',
+    'settings.lang':'Idioma','settings.save':'Guardar ajustes',
+    'mode.clipboard':'Portapapeles','mode.scripting':'Scripting (Pro)',
+    'sb.ready':'Listo','sb.capturing':'Leyendo portapapeles...',
+    'sb.captured':'Datos capturados \u2014 rellena los campos y guarda',
+    'sb.writing':'Escribiendo en portapapeles...','sb.saving':'Guardado:',
+    'sb.deleted':'Preset eliminado','sb.backend.err':'Backend no disponible',
+    'toast.captured':'Datos capturados',
+    'toast.clipboard':'Portapapeles listo \u2014 Ctrl+V en Fusion',
+    'toast.saved':'Preset guardado','toast.deleted':'Preset eliminado',
+    'toast.settings':'Ajustes guardados',
+    'toast.hex.err':'Hex inv\u00e1lido \u2014 usa formato #rrggbb',
+    'toast.scripting':'Scripting API: funci\u00f3n Pro (pr\u00f3ximamente)',
+    'validate.name':'El nombre es obligatorio',
+    'validate.no.data':'Captura nodos primero con el bot\u00f3n COPIAR',
+    'validate.select':'Selecciona un preset primero',
+    'cs.ready':'Datos listos ({n} bytes) \u2014 guarda el preset',
+    'count.one':'{n} preset','count.many':'{n} presets'
   },
   en: {
-    'logo.sub':            'for DaVinci Resolve \u00b7 Fusion',
-    'section.capture':     'Capture',
-    'btn.copy.label':      'Copy nodes',
-    'btn.copy.sub':        'Ctrl+C in Fusion \u2192 capture here',
-    'btn.paste.label':     'Paste nodes',
-    'btn.paste.sub.idle':  'Select a preset first',
-    'status.idle':         'No data \u2014 Ctrl+C in Fusion first',
-    'section.save':        'Save preset',
-    'field.name':          'Name',
-    'field.name.ph':       'E.g. Basic glow...',
-    'field.desc':          'Description',
-    'field.desc.ph':       'Optional notes...',
-    'btn.save':            'Save',
-    'btn.clear':           'Clear',
-    'search.ph':           'Search by name or description...',
-    'empty.label':         'No saved presets',
-    'status.init':         'Starting...',
-    'settings.title':      'Settings',
-    'settings.theme':      'Theme',
-    'settings.accent':     'Accent color',
-    'settings.apply':      'Apply',
-    'settings.font':       'Font',
-    'settings.mode':       'Capture mode',
-    'settings.mode.note':  'Clipboard: Ctrl+C in Fusion \u2192 Capture \u2192 Save. Scripting (Pro): capture and paste without Ctrl+C/V.',
-    'settings.lang':       'Language',
-    'settings.save':       'Save settings',
-    'mode.clipboard':      'Clipboard',
-    'mode.scripting':      'Scripting (Pro)',
-    'sb.ready':            'Ready',
-    'sb.capturing':        'Reading clipboard...',
-    'sb.captured':         'Data captured \u2014 fill the fields and save',
-    'sb.writing':          'Writing to clipboard...',
-    'sb.saving':           'Saved:',
-    'sb.deleted':          'Preset deleted',
-    'sb.backend.err':      'Backend unavailable',
-    'toast.captured':      'Data captured',
-    'toast.clipboard':     'Clipboard ready \u2014 Ctrl+V in Fusion',
-    'toast.saved':         'Preset saved',
-    'toast.deleted':       'Preset deleted',
-    'toast.settings':      'Settings saved',
-    'toast.hex.err':       'Invalid hex \u2014 use #rrggbb format',
-    'toast.scripting':     'Scripting API: Pro feature (coming soon)',
-    'validate.name':       'Name is required',
-    'validate.no.data':    'Capture nodes first with the COPY button',
-    'validate.select':     'Select a preset first',
-    'cs.ready':            'Data ready ({n} bytes) \u2014 save the preset',
-    'count.one':           '{n} preset',
-    'count.many':          '{n} presets'
+    'logo.sub':'for DaVinci Resolve \u00b7 Fusion',
+    'section.capture':'Capture',
+    'btn.copy.label':'Copy nodes',
+    'btn.copy.sub':'Ctrl+C in Fusion \u2192 capture here',
+    'btn.paste.label':'Paste nodes',
+    'btn.paste.sub.idle':'Select a preset first',
+    'status.idle':'No data \u2014 Ctrl+C in Fusion first',
+    'section.save':'Save preset',
+    'field.name':'Name','field.name.ph':'E.g. Basic glow...',
+    'field.desc':'Description','field.desc.ph':'Optional notes...',
+    'btn.save':'Save','btn.clear':'Clear',
+    'search.ph':'Search by name or description...',
+    'empty.label':'No saved presets',
+    'status.init':'Starting...',
+    'settings.title':'Settings','settings.theme':'Theme',
+    'settings.accent':'Accent color','settings.apply':'Apply',
+    'settings.font':'Font','settings.mode':'Capture mode',
+    'settings.mode.note':'Clipboard: Ctrl+C in Fusion \u2192 Capture \u2192 Save. Scripting (Pro): capture and paste without Ctrl+C/V.',
+    'settings.lang':'Language','settings.save':'Save settings',
+    'mode.clipboard':'Clipboard','mode.scripting':'Scripting (Pro)',
+    'sb.ready':'Ready','sb.capturing':'Reading clipboard...',
+    'sb.captured':'Data captured \u2014 fill the fields and save',
+    'sb.writing':'Writing to clipboard...','sb.saving':'Saved:',
+    'sb.deleted':'Preset deleted','sb.backend.err':'Backend unavailable',
+    'toast.captured':'Data captured',
+    'toast.clipboard':'Clipboard ready \u2014 Ctrl+V in Fusion',
+    'toast.saved':'Preset saved','toast.deleted':'Preset deleted',
+    'toast.settings':'Settings saved',
+    'toast.hex.err':'Invalid hex \u2014 use #rrggbb format',
+    'toast.scripting':'Scripting API: Pro feature (coming soon)',
+    'validate.name':'Name is required',
+    'validate.no.data':'Capture nodes first with the COPY button',
+    'validate.select':'Select a preset first',
+    'cs.ready':'Data ready ({n} bytes) \u2014 save the preset',
+    'count.one':'{n} preset','count.many':'{n} presets'
+  },
+  de: {
+    'logo.sub':'f\u00fcr DaVinci Resolve \u00b7 Fusion',
+    'section.capture':'Erfassen',
+    'btn.copy.label':'Nodes kopieren',
+    'btn.copy.sub':'Strg+C in Fusion \u2192 hier erfassen',
+    'btn.paste.label':'Nodes einf\u00fcgen',
+    'btn.paste.sub.idle':'Erst ein Preset ausw\u00e4hlen',
+    'status.idle':'Keine Daten \u2014 erst Strg+C in Fusion',
+    'section.save':'Preset speichern',
+    'field.name':'Name','field.name.ph':'Z.B. Basis-Glow...',
+    'field.desc':'Beschreibung','field.desc.ph':'Optionale Notizen...',
+    'btn.save':'Speichern','btn.clear':'Zur\u00fccksetzen',
+    'search.ph':'Nach Name oder Beschreibung suchen...',
+    'empty.label':'Keine gespeicherten Presets',
+    'status.init':'Wird gestartet...',
+    'settings.title':'Einstellungen','settings.theme':'Thema',
+    'settings.accent':'Akzentfarbe','settings.apply':'Anwenden',
+    'settings.font':'Schriftart','settings.mode':'Erfassungsmodus',
+    'settings.mode.note':'Zwischenablage: Strg+C in Fusion \u2192 Erfassen \u2192 Speichern. Scripting (Pro): direkt ohne Strg+C/V.',
+    'settings.lang':'Sprache','settings.save':'Einstellungen speichern',
+    'mode.clipboard':'Zwischenablage','mode.scripting':'Scripting (Pro)',
+    'sb.ready':'Bereit','sb.capturing':'Zwischenablage wird gelesen...',
+    'sb.captured':'Daten erfasst \u2014 Felder ausf\u00fcllen und speichern',
+    'sb.writing':'In Zwischenablage schreiben...','sb.saving':'Gespeichert:',
+    'sb.deleted':'Preset gel\u00f6scht','sb.backend.err':'Backend nicht verf\u00fcgbar',
+    'toast.captured':'Daten erfasst',
+    'toast.clipboard':'Zwischenablage bereit \u2014 Strg+V in Fusion',
+    'toast.saved':'Preset gespeichert','toast.deleted':'Preset gel\u00f6scht',
+    'toast.settings':'Einstellungen gespeichert',
+    'toast.hex.err':'Ung\u00fcltiger Hex \u2014 Format #rrggbb verwenden',
+    'toast.scripting':'Scripting API: Pro-Funktion (demn\u00e4chst)',
+    'validate.name':'Name ist erforderlich',
+    'validate.no.data':'Erst Nodes mit KOPIEREN erfassen',
+    'validate.select':'Erst ein Preset ausw\u00e4hlen',
+    'cs.ready':'Daten bereit ({n} Bytes) \u2014 Preset speichern',
+    'count.one':'{n} Preset','count.many':'{n} Presets'
   },
   hi: {
-    'logo.sub':            'DaVinci Resolve \u00b7 Fusion \u0915\u0947 \u0932\u093f\u090f',
-    'section.capture':     '\u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
-    'btn.copy.label':      '\u0928\u094b\u0921\u094d\u0938 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902',
-    'btn.copy.sub':        'Fusion \u092e\u0947\u0902 Ctrl+C \u2192 \u092f\u0939\u093e\u0901 \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
-    'btn.paste.label':     '\u0928\u094b\u0921\u094d\u0938 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
-    'btn.paste.sub.idle':  '\u092a\u0939\u0932\u0947 \u090f\u0915 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
-    'status.idle':         '\u0921\u0947\u091f\u093e \u0928\u0939\u0940\u0902 \u2014 \u092a\u0939\u0932\u0947 Fusion \u092e\u0947\u0902 Ctrl+C \u0915\u0930\u0947\u0902',
-    'section.save':        '\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
-    'field.name':          '\u0928\u093e\u092e',
-    'field.name.ph':       '\u091c\u0948\u0938\u0947: \u092c\u0947\u0938\u093f\u0915 \u0917\u094d\u0932\u094b...',
-    'field.desc':          '\u0935\u093f\u0935\u0930\u0923',
-    'field.desc.ph':       '\u0935\u0948\u0915\u0932\u094d\u092a\u093f\u0915 \u0928\u094b\u091f\u094d\u0938...',
-    'btn.save':            '\u0938\u0947\u0935',
-    'btn.clear':           '\u0938\u093e\u092b\u093c \u0915\u0930\u0947\u0902',
-    'search.ph':           '\u0928\u093e\u092e \u092f\u093e \u0935\u093f\u0935\u0930\u0923 \u0938\u0947 \u0916\u094b\u091c\u0947\u0902...',
-    'empty.label':         '\u0915\u094b\u0908 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0928\u0939\u0940\u0902 \u0939\u0948',
-    'status.init':         '\u0936\u0941\u0930\u0942 \u0939\u094b \u0930\u0939\u093e \u0939\u0948...',
-    'settings.title':      '\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938',
-    'settings.theme':      '\u0925\u0940\u092e',
-    'settings.accent':     '\u090f\u0915\u094d\u0938\u0947\u0902\u091f \u0930\u0902\u0917',
-    'settings.apply':      '\u0932\u093e\u0917\u0942 \u0915\u0930\u0947\u0902',
-    'settings.font':       '\u092b\u093c\u0949\u0928\u094d\u091f',
-    'settings.mode':       '\u0915\u0948\u092a\u094d\u091a\u0930 \u092e\u094b\u0921',
-    'settings.mode.note':  '\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921: Fusion \u092e\u0947\u0902 Ctrl+C \u2192 \u0915\u0948\u092a\u094d\u091a\u0930 \u2192 \u0938\u0947\u0935. Scripting (Pro): Ctrl+C/V \u0915\u0947 \u092c\u093f\u0928\u093e \u0938\u0940\u0927\u0947 \u0915\u093e\u092e \u0915\u0930\u0947\u0902.',
-    'settings.lang':       '\u092d\u093e\u0937\u093e',
-    'settings.save':       '\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938 \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
-    'mode.clipboard':      '\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921',
-    'mode.scripting':      '\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 (Pro)',
-    'sb.ready':            '\u0924\u0948\u092f\u093e\u0930',
-    'sb.capturing':        '\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092a\u095d \u0930\u0939\u093e \u0939\u0948...',
-    'sb.captured':         '\u0921\u0947\u091f\u093e \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u093f\u092f\u093e \u2014 \u092b\u093c\u0940\u0932\u094d\u0921 \u092d\u0930\u0947\u0902 \u0914\u0930 \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
-    'sb.writing':          '\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092e\u0947\u0902 \u0932\u093f\u0916 \u0930\u0939\u093e \u0939\u0948...',
-    'sb.saving':           '\u0938\u0947\u0935 \u0915\u093f\u092f\u093e:',
-    'sb.deleted':          '\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0939\u091f\u093e\u092f\u093e',
-    'sb.backend.err':      '\u092c\u0948\u0915\u090f\u0902\u0921 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902',
-    'toast.captured':      '\u0921\u0947\u091f\u093e \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u093f\u092f\u093e',
-    'toast.clipboard':     '\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u0924\u0948\u092f\u093e\u0930 \u2014 Fusion \u092e\u0947\u0902 Ctrl+V',
-    'toast.saved':         '\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u093f\u092f\u093e',
-    'toast.deleted':       '\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0939\u091f\u093e\u092f\u093e',
-    'toast.settings':      '\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938 \u0938\u0947\u0935 \u0915\u0940',
-    'toast.hex.err':       '\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb \u092b\u093c\u0949\u0930\u094d\u092e\u0947\u091f \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902',
-    'toast.scripting':     'Scripting API: Pro \u092b\u093c\u0940\u091a\u0930 (\u091c\u0932\u094d\u0926 \u0906\u090f\u0917\u093e)',
-    'validate.name':       '\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915 \u0939\u0948',
-    'validate.no.data':    '\u092a\u0939\u0932\u0947 COPY \u092c\u091f\u0928 \u0938\u0947 \u0928\u094b\u0921\u094d\u0938 \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
-    'validate.select':     '\u092a\u0939\u0932\u0947 \u090f\u0915 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
-    'cs.ready':            '\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes) \u2014 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
-    'count.one':           '{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',
-    'count.many':          '{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
+    'logo.sub':'DaVinci Resolve \u00b7 Fusion \u0915\u0947 \u0932\u093f\u090f',
+    'section.capture':'\u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
+    'btn.copy.label':'\u0928\u094b\u0921\u094d\u0938 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902',
+    'btn.copy.sub':'Fusion \u092e\u0947\u0902 Ctrl+C \u2192 \u092f\u0939\u093e\u0901 \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
+    'btn.paste.label':'\u0928\u094b\u0921\u094d\u0938 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
+    'btn.paste.sub.idle':'\u092a\u0939\u0932\u0947 \u090f\u0915 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
+    'status.idle':'\u0921\u0947\u091f\u093e \u0928\u0939\u0940\u0902 \u2014 \u092a\u0939\u0932\u0947 Fusion \u092e\u0947\u0902 Ctrl+C \u0915\u0930\u0947\u0902',
+    'section.save':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
+    'field.name':'\u0928\u093e\u092e','field.name.ph':'\u091c\u0948\u0938\u0947: \u092c\u0947\u0938\u093f\u0915 \u0917\u094d\u0932\u094b...',
+    'field.desc':'\u0935\u093f\u0935\u0930\u0923','field.desc.ph':'\u0935\u0948\u0915\u0932\u094d\u092a\u093f\u0915 \u0928\u094b\u091f\u094d\u0938...',
+    'btn.save':'\u0938\u0947\u0935','btn.clear':'\u0938\u093e\u092b\u093c \u0915\u0930\u0947\u0902',
+    'search.ph':'\u0928\u093e\u092e \u092f\u093e \u0935\u093f\u0935\u0930\u0923 \u0938\u0947 \u0916\u094b\u091c\u0947\u0902...',
+    'empty.label':'\u0915\u094b\u0908 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0928\u0939\u0940\u0902 \u0939\u0948',
+    'status.init':'\u0936\u0941\u0930\u0942 \u0939\u094b \u0930\u0939\u093e \u0939\u0948...',
+    'settings.title':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938','settings.theme':'\u0925\u0940\u092e',
+    'settings.accent':'\u090f\u0915\u094d\u0938\u0947\u0902\u091f \u0930\u0902\u0917','settings.apply':'\u0932\u093e\u0917\u0942 \u0915\u0930\u0947\u0902',
+    'settings.font':'\u092b\u093c\u0949\u0928\u094d\u091f','settings.mode':'\u0915\u0948\u092a\u094d\u091a\u0930 \u092e\u094b\u0921',
+    'settings.mode.note':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921: Fusion \u092e\u0947\u0902 Ctrl+C \u2192 \u0915\u0948\u092a\u094d\u091a\u0930 \u2192 \u0938\u0947\u0935. Scripting (Pro): Ctrl+C/V \u0915\u0947 \u092c\u093f\u0928\u093e \u0938\u0940\u0927\u0947 \u0915\u093e\u092e \u0915\u0930\u0947\u0902.',
+    'settings.lang':'\u092d\u093e\u0937\u093e','settings.save':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938 \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
+    'mode.clipboard':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921','mode.scripting':'\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 (Pro)',
+    'sb.ready':'\u0924\u0948\u092f\u093e\u0930','sb.capturing':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092a\u095d \u0930\u0939\u093e \u0939\u0948...',
+    'sb.captured':'\u0921\u0947\u091f\u093e \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u093f\u092f\u093e \u2014 \u092b\u093c\u0940\u0932\u094d\u0921 \u092d\u0930\u0947\u0902 \u0914\u0930 \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
+    'sb.writing':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092e\u0947\u0902 \u0932\u093f\u0916 \u0930\u0939\u093e \u0939\u0948...',
+    'sb.saving':'\u0938\u0947\u0935 \u0915\u093f\u092f\u093e:','sb.deleted':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0939\u091f\u093e\u092f\u093e',
+    'sb.backend.err':'\u092c\u0948\u0915\u090f\u0902\u0921 \u0909\u092a\u0932\u092c\u094d\u0927 \u0928\u0939\u0940\u0902',
+    'toast.captured':'\u0921\u0947\u091f\u093e \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u093f\u092f\u093e',
+    'toast.clipboard':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u0924\u0948\u092f\u093e\u0930 \u2014 Fusion \u092e\u0947\u0902 Ctrl+V',
+    'toast.saved':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u093f\u092f\u093e','toast.deleted':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0939\u091f\u093e\u092f\u093e',
+    'toast.settings':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938 \u0938\u0947\u0935 \u0915\u0940',
+    'toast.hex.err':'\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb \u092b\u093c\u0949\u0930\u094d\u092e\u0947\u091f \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902',
+    'toast.scripting':'Scripting API: Pro \u092b\u093c\u0940\u091a\u0930 (\u091c\u0932\u094d\u0926 \u0906\u090f\u0917\u093e)',
+    'validate.name':'\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915 \u0939\u0948',
+    'validate.no.data':'\u092a\u0939\u0932\u0947 COPY \u092c\u091f\u0928 \u0938\u0947 \u0928\u094b\u0921\u094d\u0938 \u0915\u0948\u092a\u094d\u091a\u0930 \u0915\u0930\u0947\u0902',
+    'validate.select':'\u092a\u0939\u0932\u0947 \u090f\u0915 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
+    'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes) \u2014 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0938\u0947\u0935 \u0915\u0930\u0947\u0902',
+    'count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f','count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
   }
 };
 
 function t(key, vars) {
-  var lang = cfg.lang || 'es';
-  var s = (I18N[lang] && I18N[lang][key]) || (I18N['es'][key]) || key;
-  if (vars) {
-    for (var k in vars) { s = s.replace('{' + k + '}', vars[k]); }
-  }
+  var lang=cfg.lang||'es';
+  var s=(I18N[lang]&&I18N[lang][key])||(I18N['es'][key])||key;
+  if(vars){ for(var k in vars){ s=s.replace('{'+k+'}',vars[k]); } }
   return s;
 }
-
 function applyI18n(lang) {
-  var strings = I18N[lang] || I18N['es'];
-  document.querySelectorAll('[data-i18n]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n');
-    if (strings[k] !== undefined) el.textContent = strings[k];
+  var strings=I18N[lang]||I18N['es'];
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(strings[k]!==undefined) el.textContent=strings[k];
   });
-  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
-    var k = el.getAttribute('data-i18n-ph');
-    if (strings[k] !== undefined) el.placeholder = strings[k];
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+    var k=el.getAttribute('data-i18n-ph');
+    if(strings[k]!==undefined) el.placeholder=strings[k];
   });
-  document.documentElement.lang = lang;
+  document.documentElement.lang=lang;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -856,85 +773,74 @@ function applyI18n(lang) {
 ══════════════════════════════════════════════════════════════════════════ */
 var THEMES = {
   mmarket: {
-    vars: { '--bg':'#0a0a0a','--sf':'#111111','--sf2':'#181818','--sf3':'#222222',
-            '--bd':'#2a2a2a','--bd2':'#3a3a3a','--tx':'#f0f0f0','--tx2':'#888888',
-            '--tx3':'#555555','--red':'#e05c5c','--grn':'#5ce07a','--blu':'#5c9ee0' },
-    accents: ['#f5c842','#5ce07a','#5c9ee0','#e05c5c','#b48ae0','#e08a5c'],
-    def: '#f5c842'
+    vars:{'--bg':'#0a0a0a','--sf':'#111111','--sf2':'#181818','--sf3':'#222222',
+          '--bd':'#2a2a2a','--bd2':'#3a3a3a','--tx':'#f0f0f0','--tx2':'#888888',
+          '--tx3':'#555555','--red':'#e05c5c','--grn':'#5ce07a','--blu':'#5c9ee0'},
+    accents:['#f5c842','#5ce07a','#5c9ee0','#e05c5c','#b48ae0','#e08a5c'], def:'#f5c842'
   },
   rosepine: {
-    vars: { '--bg':'#191724','--sf':'#1f1d2e','--sf2':'#26233a','--sf3':'#403d52',
-            '--bd':'#21202e','--bd2':'#524f67','--tx':'#e0def4','--tx2':'#908caa',
-            '--tx3':'#6e6a86','--red':'#eb6f92','--grn':'#9ccfd8','--blu':'#31748f' },
-    accents: ['#f6c177','#eb6f92','#ebbcba','#31748f','#9ccfd8','#c4a7e7'],
-    def: '#f6c177'
+    vars:{'--bg':'#191724','--sf':'#1f1d2e','--sf2':'#26233a','--sf3':'#403d52',
+          '--bd':'#21202e','--bd2':'#524f67','--tx':'#e0def4','--tx2':'#908caa',
+          '--tx3':'#6e6a86','--red':'#eb6f92','--grn':'#9ccfd8','--blu':'#31748f'},
+    accents:['#f6c177','#eb6f92','#ebbcba','#31748f','#9ccfd8','#c4a7e7'], def:'#f6c177'
   },
   gruvbox: {
-    vars: { '--bg':'#1d2021','--sf':'#282828','--sf2':'#3c3836','--sf3':'#504945',
-            '--bd':'#45403d','--bd2':'#5a524c','--tx':'#d4be98','--tx2':'#a89984',
-            '--tx3':'#928374','--red':'#ea6962','--grn':'#a9b665','--blu':'#7daea3' },
-    accents: ['#d8a657','#ea6962','#e78a4e','#a9b665','#89b482','#7daea3','#d3869b'],
-    def: '#d8a657'
+    vars:{'--bg':'#1d2021','--sf':'#282828','--sf2':'#3c3836','--sf3':'#504945',
+          '--bd':'#45403d','--bd2':'#5a524c','--tx':'#d4be98','--tx2':'#a89984',
+          '--tx3':'#928374','--red':'#ea6962','--grn':'#a9b665','--blu':'#7daea3'},
+    accents:['#d8a657','#ea6962','#e78a4e','#a9b665','#89b482','#7daea3','#d3869b'], def:'#d8a657'
   }
 };
 var FONTS = {
-  barlow:    { display:"'Barlow Condensed',Impact,sans-serif", body:"'Segoe UI',system-ui,sans-serif" },
-  monaspace: { display:"'Monaspace Neon',monospace",           body:"'Monaspace Neon',monospace" }
+  barlow:    {display:"'Barlow Condensed',Impact,sans-serif", body:"'Segoe UI',system-ui,sans-serif"},
+  monaspace: {display:"'Monaspace Neon',monospace",           body:"'Monaspace Neon',monospace"}
 };
 
 /* ══════════════════════════════════════════════════════════════════════════
    ESTADO
 ══════════════════════════════════════════════════════════════════════════ */
-var cfg = { theme:'mmarket', accent:'#f5c842', font:'barlow', mode:'clipboard', lang:'es' };
-var pendingData = null;
-var selectedId  = null;
-var allPresets  = [];
-var searchTimer = null;
+var cfg={theme:'mmarket',accent:'#f5c842',font:'barlow',mode:'clipboard',lang:'es'};
+var pendingData=null, selectedId=null, allPresets=[], searchTimer=null;
 
 /* ══════════════════════════════════════════════════════════════════════════
    UTILIDADES
 ══════════════════════════════════════════════════════════════════════════ */
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function toast(msg, type) {
-  var el = document.createElement('div');
-  el.className = 'toast' + (type ? ' '+type : '');
-  el.textContent = msg;
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg,type){
+  var el=document.createElement('div');
+  el.className='toast'+(type?' '+type:''); el.textContent=msg;
   document.getElementById('toasts').appendChild(el);
-  setTimeout(function(){ el.remove(); }, 3400);
+  setTimeout(function(){el.remove();},3400);
 }
-function setStatus(msg, level) {
-  var dot = document.getElementById('sb-dot');
-  var txt = document.getElementById('sb-txt');
-  var map = { ok:'var(--grn)', err:'var(--red)', warn:'var(--ac)', info:'var(--blu)' };
-  dot.style.background = map[level] || 'var(--tx3)';
-  txt.style.color       = map[level] || 'var(--tx3)';
-  txt.textContent = msg || t('sb.ready');
+function setStatus(msg,level){
+  var dot=document.getElementById('sb-dot'),txt=document.getElementById('sb-txt');
+  var map={ok:'var(--grn)',err:'var(--red)',warn:'var(--ac)',info:'var(--blu)'};
+  dot.style.background=map[level]||'var(--tx3)';
+  txt.style.color=map[level]||'var(--tx3)';
+  txt.textContent=msg||t('sb.ready');
 }
-function relTime(dateStr) {
-  try {
-    var d = new Date(dateStr.replace(' ','T')+'Z');
-    var s = Math.floor((Date.now() - d.getTime()) / 1000);
-    if (s < 60)     return 'ahora';
-    if (s < 3600)   return Math.floor(s/60)+'m';
-    if (s < 86400)  return Math.floor(s/3600)+'h';
-    if (s < 604800) return Math.floor(s/86400)+'d';
+function relTime(dateStr){
+  try{
+    var d=new Date(dateStr.replace(' ','T')+'Z');
+    var s=Math.floor((Date.now()-d.getTime())/1000);
+    if(s<60)     return 'ahora';
+    if(s<3600)   return Math.floor(s/60)+'m';
+    if(s<86400)  return Math.floor(s/3600)+'h';
+    if(s<604800) return Math.floor(s/86400)+'d';
     return Math.floor(s/604800)+'sem';
-  } catch(e) { return ''; }
+  }catch(e){return '';}
 }
-function validHex(h) { return /^#[0-9a-fA-F]{6}$/.test(h); }
+function validHex(h){return /^#[0-9a-fA-F]{6}$/.test(h);}
 
 /* ══════════════════════════════════════════════════════════════════════════
    BACKEND
 ══════════════════════════════════════════════════════════════════════════ */
-function pyCall(method) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  return new Promise(function(resolve) {
-    if (!window.backend || typeof window.backend[method] !== 'function') { resolve(null); return; }
-    window.backend[method].apply(window.backend, args.concat([function(r) {
-      try { resolve(typeof r === 'string' ? JSON.parse(r) : r); }
-      catch(e) { resolve(r); }
+function pyCall(method){
+  var args=Array.prototype.slice.call(arguments,1);
+  return new Promise(function(resolve){
+    if(!window.backend||typeof window.backend[method]!=='function'){resolve(null);return;}
+    window.backend[method].apply(window.backend,args.concat([function(r){
+      try{resolve(typeof r==='string'?JSON.parse(r):r);}catch(e){resolve(r);}
     }]));
   });
 }
@@ -942,358 +848,282 @@ function pyCall(method) {
 /* ══════════════════════════════════════════════════════════════════════════
    APLICAR TEMA / ACENTO / FUENTE
 ══════════════════════════════════════════════════════════════════════════ */
-function applyThemeVars(theme) {
-  var th = THEMES[theme]; if (!th) return;
-  var root = document.documentElement;
-  for (var v in th.vars) { root.style.setProperty(v, th.vars[v]); }
+function applyThemeVars(theme){
+  var th=THEMES[theme]; if(!th) return;
+  for(var v in th.vars) document.documentElement.style.setProperty(v,th.vars[v]);
 }
-function applyAccent(color) { document.documentElement.style.setProperty('--ac', color); }
-function applyFont(font) {
-  var f = FONTS[font] || FONTS.barlow;
-  document.documentElement.style.setProperty('--font-display', f.display);
-  document.documentElement.style.setProperty('--font-body', f.body);
-  document.body.style.fontFamily = f.body;
-  document.querySelectorAll('input, textarea, button').forEach(function(el) {
-    el.style.fontFamily = f.body;
-  });
+function applyAccent(color){document.documentElement.style.setProperty('--ac',color);}
+function applyFont(font){
+  var f=FONTS[font]||FONTS.barlow;
+  document.documentElement.style.setProperty('--font-display',f.display);
+  document.documentElement.style.setProperty('--font-body',f.body);
+  document.body.style.fontFamily=f.body;
+  // Barlow Black (900) cuando Barlow, Monaspace ExtraBold (800) cuando Monaspace
+  var lw = font==='monaspace' ? '800' : '900';
+  document.documentElement.style.setProperty('--logo-weight', lw);
+  document.documentElement.style.setProperty('--logo-wght',   lw);
+  document.querySelectorAll('input,textarea,button').forEach(function(el){el.style.fontFamily=f.body;});
 }
-function applySettings() {
-  applyThemeVars(cfg.theme);
-  applyAccent(cfg.accent);
-  applyFont(cfg.font);
-  applyI18n(cfg.lang);
-  syncSettingsUI();
+function applySettings(){
+  applyThemeVars(cfg.theme); applyAccent(cfg.accent);
+  applyFont(cfg.font); applyI18n(cfg.lang); syncSettingsUI();
 }
-function syncSettingsUI() {
-  document.querySelectorAll('[data-theme]').forEach(function(b) { b.classList.toggle('active', b.dataset.theme === cfg.theme); });
-  document.querySelectorAll('[data-font]').forEach(function(b)  { b.classList.toggle('active', b.dataset.font  === cfg.font);  });
-  document.querySelectorAll('[data-mode]').forEach(function(b)  { b.classList.toggle('active', b.dataset.mode  === cfg.mode);  });
-  document.querySelectorAll('[data-lang]').forEach(function(b)  { b.classList.toggle('active', b.dataset.lang  === cfg.lang);  });
+function syncSettingsUI(){
+  document.querySelectorAll('[data-theme]').forEach(function(b){b.classList.toggle('active',b.dataset.theme===cfg.theme);});
+  document.querySelectorAll('[data-font]').forEach(function(b) {b.classList.toggle('active',b.dataset.font===cfg.font);});
+  document.querySelectorAll('[data-mode]').forEach(function(b) {b.classList.toggle('active',b.dataset.mode===cfg.mode);});
+  document.querySelectorAll('[data-lang]').forEach(function(b) {b.classList.toggle('active',b.dataset.lang===cfg.lang);});
   renderSwatches();
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
    SWATCHES
 ══════════════════════════════════════════════════════════════════════════ */
-function renderSwatches() {
-  var th = THEMES[cfg.theme] || THEMES.mmarket;
-  var html = '';
-  th.accents.forEach(function(color) {
-    var active = color.toLowerCase() === cfg.accent.toLowerCase() ? ' active' : '';
-    html += '<div class="swatch'+active+'" data-color="'+esc(color)+'" style="background:'+esc(color)+'" title="'+esc(color)+'"></div>';
+function renderSwatches(){
+  var th=THEMES[cfg.theme]||THEMES.mmarket,html='';
+  th.accents.forEach(function(color){
+    var a=color.toLowerCase()===cfg.accent.toLowerCase()?' active':'';
+    html+='<div class="swatch'+a+'" data-color="'+esc(color)+'" style="background:'+esc(color)+'" title="'+esc(color)+'"></div>';
   });
-  document.getElementById('accent-swatches').innerHTML = html;
-  document.getElementById('hex-input').value = cfg.accent;
+  document.getElementById('accent-swatches').innerHTML=html;
+  document.getElementById('hex-input').value=cfg.accent;
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
    ESTADOS DE UI
 ══════════════════════════════════════════════════════════════════════════ */
-function updateCopyStatus() {
-  var el  = document.getElementById('copy-status');
-  var txt = document.getElementById('cs-txt');
-  if (pendingData) {
-    el.className = 'ready';
-    txt.textContent = t('cs.ready', { n: pendingData.length });
-  } else {
-    el.className = '';
-    txt.textContent = t('status.idle');
-  }
+function updateCopyStatus(){
+  var el=document.getElementById('copy-status'),txt=document.getElementById('cs-txt');
+  if(pendingData){el.className='ready';txt.textContent=t('cs.ready',{n:pendingData.length});}
+  else           {el.className='';     txt.textContent=t('status.idle');}
   updateSaveBtn();
 }
-function updateSaveBtn() {
-  var name = document.getElementById('preset-name').value.trim();
-  document.getElementById('save-btn').classList.toggle('disabled', !(pendingData && name.length > 0));
+function updateSaveBtn(){
+  var name=document.getElementById('preset-name').value.trim();
+  document.getElementById('save-btn').classList.toggle('disabled',!(pendingData&&name.length>0));
 }
-function updatePasteBtn() {
-  var btn = document.getElementById('paste-btn');
-  var sub = document.getElementById('paste-sub');
-  if (selectedId !== null) {
-    var p = allPresets.filter(function(x){ return x.id === selectedId; })[0];
+function updatePasteBtn(){
+  var btn=document.getElementById('paste-btn'),sub=document.getElementById('paste-sub');
+  if(selectedId!==null){
+    var p=allPresets.filter(function(x){return x.id===selectedId;})[0];
     btn.classList.remove('disabled');
-    sub.textContent = p ? p.name : t('validate.select');
-  } else {
+    sub.textContent=p?p.name:t('validate.select');
+  }else{
     btn.classList.add('disabled');
-    sub.textContent = t('btn.paste.sub.idle');
+    sub.textContent=t('btn.paste.sub.idle');
   }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
    RENDER DE PRESETS
+   FIX: el empty state se renderiza DENTRO de #presets-list como hijo flex,
+   así hereda el flex:1 del contenedor y puede centrarse correctamente.
 ══════════════════════════════════════════════════════════════════════════ */
-function renderPresets(list) {
-  allPresets = list || [];
-  var container = document.getElementById('presets-list');
-  var empty     = document.getElementById('empty-state');
-  var counter   = document.getElementById('search-count');
-  if (!allPresets.length) {
-    container.innerHTML = '';
-    empty.style.display = 'flex';
-    counter.textContent = '';
+function renderPresets(list){
+  allPresets=list||[];
+  var container=document.getElementById('presets-list');
+  var counter=document.getElementById('search-count');
+
+  if(!allPresets.length){
+    container.innerHTML='<div class="empty-state">'
+      +'<span class="empty-ico">&#9641;</span>'
+      +'<span class="empty-lbl">'+esc(t('empty.label'))+'</span>'
+      +'</div>';
+    counter.textContent='';
     return;
   }
-  empty.style.display = 'none';
-  var n = allPresets.length;
-  counter.textContent = t(n === 1 ? 'count.one' : 'count.many', { n: n });
-  var html = '';
-  allPresets.forEach(function(p) {
-    var sel   = p.id === selectedId ? ' selected' : '';
-    var badge = p.source === 'scripting'
-      ? '<span class="badge badge-api">API</span>'
-      : '<span class="badge badge-cb">CB</span>';
-    var desc  = p.description ? '<div class="pcard-desc">'+esc(p.description)+'</div>' : '';
-    html += '<div class="pcard'+sel+'" data-id="'+p.id+'">'
-          + '<div class="pcard-dot"></div>'
-          + '<div class="pcard-body">'
-          +   '<div class="pcard-name">'+esc(p.name)+'</div>'
-          +   desc
-          +   '<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span>'+badge+'</div>'
-          + '</div>'
-          + '<div class="pcard-actions">'
-          +   '<div class="pcard-btn pbpaste" data-paste="'+p.id+'" title="Paste">&#9654;</div>'
-          +   '<div class="pcard-btn pbdel"   data-del="'+p.id+'"   title="Delete">&#10005;</div>'
-          + '</div></div>';
-  });
-  container.innerHTML = html;
-}
 
-/* ══════════════════════════════════════════════════════════════════════════
-   CARGAR PRESETS
-══════════════════════════════════════════════════════════════════════════ */
-function loadPresets() {
-  var q = document.getElementById('search-input').value.trim();
-  (q ? pyCall('search_presets', q) : pyCall('get_presets')).then(function(r) {
-    if (Array.isArray(r)) renderPresets(r);
-    else if (r && r.error) setStatus(r.error, 'err');
+  var n=allPresets.length;
+  counter.textContent=t(n===1?'count.one':'count.many',{n:n});
+  var html='';
+  allPresets.forEach(function(p){
+    var sel=p.id===selectedId?' selected':'';
+    var badge=p.source==='scripting'
+      ?'<span class="badge badge-api">API</span>'
+      :'<span class="badge badge-cb">CB</span>';
+    var desc=p.description?'<div class="pcard-desc">'+esc(p.description)+'</div>':'';
+    html+='<div class="pcard'+sel+'" data-id="'+p.id+'">'
+         +'<div class="pcard-dot"></div>'
+         +'<div class="pcard-body"><div class="pcard-name">'+esc(p.name)+'</div>'+desc
+         +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span>'+badge+'</div></div>'
+         +'<div class="pcard-actions">'
+         +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" title="Paste">&#9654;</div>'
+         +'<div class="pcard-btn pbdel"   data-del="'+p.id+'"   title="Delete">&#10005;</div>'
+         +'</div></div>';
+  });
+  container.innerHTML=html;
+}
+function loadPresets(){
+  var q=document.getElementById('search-input').value.trim();
+  (q?pyCall('search_presets',q):pyCall('get_presets')).then(function(r){
+    if(Array.isArray(r)) renderPresets(r);
+    else if(r&&r.error)  setStatus(r.error,'err');
   });
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
    ACCIONES
 ══════════════════════════════════════════════════════════════════════════ */
-function doCopy() {
-  var btn = document.getElementById('copy-btn');
-  if (btn.classList.contains('loading')) return;
-  btn.classList.add('loading');
-  setStatus(t('sb.capturing'), 'info');
-  pyCall('copy_nodes').then(function(r) {
+function doCopy(){
+  var btn=document.getElementById('copy-btn');
+  if(btn.classList.contains('loading')) return;
+  btn.classList.add('loading'); setStatus(t('sb.capturing'),'info');
+  pyCall('copy_nodes').then(function(r){
     btn.classList.remove('loading');
-    if (!r) { setStatus(t('sb.backend.err'), 'err'); return; }
-    if (r.ok) {
-      pendingData = r.data;
-      updateCopyStatus();
-      setStatus(t('sb.captured'), 'ok');
-      toast(t('toast.captured'), 'ok');
+    if(!r){setStatus(t('sb.backend.err'),'err');return;}
+    if(r.ok){
+      pendingData=r.data; updateCopyStatus();
+      setStatus(t('sb.captured'),'ok'); toast(t('toast.captured'),'ok');
       document.getElementById('preset-name').focus();
-    } else {
-      setStatus(r.error || t('sb.backend.err'), 'err');
-      toast(r.error || t('sb.backend.err'), 'err');
+    }else{
+      setStatus(r.error||t('sb.backend.err'),'err');
+      toast(r.error||t('sb.backend.err'),'err');
     }
   });
 }
-
-function doPaste() {
-  if (selectedId === null) { toast(t('validate.select'), 'warn'); return; }
-  setStatus(t('sb.writing'), 'info');
-  pyCall('paste_nodes', String(selectedId)).then(function(r) {
-    if (!r) { setStatus(t('sb.backend.err'), 'err'); return; }
-    if (r.ok) {
-      setStatus((r.msg || t('sb.ready')) + (r.name ? ' \u2014 '+r.name : ''), 'ok');
-      toast(t('toast.clipboard'), 'ok');
-    } else {
-      setStatus(r.error || t('sb.backend.err'), 'err');
-      toast(r.error || t('sb.backend.err'), 'err');
-    }
+function doPaste(){
+  if(selectedId===null){toast(t('validate.select'),'warn');return;}
+  setStatus(t('sb.writing'),'info');
+  pyCall('paste_nodes',String(selectedId)).then(function(r){
+    if(!r){setStatus(t('sb.backend.err'),'err');return;}
+    if(r.ok){setStatus((r.msg||t('sb.ready'))+(r.name?' \u2014 '+r.name:''),'ok');toast(t('toast.clipboard'),'ok');}
+    else    {setStatus(r.error||t('sb.backend.err'),'err');toast(r.error||t('sb.backend.err'),'err');}
   });
 }
-
-function doQuickPaste(id) {
-  setStatus(t('sb.writing'), 'info');
-  pyCall('paste_nodes', String(id)).then(function(r) {
-    if (!r) return;
-    if (r.ok) {
-      setStatus((r.msg || t('sb.ready')) + (r.name ? ' \u2014 '+r.name : ''), 'ok');
-      toast(t('toast.clipboard'), 'ok');
-    } else {
-      setStatus(r.error || t('sb.backend.err'), 'err');
-      toast(r.error || t('sb.backend.err'), 'err');
-    }
+function doQuickPaste(id){
+  setStatus(t('sb.writing'),'info');
+  pyCall('paste_nodes',String(id)).then(function(r){
+    if(!r) return;
+    if(r.ok){setStatus((r.msg||t('sb.ready'))+(r.name?' \u2014 '+r.name:''),'ok');toast(t('toast.clipboard'),'ok');}
+    else    {setStatus(r.error||t('sb.backend.err'),'err');toast(r.error||t('sb.backend.err'),'err');}
   });
 }
-
-function doSave() {
-  var name = document.getElementById('preset-name').value.trim();
-  var desc = document.getElementById('preset-desc').value.trim();
-  if (!name)        { toast(t('validate.name'),    'warn'); return; }
-  if (!pendingData) { toast(t('validate.no.data'), 'warn'); return; }
-  pyCall('save_preset', JSON.stringify({ name:name, description:desc, fusion_data:pendingData }))
-    .then(function(r) {
-      if (!r) return;
-      if (r.ok) {
-        toast(t('toast.saved'), 'ok');
-        setStatus(t('sb.saving')+' '+name, 'ok');
-        doClear();
-        loadPresets();
-      } else {
-        toast(r.error || t('sb.backend.err'), 'err');
-      }
+function doSave(){
+  var name=document.getElementById('preset-name').value.trim();
+  var desc=document.getElementById('preset-desc').value.trim();
+  if(!name)       {toast(t('validate.name'),'warn');    return;}
+  if(!pendingData){toast(t('validate.no.data'),'warn'); return;}
+  pyCall('save_preset',JSON.stringify({name:name,description:desc,fusion_data:pendingData}))
+    .then(function(r){
+      if(!r) return;
+      if(r.ok){toast(t('toast.saved'),'ok');setStatus(t('sb.saving')+' '+name,'ok');doClear();loadPresets();}
+      else    {toast(r.error||t('sb.backend.err'),'err');}
     });
 }
-
-function doClear() {
-  document.getElementById('preset-name').value = '';
-  document.getElementById('preset-desc').value = '';
-  pendingData = null;
-  updateCopyStatus();
-  setStatus(t('sb.ready'), '');
+function doClear(){
+  document.getElementById('preset-name').value='';
+  document.getElementById('preset-desc').value='';
+  pendingData=null; updateCopyStatus(); setStatus(t('sb.ready'),'');
 }
-
-function doSelectPreset(id) {
-  selectedId = id === selectedId ? null : id;
-  updatePasteBtn();
-  renderPresets(allPresets);
+function doSelectPreset(id){
+  selectedId=id===selectedId?null:id; updatePasteBtn(); renderPresets(allPresets);
 }
-
-function doDeletePreset(id) {
-  pyCall('delete_preset', String(id)).then(function(r) {
-    if (!r) return;
-    if (r.ok) {
-      if (selectedId === id) { selectedId = null; updatePasteBtn(); }
-      loadPresets();
-      setStatus(t('sb.deleted'), '');
-      toast(t('toast.deleted'), '');
-    } else {
-      toast(r.error || t('sb.backend.err'), 'err');
-    }
+function doDeletePreset(id){
+  pyCall('delete_preset',String(id)).then(function(r){
+    if(!r) return;
+    if(r.ok){if(selectedId===id){selectedId=null;updatePasteBtn();}loadPresets();setStatus(t('sb.deleted'),'');toast(t('toast.deleted'),'');}
+    else    {toast(r.error||t('sb.backend.err'),'err');}
   });
 }
-
-function doSaveSettings() {
-  pyCall('save_settings', JSON.stringify(cfg)).then(function() {
+function doSaveSettings(){
+  pyCall('save_settings',JSON.stringify(cfg)).then(function(){
     document.getElementById('s-overlay').classList.remove('open');
-    toast(t('toast.settings'), 'ok');
+    toast(t('toast.settings'),'ok');
   });
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
    EVENT LISTENERS
 ══════════════════════════════════════════════════════════════════════════ */
-document.getElementById('btn-close').addEventListener('click', function() { if (window.backend) window.backend.close_window(); });
-document.getElementById('btn-min').addEventListener('click',   function() { if (window.backend) window.backend.minimize_window(); });
-document.getElementById('topbar').addEventListener('mousedown', function(e) {
-  if (e.button !== 0 || e.target.closest('#topbar-right')) return;
-  if (window.backend) window.backend.start_move();
+document.getElementById('btn-close').addEventListener('click',function(){if(window.backend)window.backend.close_window();});
+document.getElementById('btn-min').addEventListener('click',function(){if(window.backend)window.backend.minimize_window();});
+document.getElementById('topbar').addEventListener('mousedown',function(e){
+  if(e.button!==0||e.target.closest('#topbar-right'))return;
+  if(window.backend)window.backend.start_move();
 });
-
-document.getElementById('copy-btn').addEventListener('click', doCopy);
-document.getElementById('paste-btn').addEventListener('click', function() { if (!this.classList.contains('disabled')) doPaste(); });
-document.getElementById('save-btn').addEventListener('click',  function() { if (!this.classList.contains('disabled')) doSave(); });
-document.getElementById('clear-btn').addEventListener('click', doClear);
-document.getElementById('preset-name').addEventListener('input', updateSaveBtn);
-
-document.getElementById('presets-list').addEventListener('click', function(e) {
-  var del   = e.target.closest('[data-del]');
-  if (del)   { e.stopPropagation(); doDeletePreset(parseInt(del.dataset.del, 10)); return; }
-  var paste = e.target.closest('[data-paste]');
-  if (paste) { e.stopPropagation(); doQuickPaste(parseInt(paste.dataset.paste, 10)); return; }
-  var card  = e.target.closest('.pcard');
-  if (card)  { doSelectPreset(parseInt(card.dataset.id, 10)); }
+document.getElementById('copy-btn').addEventListener('click',doCopy);
+document.getElementById('paste-btn').addEventListener('click',function(){if(!this.classList.contains('disabled'))doPaste();});
+document.getElementById('save-btn').addEventListener('click',function(){if(!this.classList.contains('disabled'))doSave();});
+document.getElementById('clear-btn').addEventListener('click',doClear);
+document.getElementById('preset-name').addEventListener('input',updateSaveBtn);
+document.getElementById('presets-list').addEventListener('click',function(e){
+  var del=e.target.closest('[data-del]');    if(del)  {e.stopPropagation();doDeletePreset(parseInt(del.dataset.del,10));return;}
+  var paste=e.target.closest('[data-paste]');if(paste){e.stopPropagation();doQuickPaste(parseInt(paste.dataset.paste,10));return;}
+  var card=e.target.closest('.pcard');       if(card) {doSelectPreset(parseInt(card.dataset.id,10));}
 });
-
-document.getElementById('search-input').addEventListener('input', function() {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(loadPresets, 280);
+document.getElementById('search-input').addEventListener('input',function(){
+  clearTimeout(searchTimer);searchTimer=setTimeout(loadPresets,280);
 });
+document.getElementById('btn-settings').addEventListener('click',function(){syncSettingsUI();document.getElementById('s-overlay').classList.add('open');});
+document.getElementById('s-close').addEventListener('click',function(){document.getElementById('s-overlay').classList.remove('open');});
+document.getElementById('s-overlay').addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
 
-document.getElementById('btn-settings').addEventListener('click', function() {
-  syncSettingsUI();
-  document.getElementById('s-overlay').classList.add('open');
-});
-document.getElementById('s-close').addEventListener('click', function() { document.getElementById('s-overlay').classList.remove('open'); });
-document.getElementById('s-overlay').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
-
-document.querySelectorAll('[data-theme]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    cfg.theme = this.dataset.theme;
-    applyThemeVars(cfg.theme);
-    var th = THEMES[cfg.theme];
-    if (th) { cfg.accent = th.def; applyAccent(cfg.accent); }
-    document.querySelectorAll('[data-theme]').forEach(function(b) { b.classList.toggle('active', b.dataset.theme === cfg.theme); });
+document.querySelectorAll('[data-theme]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    cfg.theme=this.dataset.theme; applyThemeVars(cfg.theme);
+    var th=THEMES[cfg.theme]; if(th){cfg.accent=th.def;applyAccent(cfg.accent);}
+    document.querySelectorAll('[data-theme]').forEach(function(b){b.classList.toggle('active',b.dataset.theme===cfg.theme);});
     renderSwatches();
   });
 });
-document.querySelectorAll('[data-font]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    cfg.font = this.dataset.font;
-    applyFont(cfg.font);
-    document.querySelectorAll('[data-font]').forEach(function(b) { b.classList.toggle('active', b.dataset.font === cfg.font); });
+document.querySelectorAll('[data-font]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    cfg.font=this.dataset.font; applyFont(cfg.font);
+    document.querySelectorAll('[data-font]').forEach(function(b){b.classList.toggle('active',b.dataset.font===cfg.font);});
   });
 });
-document.querySelectorAll('[data-mode]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    cfg.mode = this.dataset.mode;
-    document.querySelectorAll('[data-mode]').forEach(function(b) { b.classList.toggle('active', b.dataset.mode === cfg.mode); });
-    if (cfg.mode === 'scripting') toast(t('toast.scripting'), 'warn');
+document.querySelectorAll('[data-mode]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    cfg.mode=this.dataset.mode;
+    document.querySelectorAll('[data-mode]').forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.mode);});
+    if(cfg.mode==='scripting')toast(t('toast.scripting'),'warn');
   });
 });
-document.querySelectorAll('[data-lang]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    cfg.lang = this.dataset.lang;
-    applyI18n(cfg.lang);
-    document.querySelectorAll('[data-lang]').forEach(function(b) { b.classList.toggle('active', b.dataset.lang === cfg.lang); });
-    // Reapply dynamic strings
-    updateCopyStatus();
-    updatePasteBtn();
+document.querySelectorAll('[data-lang]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    cfg.lang=this.dataset.lang; applyI18n(cfg.lang);
+    document.querySelectorAll('[data-lang]').forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang);});
+    updateCopyStatus(); updatePasteBtn();
+    renderPresets(allPresets); // Refresca el empty state con el nuevo idioma
   });
 });
-
-document.getElementById('accent-swatches').addEventListener('click', function(e) {
-  var sw = e.target.closest('.swatch'); if (!sw) return;
-  cfg.accent = sw.dataset.color;
-  applyAccent(cfg.accent);
-  document.getElementById('hex-input').value = cfg.accent;
-  document.querySelectorAll('.swatch').forEach(function(s) { s.classList.toggle('active', s.dataset.color.toLowerCase() === cfg.accent.toLowerCase()); });
+document.getElementById('accent-swatches').addEventListener('click',function(e){
+  var sw=e.target.closest('.swatch'); if(!sw) return;
+  cfg.accent=sw.dataset.color; applyAccent(cfg.accent);
+  document.getElementById('hex-input').value=cfg.accent;
+  document.querySelectorAll('.swatch').forEach(function(s){s.classList.toggle('active',s.dataset.color.toLowerCase()===cfg.accent.toLowerCase());});
 });
-document.getElementById('hex-apply').addEventListener('click', function() {
-  var raw = document.getElementById('hex-input').value.trim();
-  if (!raw.startsWith('#')) raw = '#' + raw;
-  if (validHex(raw)) {
-    cfg.accent = raw.toLowerCase();
-    applyAccent(cfg.accent);
-    document.querySelectorAll('.swatch').forEach(function(s) { s.classList.toggle('active', s.dataset.color.toLowerCase() === cfg.accent); });
-  } else {
-    toast(t('toast.hex.err'), 'err');
-  }
+document.getElementById('hex-apply').addEventListener('click',function(){
+  var raw=document.getElementById('hex-input').value.trim();
+  if(!raw.startsWith('#')) raw='#'+raw;
+  if(validHex(raw)){
+    cfg.accent=raw.toLowerCase(); applyAccent(cfg.accent);
+    document.querySelectorAll('.swatch').forEach(function(s){s.classList.toggle('active',s.dataset.color.toLowerCase()===cfg.accent);});
+  }else{toast(t('toast.hex.err'),'err');}
 });
-document.getElementById('hex-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('hex-apply').click(); });
-document.getElementById('s-save').addEventListener('click', doSaveSettings);
+document.getElementById('hex-input').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('hex-apply').click();});
+document.getElementById('s-save').addEventListener('click',doSaveSettings);
 
 /* ══════════════════════════════════════════════════════════════════════════
    INIT
 ══════════════════════════════════════════════════════════════════════════ */
-function onBackendReady() {
-  pyCall('get_settings').then(function(s) {
-    if (s && typeof s === 'object' && !s.error) {
-      if (s.theme  && THEMES[s.theme])  cfg.theme  = s.theme;
-      if (s.accent && validHex(s.accent)) cfg.accent = s.accent;
-      if (s.font   && FONTS[s.font])   cfg.font   = s.font;
-      if (s.mode)  cfg.mode  = s.mode;
-      if (s.lang   && I18N[s.lang])    cfg.lang   = s.lang;
+function onBackendReady(){
+  pyCall('get_settings').then(function(s){
+    if(s&&typeof s==='object'&&!s.error){
+      if(s.theme&&THEMES[s.theme])   cfg.theme=s.theme;
+      if(s.accent&&validHex(s.accent)) cfg.accent=s.accent;
+      if(s.font&&FONTS[s.font])      cfg.font=s.font;
+      if(s.mode)                     cfg.mode=s.mode;
+      if(s.lang&&I18N[s.lang])       cfg.lang=s.lang;
     }
-    applySettings();
-    setStatus(t('sb.ready'), '');
-    loadPresets();
+    applySettings(); setStatus(t('sb.ready'),''); loadPresets();
   });
 }
-function _initChannel() {
-  try {
-    new QWebChannel(qt.webChannelTransport, function(ch) {
-      window.backend = ch.objects.backend;
-      onBackendReady();
-    });
-  } catch(e) { setTimeout(_initChannel, 80); }
+function _initChannel(){
+  try{new QWebChannel(qt.webChannelTransport,function(ch){window.backend=ch.objects.backend;onBackendReady();});}
+  catch(e){setTimeout(_initChannel,80);}
 }
-document.addEventListener('DOMContentLoaded', _initChannel);
+document.addEventListener('DOMContentLoaded',_initChannel);
 </script>
 </body>
 </html>

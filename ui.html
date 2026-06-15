@@ -317,7 +317,169 @@ textarea{resize:none;}
 .s-empty-note{font-size:9px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:10px 0;opacity:.6;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 19 — TOASTS
+   BLOQUE 19 — CODE MODAL
+════════════════════════════════════════════════════════════════════════════ */
+#code-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.82);
+    display: none; align-items: center; justify-content: center;
+    z-index: 560;
+}
+#code-overlay.open { display: flex; }
+#code-box {
+    background: var(--sf);
+    border: 2px solid var(--bd);
+    border-radius: var(--r);
+    width: 380px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 16px 52px rgba(0,0,0,.65);
+    overflow: hidden;
+}
+#code-hdr {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 15px;
+    border-bottom: 2px solid var(--bd);
+    font-family: var(--font-display); font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
+}
+#code-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
+#code-close:hover { color: var(--red); }
+#code-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 10px; }
+#code-output {
+    width: 100%; height: 90px;
+    background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
+    color: var(--tx); font-family: var(--font-mono); font-size: 10px;
+    padding: 7px 9px; line-height: 1.5;
+    user-select: text; -webkit-user-select: text;
+    resize: none;
+}
+#code-output:focus { border-color: var(--ac); outline: none; }
+#code-meta { display: flex; flex-direction: column; gap: 6px; }
+#code-chars {
+    font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--tx2);
+}
+/* ─ Barra de escala ─────────────────────────────────────────────────────── */
+#code-scale-wrap { display: flex; flex-direction: column; gap: 3px; }
+#code-scale-bar {
+    height: 6px; border-radius: 3px; width: 100%;
+    background: linear-gradient(to right,
+        #5ce07a 0%, #5ce07a 20%,
+        #d8a657 20%, #d8a657 50%,
+        #e78a4e 50%, #e78a4e 80%,
+        #ea6962 80%, #ea6962 100%
+    );
+    position: relative;
+    overflow: visible;
+}
+#code-scale-bar::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    width: 3px; height: 12px;
+    background: var(--tx);
+    border-radius: 2px;
+    left: var(--scale-pos, 0%);
+    transform: translateX(-50%);
+    transition: left .3s ease;
+    box-shadow: 0 0 4px rgba(0,0,0,.5);
+}
+#code-scale-labels {
+    display: flex; justify-content: space-between;
+    font-size: 8px; color: var(--tx3); letter-spacing: .04em; text-transform: uppercase;
+}
+#code-hint {
+    font-size: 9px; color: var(--tx3); letter-spacing: .03em;
+    line-height: 1.5; font-style: italic;
+}
+#code-footer {
+    padding: 9px 15px;
+    border-top: 2px solid var(--bd);
+    display: flex; justify-content: flex-end;
+}
+#code-copy-btn {
+    padding: 7px 22px;
+    background: var(--ac); color: #000;
+    border: 2px solid var(--ac); border-radius: var(--r);
+    font-family: var(--font-display); font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: filter var(--tr);
+}
+#code-copy-btn:hover { filter: brightness(.88); }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   BLOQUE 20 — PASTE CODE DIALOG
+════════════════════════════════════════════════════════════════════════════ */
+#paste-code-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.82);
+    display: none; align-items: center; justify-content: center;
+    z-index: 560;
+}
+#paste-code-overlay.open { display: flex; }
+#paste-code-box {
+    background: var(--sf);
+    border: 2px solid var(--bd);
+    border-radius: var(--r);
+    width: 360px;
+    display: flex; flex-direction: column;
+    box-shadow: 0 16px 52px rgba(0,0,0,.65);
+    overflow: hidden;
+}
+#paste-code-hdr {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 15px;
+    border-bottom: 2px solid var(--bd);
+    font-family: var(--font-display); font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
+}
+#paste-code-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
+#paste-code-close:hover { color: var(--red); }
+#paste-code-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 8px; }
+#paste-code-input {
+    width: 100%; height: 80px;
+    background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
+    color: var(--tx); font-family: var(--font-mono); font-size: 10px;
+    padding: 7px 9px; line-height: 1.5; resize: none;
+    user-select: text; -webkit-user-select: text;
+    transition: border-color var(--tr);
+}
+#paste-code-input:focus { border-color: var(--ac); outline: none; }
+#paste-code-input::placeholder { color: var(--tx3); }
+#paste-code-err {
+    font-size: 9px; color: var(--red); letter-spacing: .04em;
+    min-height: 14px; font-weight: 700; text-transform: uppercase;
+}
+#paste-code-footer {
+    padding: 9px 15px;
+    border-top: 2px solid var(--bd);
+    display: flex; justify-content: flex-end; gap: 7px;
+}
+#paste-code-cancel {
+    padding: 7px 16px;
+    background: var(--sf2); color: var(--tx2);
+    border: 2px solid var(--bd); border-radius: var(--r);
+    font-family: var(--font-display); font-size: 11px; font-weight: 700;
+    letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: border-color var(--tr), color var(--tr);
+}
+#paste-code-cancel:hover { border-color: var(--bd2); color: var(--tx); }
+#paste-code-ok {
+    padding: 7px 20px;
+    background: var(--ac); color: #000;
+    border: 2px solid var(--ac); border-radius: var(--r);
+    font-family: var(--font-display); font-size: 11px; font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    letter-spacing: .04em; text-transform: uppercase;
+    cursor: pointer; transition: filter var(--tr);
+}
+#paste-code-ok:hover { filter: brightness(.88); }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   BLOQUE 21 — TOASTS
 ════════════════════════════════════════════════════════════════════════════ */
 #toasts{position:fixed;bottom:32px;right:13px;z-index:700;display:flex;flex-direction:column;gap:5px;pointer-events:none;}
 .toast{padding:7px 13px;border:2px solid var(--bd);border-radius:var(--r);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--sf);color:var(--tx2);animation:tslide .16s ease;white-space:nowrap;}
@@ -376,6 +538,12 @@ textarea{resize:none;}
     <div id="form-actions">
       <button id="save-btn" class="disabled" data-i18n="btn.save">Guardar</button>
       <button id="clear-btn" data-i18n="btn.clear">Limpiar</button>
+    </div>
+
+    <div class="sl">C&oacute;digo</div>
+    <div class="act-btn" id="paste-code-trigger-btn">
+      <span class="lbl">Pegar c&oacute;digo</span>
+      <span class="sub">Importar preset desde MCOPY:...</span>
     </div>
   </div>
 
@@ -524,6 +692,50 @@ textarea{resize:none;}
     <div id="move-list"></div>
     <div id="move-footer">
       <button class="mbtn-cancel" id="move-cancel" data-i18n="btn.cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BLOQUE HTML 10 — CODE MODAL ═════════════════════════════════════════ -->
+<div id="code-overlay">
+  <div id="code-box">
+    <div id="code-hdr">
+      <span id="code-title">Código del preset</span>
+      <span id="code-close">&#10005;</span>
+    </div>
+    <div id="code-body">
+      <textarea id="code-output" readonly spellcheck="false"></textarea>
+      <div id="code-meta">
+        <span id="code-chars"></span>
+        <div id="code-scale-wrap">
+          <div id="code-scale-bar"></div>
+          <div id="code-scale-labels">
+            <span>Ligero</span><span>Medio</span><span>Pesado</span><span>M&aacute;x</span>
+          </div>
+        </div>
+        <div id="code-hint"></div>
+      </div>
+    </div>
+    <div id="code-footer">
+      <button id="code-copy-btn">Copiar c&oacute;digo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BLOQUE HTML 11 — PASTE CODE DIALOG ══════════════════════════════════ -->
+<div id="paste-code-overlay">
+  <div id="paste-code-box">
+    <div id="paste-code-hdr">
+      <span>Pegar c&oacute;digo MCOPY</span>
+      <span id="paste-code-close">&#10005;</span>
+    </div>
+    <div id="paste-code-body">
+      <textarea id="paste-code-input" placeholder="Pega aqu&iacute; el c&oacute;digo MCOPY:..." spellcheck="false"></textarea>
+      <div id="paste-code-err"></div>
+    </div>
+    <div id="paste-code-footer">
+      <button id="paste-code-cancel">Cancelar</button>
+      <button id="paste-code-ok">Importar</button>
     </div>
   </div>
 </div>
@@ -920,7 +1132,8 @@ function openCtxMenu(e,type,id){
       +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item danger" data-action="delete-folder">Eliminar</div>';
   }else{
-    menu.innerHTML='<div class="ctx-item" data-action="export-preset">Exportar preset</div>'
+    menu.innerHTML='<div class="ctx-item" data-action="copy-code">Copiar código MCOPY</div>'
+      +'<div class="ctx-item" data-action="export-preset">Exportar .mcopy</div>'
       +'<div class="ctx-item" data-action="move-preset">Mover a carpeta...</div>'
       +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item danger" data-action="delete-preset">Eliminar</div>';
@@ -942,6 +1155,7 @@ function handleCtxAction(action){
   else if(action==='move-all'){openMoveDialog('folder',id);}
   else if(action==='export-folder'){doExportFolder(id);}
   else if(action==='delete-folder'){openConfirm('\u00BFEliminar la carpeta?','Los presets se mover\u00E1n a Sin clasificar.',function(){doDeleteFolder(id);});}
+  else if(action==='copy-code'){doShowCode(id);}
   else if(action==='export-preset'){doExportPreset(id);}
   else if(action==='move-preset'){openMoveDialog('preset',id);}
   else if(action==='delete-preset'){openConfirm('\u00BFEliminar este preset?','Esta acci\u00F3n no se puede deshacer.',function(){doDeletePreset(id);});}
@@ -1146,6 +1360,85 @@ function renderExportTable(){
 }
 function doSaveSettings(){pyCall('save_settings',JSON.stringify(cfg)).then(function(){document.getElementById('s-overlay').classList.remove('open');toast(t('toast.settings'),'ok');});}
 
+
+/* ════════════════════════════════════════════════════════════════════════════
+   BLOQUE JS 22b — CÓDIGO COMPARTIBLE (MCOPY: encode/decode)
+════════════════════════════════════════════════════════════════════════════ */
+
+function doShowCode(presetId) {
+    pyCall('encode_preset', String(presetId)).then(function(r) {
+        if (!r || !r.ok) { toast(r ? r.error : 'Error', 'err'); return; }
+        document.getElementById('code-output').value = r.code;
+        updateCodeScale(r.chars);
+        document.getElementById('code-overlay').classList.add('open');
+    });
+}
+
+function updateCodeScale(chars) {
+    var MAX = 5000;
+    var pct = Math.min(chars / MAX * 100, 100);
+    document.getElementById('code-scale-bar').style.setProperty('--scale-pos', pct.toFixed(1) + '%');
+    document.getElementById('code-chars').textContent = chars.toLocaleString() + ' caracteres';
+    var hint;
+    if (chars <= 800)       { hint = 'Comparte en cualquier plataforma — Discord, Reddit, foros'; }
+    else if (chars <= 2000) { hint = 'Cabe en Discord y la mayoría de chats'; }
+    else if (chars <= 4000) { hint = 'Largo — considera exportar como .mcopy'; }
+    else                    { hint = 'Muy pesado — usa exportar archivo .mcopy'; }
+    document.getElementById('code-hint').textContent = hint;
+}
+
+function closeCodeModal() {
+    document.getElementById('code-overlay').classList.remove('open');
+    document.getElementById('code-output').value = '';
+}
+
+function openPasteCodeDialog() {
+    document.getElementById('paste-code-overlay').classList.add('open');
+    document.getElementById('paste-code-input').value = '';
+    document.getElementById('paste-code-err').textContent = '';
+    setTimeout(function() {
+        document.getElementById('paste-code-input').focus();
+    }, 50);
+}
+
+function closePasteCodeDialog() {
+    document.getElementById('paste-code-overlay').classList.remove('open');
+    document.getElementById('paste-code-input').value = '';
+    document.getElementById('paste-code-err').textContent = '';
+}
+
+function doImportFromCode(code) {
+    var errEl = document.getElementById('paste-code-err');
+    errEl.textContent = '';
+    if (!code.startsWith('MCOPY:')) {
+        errEl.textContent = 'El código debe empezar con MCOPY:';
+        return;
+    }
+    pyCall('decode_preset_code', code).then(function(r) {
+        if (!r || !r.ok) {
+            errEl.textContent = r ? r.error : 'Error al decodificar';
+            return;
+        }
+        var fid = (vState.view === 'presets' && typeof vState.folderId === 'number')
+            ? vState.folderId : null;
+        pyCall('save_preset', JSON.stringify({
+            name:        r.name,
+            description: r.description,
+            fusion_data: r.fusion_data,
+            folder_id:   fid
+        })).then(function(res) {
+            if (res && res.ok) {
+                closePasteCodeDialog();
+                toast('Preset importado desde código', 'ok');
+                if (vState.view === 'folders') loadFolders();
+                else loadCurrentPresets();
+            } else {
+                errEl.textContent = res ? res.error : 'Error al guardar';
+            }
+        });
+    });
+}
+
 /* ════════════════════════════════════════════════════════════════════════════
    BLOQUE JS 23 — EVENT LISTENERS
 ════════════════════════════════════════════════════════════════════════════ */
@@ -1248,6 +1541,42 @@ document.getElementById('move-overlay').addEventListener('click',function(e){if(
 document.getElementById('move-list').addEventListener('click',function(e){var item=e.target.closest('[data-target]');if(item)handleMoveTarget(item.dataset.target);});
 
 // Drag and drop
+
+/* — Code modal — */
+document.getElementById('code-close').addEventListener('click', closeCodeModal);
+document.getElementById('code-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeCodeModal();
+});
+document.getElementById('code-copy-btn').addEventListener('click', function() {
+    var code = document.getElementById('code-output').value;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(function() {
+            toast('Código copiado', 'ok');
+        });
+    } else {
+        document.getElementById('code-output').select();
+        document.execCommand('copy');
+        toast('Código copiado', 'ok');
+    }
+});
+
+/* — Paste code dialog — */
+document.getElementById('paste-code-trigger-btn').addEventListener('click', openPasteCodeDialog);
+document.getElementById('paste-code-close').addEventListener('click', closePasteCodeDialog);
+document.getElementById('paste-code-cancel').addEventListener('click', closePasteCodeDialog);
+document.getElementById('paste-code-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePasteCodeDialog();
+});
+document.getElementById('paste-code-ok').addEventListener('click', function() {
+    var code = document.getElementById('paste-code-input').value.trim();
+    doImportFromCode(code);
+});
+document.getElementById('paste-code-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        document.getElementById('paste-code-ok').click();
+    }
+});
+
 var rightEl=document.getElementById('right');
 var dropOv=document.getElementById('drop-overlay');
 rightEl.addEventListener('dragenter',function(e){e.preventDefault();dragCounter++;dropOv.classList.add('active');});

@@ -569,6 +569,72 @@ class Backend(QObject):
         except Exception as e:
             return json.dumps({"ok": False, "error": str(e)})
 
+    # ── Código comprimido (share) ─────────────────────────────────────────────
+
+    @Slot(str, result=str)
+    def encode_preset(self, preset_id_str):
+        """Comprime fusion_data en string MCOPY:... copiable."""
+        try:
+            import zlib, base64, struct
+            pid = int(preset_id_str)
+            with _db_lock:
+                conn = _get_conn()
+                try:
+                    row = conn.execute(
+                        "SELECT name, description, fusion_data FROM presets WHERE id=?", (pid,)
+                    ).fetchone()
+                finally:
+                    conn.close()
+            if not row:
+                return json.dumps({"ok": False, "error": "Preset no encontrado"})
+
+            payload = json.dumps({
+                "n": row["name"],
+                "d": row["description"],
+                "f": row["fusion_data"],
+            }, ensure_ascii=False, separators=(',', ':')).encode("utf-8")
+
+            crc      = struct.pack(">I", zlib.crc32(payload) & 0xFFFFFFFF)
+            compressed = zlib.compress(crc + payload, level=9)
+            code     = "MCOPY:" + base64.urlsafe_b64encode(compressed).decode("ascii")
+
+            return json.dumps({"ok": True, "code": code, "chars": len(code)})
+        except Exception as e:
+            return json.dumps({"ok": False, "error": str(e)})
+
+    @Slot(str, result=str)
+    def decode_preset_code(self, code_str):
+        """Decodifica un string MCOPY:... y devuelve los datos del preset."""
+        try:
+            import zlib, base64, struct
+            code = code_str.strip()
+            if not code.startswith("MCOPY:"):
+                return json.dumps({"ok": False, "error": "Código inválido — debe empezar con MCOPY:"})
+            b64   = code[6:]
+            try:
+                raw = zlib.decompress(base64.urlsafe_b64decode(b64))
+            except Exception:
+                return json.dumps({"ok": False, "error": "Código corrupto o inválido"})
+
+            if len(raw) < 4:
+                return json.dumps({"ok": False, "error": "Código demasiado corto"})
+
+            crc_stored = struct.unpack(">I", raw[:4])[0]
+            payload    = raw[4:]
+            crc_calc   = zlib.crc32(payload) & 0xFFFFFFFF
+            if crc_stored != crc_calc:
+                return json.dumps({"ok": False, "error": "Checksum inválido — código dañado"})
+
+            data = json.loads(payload.decode("utf-8"))
+            return json.dumps({
+                "ok":          True,
+                "name":        data.get("n", "Preset importado"),
+                "description": data.get("d", ""),
+                "fusion_data": data.get("f", ""),
+            })
+        except Exception as e:
+            return json.dumps({"ok": False, "error": str(e)})
+
     # ── Import / Export ───────────────────────────────────────────────────────
     @Slot(str, result=str)
     def export_preset_data(self, preset_id_str):

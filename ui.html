@@ -120,7 +120,22 @@ textarea{resize:none;}
 #sort-btn.visible{display:flex;}
 #sort-btn:hover{border-color:var(--ac);color:var(--ac);}
 #import-btn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:16px;color:var(--tx3);cursor:pointer;transition:color var(--tr),background var(--tr);flex-shrink:0;}
-#import-btn:hover{color:var(--ac);background:var(--sf3);}
+#import-btn:hover{background:var(--sf3);}
+/* ─ Icono del botón importar (reemplazable con icons/import.svg) ──────────── */
+.import-btn-icon {
+    width: 16px; height: 16px;
+    background-color: var(--tx3);
+    -webkit-mask-image: url('icons/import.svg');
+    mask-image: url('icons/import.svg');
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    transition: background-color var(--tr);
+}
+#import-btn:hover .import-btn-icon { background-color: var(--ac); }
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOQUE 8 — PANEL DERECHO — contenedor de vistas
@@ -346,15 +361,41 @@ textarea{resize:none;}
 #code-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
 #code-close:hover { color: var(--red); }
 #code-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 10px; }
+#code-output-wrap {
+    position: relative;
+    width: 100%;
+}
 #code-output {
     width: 100%; height: 90px;
     background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
     color: var(--tx); font-family: var(--font-mono); font-size: 10px;
-    padding: 7px 9px; line-height: 1.5;
+    padding: 7px 32px 7px 9px; line-height: 1.5;
     user-select: text; -webkit-user-select: text;
-    resize: none;
+    resize: none; display: block;
 }
 #code-output:focus { border-color: var(--ac); outline: none; }
+#code-copy-btn {
+    position: absolute;
+    bottom: 6px; right: 6px;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--sf3); border: 1px solid var(--bd2);
+    border-radius: 4px; cursor: pointer;
+    transition: background var(--tr), border-color var(--tr);
+    padding: 0;
+}
+#code-copy-btn:hover { background: var(--bd2); border-color: var(--ac); }
+#code-copy-icon {
+    width: 13px; height: 13px;
+    background-color: var(--tx3);
+    -webkit-mask-image: url('icons/copy.svg');
+    mask-image: url('icons/copy.svg');
+    -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+    mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+    transition: background-color var(--tr);
+    pointer-events: none;
+}
+#code-copy-btn:hover #code-copy-icon { background-color: var(--ac); }
 #code-meta { display: flex; flex-direction: column; gap: 6px; }
 #code-chars {
     font-size: 10px; font-weight: 700; letter-spacing: .06em;
@@ -393,21 +434,7 @@ textarea{resize:none;}
     font-size: 9px; color: var(--tx3); letter-spacing: .03em;
     line-height: 1.5; font-style: italic;
 }
-#code-footer {
-    padding: 9px 15px;
-    border-top: 2px solid var(--bd);
-    display: flex; justify-content: flex-end;
-}
-#code-copy-btn {
-    padding: 7px 22px;
-    background: var(--ac); color: #000;
-    border: 2px solid var(--ac); border-radius: var(--r);
-    font-family: var(--font-display); font-weight: 900;
-    font-variation-settings: 'wght' 900;
-    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
-    cursor: pointer; transition: filter var(--tr);
-}
-#code-copy-btn:hover { filter: brightness(.88); }
+/* #code-footer removed — copy icon is inline */
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOQUE 20 — PASTE CODE DIALOG
@@ -540,10 +567,10 @@ textarea{resize:none;}
       <button id="clear-btn" data-i18n="btn.clear">Limpiar</button>
     </div>
 
-    <div class="sl">C&oacute;digo</div>
+    <div class="sl" data-i18n="section.code">C&oacute;digo</div>
     <div class="act-btn" id="paste-code-trigger-btn">
-      <span class="lbl">Pegar c&oacute;digo</span>
-      <span class="sub">Importar preset desde MCOPY:...</span>
+      <span class="lbl" data-i18n="btn.paste.code.label">Pegar c&oacute;digo</span>
+      <span class="sub" data-i18n="btn.paste.code.sub">Importar preset desde MCOPY:...</span>
     </div>
   </div>
 
@@ -559,7 +586,7 @@ textarea{resize:none;}
         <input type="text" id="search-input" data-i18n-ph="search.folders.ph" placeholder="Buscar carpetas...">
         <span id="search-count"></span>
         <div id="sort-btn">&#8595; Reciente</div>
-        <div id="import-btn" title="Importar .mcopy">&#8675;</div>
+        <div id="import-btn" title="Importar .mcopy"><div class="import-btn-icon"></div></div>
       </div>
     </div>
     <div id="right-content">
@@ -700,25 +727,28 @@ textarea{resize:none;}
 <div id="code-overlay">
   <div id="code-box">
     <div id="code-hdr">
-      <span id="code-title">Código del preset</span>
+      <span id="code-title" data-i18n="code.modal.title">Código del preset</span>
       <span id="code-close">&#10005;</span>
     </div>
     <div id="code-body">
-      <textarea id="code-output" readonly spellcheck="false"></textarea>
+      <div id="code-output-wrap">
+        <textarea id="code-output" readonly spellcheck="false"></textarea>
+        <button id="code-copy-btn" title="Copiar">
+          <div id="code-copy-icon"></div>
+        </button>
+      </div>
       <div id="code-meta">
         <span id="code-chars"></span>
         <div id="code-scale-wrap">
           <div id="code-scale-bar"></div>
           <div id="code-scale-labels">
-            <span>Ligero</span><span>Medio</span><span>Pesado</span><span>M&aacute;x</span>
+            <span data-i18n="code.label.light">Ligero</span><span data-i18n="code.label.medium">Medio</span><span data-i18n="code.label.heavy">Pesado</span><span data-i18n="code.label.max">M&aacute;x</span>
           </div>
         </div>
         <div id="code-hint"></div>
       </div>
     </div>
-    <div id="code-footer">
-      <button id="code-copy-btn">Copiar c&oacute;digo</button>
-    </div>
+
   </div>
 </div>
 
@@ -726,16 +756,16 @@ textarea{resize:none;}
 <div id="paste-code-overlay">
   <div id="paste-code-box">
     <div id="paste-code-hdr">
-      <span>Pegar c&oacute;digo MCOPY</span>
+      <span data-i18n="paste.code.title">Pegar c&oacute;digo MCOPY</span>
       <span id="paste-code-close">&#10005;</span>
     </div>
     <div id="paste-code-body">
-      <textarea id="paste-code-input" placeholder="Pega aqu&iacute; el c&oacute;digo MCOPY:..." spellcheck="false"></textarea>
+      <textarea id="paste-code-input" data-i18n-ph="paste.code.ph" placeholder="Pega aqu&iacute; el c&oacute;digo MCOPY:..." spellcheck="false"></textarea>
       <div id="paste-code-err"></div>
     </div>
     <div id="paste-code-footer">
-      <button id="paste-code-cancel">Cancelar</button>
-      <button id="paste-code-ok">Importar</button>
+      <button id="paste-code-cancel" data-i18n="btn.cancel">Cancelar</button>
+      <button id="paste-code-ok" data-i18n="paste.code.import">Importar</button>
     </div>
   </div>
 </div>
@@ -784,7 +814,47 @@ var I18N = {
     'validate.no.data':'Captura nodos primero con el bot\u00f3n COPIAR',
     'validate.select':'Selecciona un preset primero',
     'cs.ready':'Datos listos ({n} bytes) \u2014 guarda el preset',
-    'count.one':'{n} preset','count.many':'{n} presets'
+    'count.one':'{n} preset',    'section.code':'C\u00f3digo',
+    'btn.paste.code.label':'Pegar c\u00f3digo',
+    'btn.paste.code.sub':'Importar preset desde MCOPY:...',
+    'code.modal.title':'C\u00f3digo del preset',
+    'code.copy.btn':'Copiar c\u00f3digo',
+    'code.hint.light':'Comparte en cualquier plataforma \u2014 Discord, Reddit, foros',
+    'code.hint.medium':'Cabe en Discord y la mayor\u00eda de chats',
+    'code.hint.heavy':'Largo \u2014 considera exportar como .mcopy',
+    'code.hint.max':'Muy pesado \u2014 usa exportar archivo .mcopy',
+    'paste.code.title':'Pegar c\u00f3digo MCOPY',
+    'paste.code.ph':'Pega aqu\u00ed el c\u00f3digo MCOPY:...',
+    'paste.code.import':'Importar',
+    'paste.code.err.prefix':'El c\u00f3digo debe empezar con MCOPY:',
+    'toast.code.copied':'C\u00f3digo copiado',
+    'toast.code.imported':'Preset importado desde c\u00f3digo',
+    'code.label.light':'Ligero',
+    'code.label.medium':'Medio',
+    'code.label.heavy':'Pesado',
+    'code.label.max':'M\u00e1x',
+        'ctx.copy.code':'Copiar c\u00f3digo MCOPY',
+    'ctx.export.preset':'Exportar .mcopy',
+    'ctx.move.preset':'Mover a carpeta...',
+    'ctx.rename':'Renombrar',
+    'ctx.change.color':'Cambiar color',
+    'ctx.change.icon':'Cambiar icono',
+    'ctx.pin':'Anclar',
+    'ctx.unpin':'Desanclar',
+    'ctx.duplicate.folder':'Duplicar carpeta',
+    'ctx.move.all':'Mover todos los presets a...',
+    'ctx.export.folder':'Exportar carpeta',
+    'ctx.delete':'Eliminar',
+    'confirm.folder.msg':'\u00bfEliminar la carpeta?',
+    'confirm.folder.sub':'Los presets se mover\u00e1n a Sin clasificar.',
+    'confirm.preset.msg':'\u00bfEliminar este preset?',
+    'confirm.preset.sub':'Esta acci\u00f3n no se puede deshacer.',
+    'move.no.folders':'Sin otras carpetas',
+    'drop.invalid':'Solo se aceptan archivos .mcopy',
+    'drop.invalid.file':'Archivo .mcopy inv\u00e1lido',
+    'err.decode':'Error al decodificar',
+    'err.save':'Error al guardar',
+    'count.many':'{n} presets'
   },
   en:{
     'logo.sub':'for DaVinci Resolve \u00b7 Fusion','section.capture':'Capture',
@@ -818,7 +888,47 @@ var I18N = {
     'validate.name':'Name is required','validate.no.data':'Capture nodes first with COPY button',
     'validate.select':'Select a preset first',
     'cs.ready':'Data ready ({n} bytes) \u2014 save the preset',
-    'count.one':'{n} preset','count.many':'{n} presets'
+    'count.one':'{n} preset',    'section.code':'Code',
+    'btn.paste.code.label':'Paste code',
+    'btn.paste.code.sub':'Import preset from MCOPY:...',
+    'code.modal.title':'Preset code',
+    'code.copy.btn':'Copy code',
+    'code.hint.light':'Share anywhere \u2014 Discord, Reddit, forums',
+    'code.hint.medium':'Fits in Discord and most chats',
+    'code.hint.heavy':'Long \u2014 consider exporting as .mcopy',
+    'code.hint.max':'Very heavy \u2014 use export file .mcopy',
+    'paste.code.title':'Paste MCOPY code',
+    'paste.code.ph':'Paste MCOPY:... code here...',
+    'paste.code.import':'Import',
+    'paste.code.err.prefix':'Code must start with MCOPY:',
+    'toast.code.copied':'Code copied',
+    'toast.code.imported':'Preset imported from code',
+    'code.label.light':'Light',
+    'code.label.medium':'Medium',
+    'code.label.heavy':'Heavy',
+    'code.label.max':'Max',
+        'ctx.copy.code':'Copy MCOPY code',
+    'ctx.export.preset':'Export .mcopy',
+    'ctx.move.preset':'Move to folder...',
+    'ctx.rename':'Rename',
+    'ctx.change.color':'Change color',
+    'ctx.change.icon':'Change icon',
+    'ctx.pin':'Pin',
+    'ctx.unpin':'Unpin',
+    'ctx.duplicate.folder':'Duplicate folder',
+    'ctx.move.all':'Move all presets to...',
+    'ctx.export.folder':'Export folder',
+    'ctx.delete':'Delete',
+    'confirm.folder.msg':'Delete the folder?',
+    'confirm.folder.sub':'Presets will be moved to Uncategorized.',
+    'confirm.preset.msg':'Delete this preset?',
+    'confirm.preset.sub':'This action cannot be undone.',
+    'move.no.folders':'No other folders',
+    'drop.invalid':'Only .mcopy files are accepted',
+    'drop.invalid.file':'Invalid .mcopy file',
+    'err.decode':'Error decoding',
+    'err.save':'Error saving',
+    'count.many':'{n} presets'
   },
   de:{
     'logo.sub':'f\u00fcr DaVinci Resolve \u00b7 Fusion','section.capture':'Erfassen',
@@ -851,7 +961,47 @@ var I18N = {
     'validate.name':'Name erforderlich','validate.no.data':'Erst Nodes mit KOPIEREN erfassen',
     'validate.select':'Erst ein Preset ausw\u00e4hlen',
     'cs.ready':'Daten bereit ({n} Bytes) \u2014 Preset speichern',
-    'count.one':'{n} Preset','count.many':'{n} Presets'
+    'count.one':'{n} Preset',    'section.code':'Code',
+    'btn.paste.code.label':'Code einf\u00fcgen',
+    'btn.paste.code.sub':'Preset von MCOPY:... importieren',
+    'code.modal.title':'Preset-Code',
+    'code.copy.btn':'Code kopieren',
+    'code.hint.light':'\u00dcberall teilen \u2014 Discord, Reddit, Foren',
+    'code.hint.medium':'Passt in Discord und die meisten Chats',
+    'code.hint.heavy':'Lang \u2014 als .mcopy exportieren empfohlen',
+    'code.hint.max':'Sehr schwer \u2014 .mcopy-Datei verwenden',
+    'paste.code.title':'MCOPY-Code einf\u00fcgen',
+    'paste.code.ph':'MCOPY:... Code hier einf\u00fcgen...',
+    'paste.code.import':'Importieren',
+    'paste.code.err.prefix':'Code muss mit MCOPY: beginnen',
+    'toast.code.copied':'Code kopiert',
+    'toast.code.imported':'Preset aus Code importiert',
+    'code.label.light':'Leicht',
+    'code.label.medium':'Mittel',
+    'code.label.heavy':'Schwer',
+    'code.label.max':'Max',
+        'ctx.copy.code':'MCOPY-Code kopieren',
+    'ctx.export.preset':'.mcopy exportieren',
+    'ctx.move.preset':'In Ordner verschieben...',
+    'ctx.rename':'Umbenennen',
+    'ctx.change.color':'Farbe \u00e4ndern',
+    'ctx.change.icon':'Symbol \u00e4ndern',
+    'ctx.pin':'Anheften',
+    'ctx.unpin':'L\u00f6sen',
+    'ctx.duplicate.folder':'Ordner duplizieren',
+    'ctx.move.all':'Alle Presets verschieben nach...',
+    'ctx.export.folder':'Ordner exportieren',
+    'ctx.delete':'L\u00f6schen',
+    'confirm.folder.msg':'Ordner l\u00f6schen?',
+    'confirm.folder.sub':'Presets werden in Unkategorisiert verschoben.',
+    'confirm.preset.msg':'Preset l\u00f6schen?',
+    'confirm.preset.sub':'Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.',
+    'move.no.folders':'Keine anderen Ordner',
+    'drop.invalid':'Nur .mcopy-Dateien werden akzeptiert',
+    'drop.invalid.file':'Ung\u00fcltige .mcopy-Datei',
+    'err.decode':'Dekodierungsfehler',
+    'err.save':'Speicherfehler',
+    'count.many':'{n} Presets'
   },
   hi:{
     'logo.sub':'DaVinci Resolve \u00b7 Fusion \u0915\u0947 \u0932\u093f\u090f',
@@ -889,7 +1039,47 @@ var I18N = {
     'toast.hex.err':'\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb','toast.scripting':'Scripting API: Pro',
     'validate.name':'\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915','validate.no.data':'\u092a\u0939\u0932\u0947 COPY \u0915\u0930\u0947\u0902',
     'validate.select':'\u092a\u0939\u0932\u0947 \u0915\u094b\u0908 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
-    'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes)','count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f','count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
+    'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes)','count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',    'section.code':'\u0915\u094b\u0921',
+    'btn.paste.code.label':'\u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
+    'btn.paste.code.sub':'MCOPY:... \u0938\u0947 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0906\u092f\u093e\u0924',
+    'code.modal.title':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0915\u094b\u0921',
+    'code.copy.btn':'\u0915\u094b\u0921 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902',
+    'code.hint.light':'\u0915\u0939\u0940\u0902 \u092d\u0940 \u0936\u0947\u092f\u0930 \u0915\u0930\u0947\u0902 \u2014 Discord, Reddit, \u092b\u094b\u0930\u092e',
+    'code.hint.medium':'Discord \u0914\u0930 \u0905\u0927\u093f\u0915\u0924\u0930 \u091a\u0948\u091f \u092e\u0947\u0902 \u0906\u0924\u093e \u0939\u0948',
+    'code.hint.heavy':'\u0932\u0902\u092c\u093e \u2014 .mcopy \u0928\u093f\u0930\u094d\u092f\u093e\u0924 \u0915\u0930\u0947\u0902',
+    'code.hint.max':'\u092c\u0939\u0941\u0924 \u092d\u093e\u0930\u0940 \u2014 .mcopy \u092b\u093c\u093e\u0907\u0932 \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902',
+    'paste.code.title':'MCOPY \u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
+    'paste.code.ph':'\u092f\u0939\u093e\u0901 MCOPY:... \u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902...',
+    'paste.code.import':'\u0906\u092f\u093e\u0924',
+    'paste.code.err.prefix':'\u0915\u094b\u0921 MCOPY: \u0938\u0947 \u0936\u0941\u0930\u0942 \u0939\u094b\u0928\u093e \u091a\u093e\u0939\u093f\u090f',
+    'toast.code.copied':'\u0915\u094b\u0921 \u0915\u0949\u092a\u0940 \u0939\u0941\u0906',
+    'toast.code.imported':'\u0915\u094b\u0921 \u0938\u0947 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0906\u092f\u093e\u0924 \u0915\u093f\u092f\u093e',
+    'code.label.light':'\u0939\u0932\u094d\u0915\u093e',
+    'code.label.medium':'\u092e\u0927\u094d\u092f\u092e',
+    'code.label.heavy':'\u092d\u093e\u0930\u0940',
+    'code.label.max':'\u0905\u0927\u093f\u0915\u0924\u092e',
+        'ctx.copy.code':'MCOPY \u0915\u094b\u0921 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902',
+    'ctx.export.preset':'.mcopy \u0928\u093f\u0930\u094d\u092f\u093e\u0924',
+    'ctx.move.preset':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u092e\u0947\u0902 \u0932\u0947 \u091c\u093e\u090f\u0902...',
+    'ctx.rename':'\u0928\u093e\u092e \u092c\u0926\u0932\u0947\u0902',
+    'ctx.change.color':'\u0930\u0902\u0917 \u092c\u0926\u0932\u0947\u0902',
+    'ctx.change.icon':'\u0906\u0907\u0915\u0949\u0928 \u092c\u0926\u0932\u0947\u0902',
+    'ctx.pin':'\u092a\u093f\u0928 \u0915\u0930\u0947\u0902',
+    'ctx.unpin':'\u0905\u0928\u092a\u093f\u0928 \u0915\u0930\u0947\u0902',
+    'ctx.duplicate.folder':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0921\u0941\u092a\u094d\u0932\u093f\u0915\u0947\u091f \u0915\u0930\u0947\u0902',
+    'ctx.move.all':'\u0938\u092d\u0940 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0932\u0947 \u091c\u093e\u090f\u0902...',
+    'ctx.export.folder':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0928\u093f\u0930\u094d\u092f\u093e\u0924 \u0915\u0930\u0947\u0902',
+    'ctx.delete':'\u0939\u091f\u093e\u090f\u0902',
+    'confirm.folder.msg':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0939\u091f\u093e\u090f\u0902?',
+    'confirm.folder.sub':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u092c\u093f\u0928\u093e \u0935\u0930\u094d\u0917\u0940\u0915\u0943\u0924 \u092e\u0947\u0902 \u091c\u093e\u090f\u0902\u0917\u0947\u0964',
+    'confirm.preset.msg':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0939\u091f\u093e\u090f\u0902?',
+    'confirm.preset.sub':'\u092f\u0939 \u0915\u094d\u0930\u093f\u092f\u093e \u092a\u0942\u0930\u094d\u0935\u0935\u0924 \u0928\u0939\u0940\u0902 \u0915\u0940 \u091c\u093e \u0938\u0915\u0924\u0940\u0964',
+    'move.no.folders':'\u0915\u094b\u0908 \u0905\u0928\u094d\u092f \u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0928\u0939\u0940\u0902',
+    'drop.invalid':'\u0915\u0947\u0935\u0932 .mcopy \u092b\u093c\u093e\u0907\u0932\u0947\u0902 \u0938\u094d\u0935\u0940\u0915\u093e\u0930 \u0939\u0948\u0902',
+    'drop.invalid.file':'\u0905\u092e\u093e\u0928\u094d\u092f .mcopy \u092b\u093c\u093e\u0907\u0932',
+    'err.decode':'\u0921\u093f\u0915\u094b\u0921 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'err.save':'\u0938\u0939\u0947\u091c\u0928\u0947 \u092e\u0947\u0902 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
   }
 };
 
@@ -1119,24 +1309,24 @@ function openCtxMenu(e,type,id){
   var menu=document.getElementById('ctx-menu');
   if(type==='folder'){
     var f=vState.folders.filter(function(x){return x.id===id;})[0]||{};
-    var pl=f.pinned?'\u2605 Desanclar':'\u2605 Anclar';
-    menu.innerHTML='<div class="ctx-item" data-action="rename">Renombrar</div>'
-      +'<div class="ctx-item" data-action="color">Cambiar color</div>'
-      +'<div class="ctx-item" data-action="icon">Cambiar icono</div>'
+    var pl=f.pinned?'\u2605 '+t('ctx.unpin'):'\u2605 '+t('ctx.pin');
+    menu.innerHTML='<div class="ctx-item" data-action="rename">'+t('ctx.rename')+'</div>'
+      +'<div class="ctx-item" data-action="color">'+t('ctx.change.color')+'</div>'
+      +'<div class="ctx-item" data-action="icon">'+t('ctx.change.icon')+'</div>'
       +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item" data-action="pin">'+pl+'</div>'
-      +'<div class="ctx-item" data-action="duplicate">Duplicar carpeta</div>'
-      +'<div class="ctx-item" data-action="move-all">Mover todos los presets a...</div>'
+      +'<div class="ctx-item" data-action="duplicate">'+t('ctx.duplicate.folder')+'</div>'
+      +'<div class="ctx-item" data-action="move-all">'+t('ctx.move.all')+'</div>'
       +'<div class="ctx-sep"></div>'
-      +'<div class="ctx-item" data-action="export-folder">Exportar carpeta</div>'
+      +'<div class="ctx-item" data-action="export-folder">'+t('ctx.export.folder')+'</div>'
       +'<div class="ctx-sep"></div>'
-      +'<div class="ctx-item danger" data-action="delete-folder">Eliminar</div>';
+      +'<div class="ctx-item danger" data-action="delete-folder">'+t('ctx.delete')+'</div>';
   }else{
-    menu.innerHTML='<div class="ctx-item" data-action="copy-code">Copiar código MCOPY</div>'
-      +'<div class="ctx-item" data-action="export-preset">Exportar .mcopy</div>'
-      +'<div class="ctx-item" data-action="move-preset">Mover a carpeta...</div>'
+    menu.innerHTML='<div class="ctx-item" data-action="copy-code">'+t('ctx.copy.code')+'</div>'
+      +'<div class="ctx-item" data-action="export-preset">'+t('ctx.export.preset')+'</div>'
+      +'<div class="ctx-item" data-action="move-preset">'+t('ctx.move.preset')+'</div>'
       +'<div class="ctx-sep"></div>'
-      +'<div class="ctx-item danger" data-action="delete-preset">Eliminar</div>';
+      +'<div class="ctx-item danger" data-action="delete-preset">'+t('ctx.delete')+'</div>';
   }
   menu.style.left=e.clientX+'px';menu.style.top=e.clientY+'px';
   menu.classList.add('open');
@@ -1154,11 +1344,11 @@ function handleCtxAction(action){
   else if(action==='duplicate'){doDuplicateFolder(id);}
   else if(action==='move-all'){openMoveDialog('folder',id);}
   else if(action==='export-folder'){doExportFolder(id);}
-  else if(action==='delete-folder'){openConfirm('\u00BFEliminar la carpeta?','Los presets se mover\u00E1n a Sin clasificar.',function(){doDeleteFolder(id);});}
+  else if(action==='delete-folder'){openConfirm(t('confirm.folder.msg'),t('confirm.folder.sub'),function(){doDeleteFolder(id);});}
   else if(action==='copy-code'){doShowCode(id);}
   else if(action==='export-preset'){doExportPreset(id);}
   else if(action==='move-preset'){openMoveDialog('preset',id);}
-  else if(action==='delete-preset'){openConfirm('\u00BFEliminar este preset?','Esta acci\u00F3n no se puede deshacer.',function(){doDeletePreset(id);});}
+  else if(action==='delete-preset'){openConfirm(t('confirm.preset.msg'),t('confirm.preset.sub'),function(){doDeletePreset(id);});}
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -1231,7 +1421,7 @@ function openMoveDialog(type,srcId){
   moveMeta.type=type;moveMeta.sourceId=srcId;
   var h='<div class="move-item" data-target="unorg"><div class="move-dot" style="background:var(--tx3)"></div><span>'+esc(t('folder.unorg'))+'</span></div>';
   vState.folders.forEach(function(f){if(type==='folder'&&f.id===srcId)return;h+='<div class="move-item" data-target="'+f.id+'"><div class="move-dot" style="background:'+esc(f.color)+'"></div><span>'+esc(f.name)+'</span></div>';});
-  if(!vState.folders.length&&type==='preset')h+='<div class="move-item" style="color:var(--tx3);cursor:default;font-size:10px">Sin otras carpetas</div>';
+  if(!vState.folders.length&&type==='preset')h+='<div class="move-item" style="color:var(--tx3);cursor:default;font-size:10px">'+t('move.no.folders')+'</div>';
   document.getElementById('move-list').innerHTML=h;
   document.getElementById('move-overlay').classList.add('open');
 }
@@ -1380,10 +1570,10 @@ function updateCodeScale(chars) {
     document.getElementById('code-scale-bar').style.setProperty('--scale-pos', pct.toFixed(1) + '%');
     document.getElementById('code-chars').textContent = chars.toLocaleString() + ' caracteres';
     var hint;
-    if (chars <= 800)       { hint = 'Comparte en cualquier plataforma — Discord, Reddit, foros'; }
-    else if (chars <= 2000) { hint = 'Cabe en Discord y la mayoría de chats'; }
-    else if (chars <= 4000) { hint = 'Largo — considera exportar como .mcopy'; }
-    else                    { hint = 'Muy pesado — usa exportar archivo .mcopy'; }
+    if (chars <= 800)       { hint = t('code.hint.light'); }
+    else if (chars <= 2000) { hint = t('code.hint.medium'); }
+    else if (chars <= 4000) { hint = t('code.hint.heavy'); }
+    else                    { hint = t('code.hint.max'); }
     document.getElementById('code-hint').textContent = hint;
 }
 
@@ -1411,12 +1601,12 @@ function doImportFromCode(code) {
     var errEl = document.getElementById('paste-code-err');
     errEl.textContent = '';
     if (!code.startsWith('MCOPY:')) {
-        errEl.textContent = 'El código debe empezar con MCOPY:';
+        errEl.textContent = t('paste.code.err.prefix');
         return;
     }
     pyCall('decode_preset_code', code).then(function(r) {
         if (!r || !r.ok) {
-            errEl.textContent = r ? r.error : 'Error al decodificar';
+            errEl.textContent = r ? r.error : t('err.decode');
             return;
         }
         var fid = (vState.view === 'presets' && typeof vState.folderId === 'number')
@@ -1429,11 +1619,11 @@ function doImportFromCode(code) {
         })).then(function(res) {
             if (res && res.ok) {
                 closePasteCodeDialog();
-                toast('Preset importado desde código', 'ok');
+                toast(t('toast.code.imported'), 'ok');
                 if (vState.view === 'folders') loadFolders();
                 else loadCurrentPresets();
             } else {
-                errEl.textContent = res ? res.error : 'Error al guardar';
+                errEl.textContent = res ? res.error : t('err.save');
             }
         });
     });
@@ -1544,19 +1734,28 @@ document.getElementById('move-list').addEventListener('click',function(e){var it
 
 /* — Code modal — */
 document.getElementById('code-close').addEventListener('click', closeCodeModal);
-document.getElementById('code-overlay').addEventListener('click', function(e) {
-    if (e.target === this) closeCodeModal();
-});
-document.getElementById('code-copy-btn').addEventListener('click', function() {
+(function(){
+    var _md = false;
+    document.getElementById('code-overlay').addEventListener('mousedown', function(e) {
+        _md = (e.target === this);
+    });
+    document.getElementById('code-overlay').addEventListener('mouseup', function(e) {
+        if (_md && e.target === this) closeCodeModal();
+        _md = false;
+    });
+})();
+document.getElementById('code-copy-btn').addEventListener('mousedown',function(e){e.stopPropagation();});
+document.getElementById('code-copy-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
     var code = document.getElementById('code-output').value;
     if (navigator.clipboard) {
         navigator.clipboard.writeText(code).then(function() {
-            toast('Código copiado', 'ok');
+            toast(t('toast.code.copied'), 'ok');
         });
     } else {
         document.getElementById('code-output').select();
         document.execCommand('copy');
-        toast('Código copiado', 'ok');
+        toast(t('toast.code.copied'), 'ok');
     }
 });
 
@@ -1586,9 +1785,9 @@ rightEl.addEventListener('drop',function(e){
   e.preventDefault();dragCounter=0;dropOv.classList.remove('active');
   var files=e.dataTransfer.files;if(!files.length)return;
   var file=files[0];
-  if(!file.name.endsWith('.mcopy')){toast('Solo se aceptan archivos .mcopy','err');return;}
+  if(!file.name.endsWith('.mcopy')){toast(t('drop.invalid'),'err');return;}
   var reader=new FileReader();
-  reader.onload=function(ev){try{doImportFromData(JSON.parse(ev.target.result));}catch(ex){toast('Archivo .mcopy inv\u00e1lido','err');}};
+  reader.onload=function(ev){try{doImportFromData(JSON.parse(ev.target.result));}catch(ex){toast(t('drop.invalid.file'),'err');}};
   reader.readAsText(file);
 });
 

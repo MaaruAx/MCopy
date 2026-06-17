@@ -345,39 +345,44 @@ textarea{resize:none;}
     background: var(--sf);
     border: 2px solid var(--bd);
     border-radius: var(--r);
-    width: 380px;
+    width: 440px;
+    max-height: 92vh;
     display: flex; flex-direction: column;
     box-shadow: 0 16px 52px rgba(0,0,0,.65);
     overflow: hidden;
 }
 #code-hdr {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 11px 15px;
+    padding: 13px 18px;
     border-bottom: 2px solid var(--bd);
     font-family: var(--font-display); font-weight: 900;
     font-variation-settings: 'wght' 900;
-    font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
+    font-size: 16px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
+    flex-shrink: 0;
 }
-#code-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
+#code-close { font-size: 14px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
 #code-close:hover { color: var(--red); }
-#code-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 10px; }
-#code-output-wrap {
-    position: relative;
-    width: 100%;
+#code-body {
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 12px;
+    overflow-y: auto;
 }
+
+/* ─ Textarea ──────────────────────────────────────────────────────────────── */
+#code-output-wrap { position: relative; width: 100%; }
 #code-output {
-    width: 100%; height: 90px;
+    width: 100%; height: 130px;
     background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
-    color: var(--tx); font-family: var(--font-mono); font-size: 10px;
-    padding: 7px 32px 7px 9px; line-height: 1.5;
+    color: var(--tx); font-family: var(--font-mono); font-size: 11px;
+    padding: 10px 36px 10px 12px; line-height: 1.6;
     user-select: text; -webkit-user-select: text;
     resize: none; display: block;
 }
 #code-output:focus { border-color: var(--ac); outline: none; }
 #code-copy-btn {
     position: absolute;
-    bottom: 6px; right: 6px;
-    width: 22px; height: 22px;
+    bottom: 8px; right: 8px;
+    width: 26px; height: 26px;
     display: flex; align-items: center; justify-content: center;
     background: var(--sf3); border: 1px solid var(--bd2);
     border-radius: 4px; cursor: pointer;
@@ -386,7 +391,7 @@ textarea{resize:none;}
 }
 #code-copy-btn:hover { background: var(--bd2); border-color: var(--ac); }
 #code-copy-icon {
-    width: 13px; height: 13px;
+    width: 14px; height: 14px;
     background-color: var(--tx3);
     -webkit-mask-image: url('icons/copy.svg');
     mask-image: url('icons/copy.svg');
@@ -396,15 +401,17 @@ textarea{resize:none;}
     pointer-events: none;
 }
 #code-copy-btn:hover #code-copy-icon { background-color: var(--ac); }
-#code-meta { display: flex; flex-direction: column; gap: 6px; }
+
+/* ─ Contador y escala ─────────────────────────────────────────────────────── */
+#code-meta { display: flex; flex-direction: column; gap: 7px; }
 #code-chars {
-    font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 700; letter-spacing: .06em;
     text-transform: uppercase; color: var(--tx2);
 }
-/* ─ Barra de escala ─────────────────────────────────────────────────────── */
-#code-scale-wrap { display: flex; flex-direction: column; gap: 3px; }
+#code-scale-wrap { display: flex; flex-direction: column; gap: 4px; }
 #code-scale-bar {
-    height: 6px; border-radius: 3px; width: 100%;
+    height: 7px; border-radius: 4px; width: 100%;
     background: linear-gradient(to right,
         #5ce07a 0%, #5ce07a 20%,
         #d8a657 20%, #d8a657 50%,
@@ -418,23 +425,82 @@ textarea{resize:none;}
     content: '';
     position: absolute;
     top: -3px;
-    width: 3px; height: 12px;
+    width: 3px; height: 13px;
     background: var(--tx);
     border-radius: 2px;
     left: var(--scale-pos, 0%);
     transform: translateX(-50%);
     transition: left .3s ease;
-    box-shadow: 0 0 4px rgba(0,0,0,.5);
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
 }
 #code-scale-labels {
     display: flex; justify-content: space-between;
-    font-size: 8px; color: var(--tx3); letter-spacing: .04em; text-transform: uppercase;
+    font-family: var(--font-display);
+    font-size: 9px; color: var(--tx3); letter-spacing: .04em; text-transform: uppercase;
 }
 #code-hint {
-    font-size: 9px; color: var(--tx3); letter-spacing: .03em;
+    font-size: 10px; color: var(--tx3); letter-spacing: .03em;
     line-height: 1.5; font-style: italic;
 }
-/* #code-footer removed — copy icon is inline */
+
+/* ─ Sección QR ───────────────────────────────────────────────────────────── */
+#qr-section {
+    display: flex; flex-direction: column; gap: 10px;
+    padding-top: 12px;
+    border-top: 2px solid var(--bd);
+}
+#qr-controls { display: flex; gap: 8px; align-items: center; }
+#qr-save-row { display: none; }
+#qr-save-row.visible { display: flex; gap: 8px; }
+.qr-btn {
+    flex: 1;
+    padding: 9px 0;
+    font-family: var(--font-display); font-weight: 900;
+    font-variation-settings: 'wght' 900;
+    font-size: 12px; letter-spacing: .04em; text-transform: uppercase;
+    border: 2px solid var(--bd); border-radius: var(--r);
+    background: var(--sf2); color: var(--tx2);
+    cursor: pointer; transition: border-color var(--tr), color var(--tr), filter var(--tr);
+}
+.qr-btn:hover:not(.disabled) { border-color: var(--ac); color: var(--ac); }
+.qr-btn.primary { background: var(--ac); color: #000; border-color: var(--ac); }
+.qr-btn.primary:hover:not(.disabled) { filter: brightness(.88); }
+.qr-btn.disabled { opacity: .35; cursor: not-allowed; }
+#qr-canvas-wrap {
+    display: none;
+    background: #ffffff;
+    border-radius: var(--r);
+    padding: 12px;
+    align-self: center;
+}
+#qr-canvas-wrap.visible { display: flex; }
+#qr-canvas-wrap canvas { display: block; }
+#qr-label {
+    display: none;
+    align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 4px 0 2px;
+}
+#qr-label.visible { display: flex; }
+#qr-label-icon {
+    width: 16px; height: 16px;
+    background-color: var(--tx2);
+    -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+    mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+    flex-shrink: 0;
+}
+#qr-label-name {
+    font-family: var(--font-display); font-weight: 700;
+    font-size: 11px; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--tx2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 280px;
+}
+#qr-limit-note {
+    display: none;
+    font-size: 9px; color: var(--tx3); letter-spacing: .03em; text-align: center;
+}
+#qr-limit-note.visible { display: block; }
+
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOQUE 20 — PASTE CODE DIALOG
@@ -506,6 +572,40 @@ textarea{resize:none;}
 #paste-code-ok:hover { filter: brightness(.88); }
 
 /* ════════════════════════════════════════════════════════════════════════════
+   BLOQUE 20 — TOOLTIPS PERSONALIZADOS
+════════════════════════════════════════════════════════════════════════════ */
+[data-tooltip] { position: relative; }
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--sf2);
+    border: 1px solid var(--bd2);
+    color: var(--tx);
+    font-family: var(--font-display);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .12s ease;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,.5);
+}
+[data-tooltip]:hover::after { opacity: 1; }
+/* Tooltips en topbar — apuntan hacia abajo */
+#topbar [data-tooltip]::after {
+    bottom: auto;
+    top: calc(100% + 6px);
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
    BLOQUE 21 — TOASTS
 ════════════════════════════════════════════════════════════════════════════ */
 #toasts{position:fixed;bottom:32px;right:13px;z-index:700;display:flex;flex-direction:column;gap:5px;pointer-events:none;}
@@ -521,6 +621,7 @@ textarea{resize:none;}
 @keyframes folderIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .fcard-anim{animation:folderIn .18s ease;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -531,9 +632,9 @@ textarea{resize:none;}
     <div class="logo-sub" data-i18n="logo.sub">para DaVinci Resolve &middot; Fusion</div>
   </div>
   <div id="topbar-right">
-    <div class="wbtn wsettings" id="btn-settings">&#9881;</div>
-    <div class="wbtn" id="btn-min">&#8211;</div>
-    <div class="wbtn wclose" id="btn-close">&#10005;</div>
+    <div class="wbtn wsettings" id="btn-settings" data-i18n-tooltip="tooltip.settings" data-tooltip="Settings">&#9881;</div>
+    <div class="wbtn" id="btn-min" data-i18n-tooltip="tooltip.minimize" data-tooltip="Minimize">&#8211;</div>
+    <div class="wbtn wclose" id="btn-close" data-i18n-tooltip="tooltip.close" data-tooltip="Close">&#10005;</div>
   </div>
 </div>
 
@@ -586,7 +687,7 @@ textarea{resize:none;}
         <input type="text" id="search-input" data-i18n-ph="search.folders.ph" placeholder="Buscar carpetas...">
         <span id="search-count"></span>
         <div id="sort-btn">&#8595; Reciente</div>
-        <div id="import-btn" title="Importar .mcopy"><div class="import-btn-icon"></div></div>
+        <div id="import-btn" data-i18n-tooltip="tooltip.import" data-tooltip="Import .mcopy"><div class="import-btn-icon"></div></div>
       </div>
     </div>
     <div id="right-content">
@@ -733,7 +834,7 @@ textarea{resize:none;}
     <div id="code-body">
       <div id="code-output-wrap">
         <textarea id="code-output" readonly spellcheck="false"></textarea>
-        <button id="code-copy-btn" title="Copiar">
+        <button id="code-copy-btn" data-i18n-tooltip="tooltip.copy" data-tooltip="Copy">
           <div id="code-copy-icon"></div>
         </button>
       </div>
@@ -746,6 +847,21 @@ textarea{resize:none;}
           </div>
         </div>
         <div id="code-hint"></div>
+      </div>
+
+      <div id="qr-section">
+        <div id="qr-controls">
+          <button class="qr-btn primary" id="qr-generate-btn" data-i18n="qr.generate">Generar c&oacute;digo QR</button>
+        </div>
+        <div id="qr-limit-note" data-i18n="qr.limit.note">El c&oacute;digo es muy largo para un QR legible &mdash; usa copiar c&oacute;digo o exportar .mcopy</div>
+        <div id="qr-canvas-wrap"></div>
+        <div id="qr-label">
+          <div id="qr-label-icon"></div>
+          <span id="qr-label-name"></span>
+        </div>
+        <div id="qr-save-row" style="display:none">
+          <button class="qr-btn" id="qr-save-btn" data-i18n="qr.save">Guardar imagen</button>
+        </div>
       </div>
     </div>
 
@@ -854,6 +970,19 @@ var I18N = {
     'drop.invalid.file':'Archivo .mcopy inv\u00e1lido',
     'err.decode':'Error al decodificar',
     'err.save':'Error al guardar',
+    'qr.generate':'Generar c\u00f3digo QR',
+    'qr.save':'Guardar imagen',
+    'qr.limit.note':'El c\u00f3digo es muy largo para un QR legible \u2014 usa copiar c\u00f3digo o exportar .mcopy',
+    'qr.saved':'Imagen QR guardada',
+    'tooltip.settings':'Ajustes',
+    'tooltip.minimize':'Minimizar',
+    'tooltip.close':'Cerrar',
+    'tooltip.import':'Importar .mcopy',
+    'tooltip.copy':'Copiar',
+    'tooltip.sort':'Cambiar orden',
+    'tooltip.paste':'Pegar',
+    'tooltip.menu':'Men\u00fa',
+    'code.chars.suffix':'caracteres',
     'count.many':'{n} presets'
   },
   en:{
@@ -928,6 +1057,19 @@ var I18N = {
     'drop.invalid.file':'Invalid .mcopy file',
     'err.decode':'Error decoding',
     'err.save':'Error saving',
+    'qr.generate':'Generate QR code',
+    'qr.save':'Save image',
+    'qr.limit.note':'Code is too long for a readable QR \u2014 use copy code or export .mcopy',
+    'qr.saved':'QR image saved',
+    'tooltip.settings':'Settings',
+    'tooltip.minimize':'Minimize',
+    'tooltip.close':'Close',
+    'tooltip.import':'Import .mcopy',
+    'tooltip.copy':'Copy',
+    'tooltip.sort':'Change sort order',
+    'tooltip.paste':'Paste',
+    'tooltip.menu':'Menu',
+    'code.chars.suffix':'characters',
     'count.many':'{n} presets'
   },
   de:{
@@ -1001,6 +1143,19 @@ var I18N = {
     'drop.invalid.file':'Ung\u00fcltige .mcopy-Datei',
     'err.decode':'Dekodierungsfehler',
     'err.save':'Speicherfehler',
+    'qr.generate':'QR-Code generieren',
+    'qr.save':'Bild speichern',
+    'qr.limit.note':'Code ist zu lang f\u00fcr einen lesbaren QR \u2014 Code kopieren oder .mcopy exportieren',
+    'qr.saved':'QR-Bild gespeichert',
+    'tooltip.settings':'Einstellungen',
+    'tooltip.minimize':'Minimieren',
+    'tooltip.close':'Schlie\u00dfen',
+    'tooltip.import':'.mcopy importieren',
+    'tooltip.copy':'Kopieren',
+    'tooltip.sort':'Sortierung \u00e4ndern',
+    'tooltip.paste':'Einf\u00fcgen',
+    'tooltip.menu':'Men\u00fc',
+    'code.chars.suffix':'Zeichen',
     'count.many':'{n} Presets'
   },
   hi:{
@@ -1079,6 +1234,19 @@ var I18N = {
     'drop.invalid.file':'\u0905\u092e\u093e\u0928\u094d\u092f .mcopy \u092b\u093c\u093e\u0907\u0932',
     'err.decode':'\u0921\u093f\u0915\u094b\u0921 \u0924\u094d\u0930\u0941\u091f\u093f',
     'err.save':'\u0938\u0939\u0947\u091c\u0928\u0947 \u092e\u0947\u0902 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'qr.generate':'QR \u0915\u094b\u0921 \u092c\u0928\u093e\u0913\u0902',
+    'qr.save':'\u091a\u093f\u0924\u094d\u0930 \u0938\u0939\u0947\u091c\u0947\u0902',
+    'qr.limit.note':'\u0915\u094b\u0921 \u092c\u0939\u0941\u0924 \u0932\u0902\u092c\u093e \u0939\u0948 \u2014 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902 \u092f\u093e .mcopy \u0928\u093f\u0930\u094d\u092f\u093e\u0924 \u0915\u0930\u0947\u0902',
+    'qr.saved':'QR \u091a\u093f\u0924\u094d\u0930 \u0938\u0939\u0947\u091c\u093e \u0917\u092f\u093e',
+    'tooltip.settings':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938',
+    'tooltip.minimize':'\u0928\u094d\u092f\u0942\u0928\u0924\u0930',
+    'tooltip.close':'\u092c\u0902\u0926 \u0915\u0930\u0947\u0902',
+    'tooltip.import':'.mcopy \u0906\u092f\u093e\u0924',
+    'tooltip.copy':'\u0915\u0949\u092a\u0940',
+    'tooltip.sort':'\u0915\u094d\u0930\u092e \u092c\u0926\u0932\u0947\u0902',
+    'tooltip.paste':'\u092a\u0947\u0938\u094d\u091f',
+    'tooltip.menu':'\u092e\u0947\u0928\u0942',
+    'code.chars.suffix':'\u0905\u0915\u094d\u0937\u0930',
     'count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
   }
 };
@@ -1088,6 +1256,7 @@ function applyI18n(lang){
   var S=I18N[lang]||I18N['es'];
   document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(S[k]!==undefined)el.textContent=S[k];});
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var k=el.getAttribute('data-i18n-ph');if(S[k]!==undefined)el.placeholder=S[k];});
+  document.querySelectorAll('[data-i18n-tooltip]').forEach(function(el){var k=el.getAttribute('data-i18n-tooltip');if(S[k]!==undefined)el.setAttribute('data-tooltip',S[k]);});
   document.documentElement.lang=lang;
 }
 
@@ -1111,7 +1280,7 @@ var ICON_LIST=['folder','star','bookmark','heart','tag','box','lock','palette','
    BLOQUE JS 3 — ESTADO GLOBAL
 ════════════════════════════════════════════════════════════════════════════ */
 var cfg={theme:'mmarket',accent:'#f5c842',font:'barlow',mode:'clipboard',lang:'es',folder_style:'tab'};
-var vState={view:'folders',folderId:null,folderName:'',folderColor:'',sortMode:'recent',folders:[],totalCount:0,unorgCount:0};
+var vState={view:'folders',folderId:null,folderName:'',folderColor:'',folderIcon:'',sortMode:'recent',folders:[],totalCount:0,unorgCount:0};
 var pendingData=null, selectedId=null, allPresets=[], searchTimer=null;
 var ctxMeta={type:null,id:null}, confirmCallback=null;
 var moveMeta={type:null,sourceId:null};
@@ -1149,7 +1318,7 @@ function syncSettingsUI(){
   document.querySelectorAll('[data-folder-style]').forEach(function(b){b.classList.toggle('active',b.dataset.folderStyle===cfg.folder_style);});
   renderSwatches();
 }
-function renderSwatches(){var T=THEMES[cfg.theme]||THEMES.mmarket,h='';T.accents.forEach(function(c){var a=c.toLowerCase()===cfg.accent.toLowerCase()?' active':'';h+='<div class="swatch'+a+'" data-color="'+esc(c)+'" style="background:'+esc(c)+'" title="'+esc(c)+'"></div>';});document.getElementById('accent-swatches').innerHTML=h;document.getElementById('hex-input').value=cfg.accent;}
+function renderSwatches(){var T=THEMES[cfg.theme]||THEMES.mmarket,h='';T.accents.forEach(function(c){var a=c.toLowerCase()===cfg.accent.toLowerCase()?' active':'';h+='<div class="swatch'+a+'" data-color="'+esc(c)+'" style="background:'+esc(c)+'" data-tooltip="'+esc(c)+'"></div>';});document.getElementById('accent-swatches').innerHTML=h;document.getElementById('hex-input').value=cfg.accent;}
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOQUE JS 7 — NAVEGACIÓN ENTRE VISTAS
@@ -1165,11 +1334,11 @@ function gotoFolders(){
   saveViewState();
   loadFolders();
 }
-function gotoPresets(fid,name,color,style){
+function gotoPresets(fid,name,color,style,icon){
   var card=document.querySelector('.fcard[data-id="'+fid+'"]');
   if(card){card.style.transform='scale(1.05)';card.style.transition='transform .1s ease';setTimeout(function(){card.style.transform='';card.style.transition='';},100);}
   setTimeout(function(){
-    vState.view='presets';vState.folderId=fid;vState.folderName=name;vState.folderColor=color;
+    vState.view='presets';vState.folderId=fid;vState.folderName=name;vState.folderColor=color;vState.folderIcon=icon||'';
     document.getElementById('folders-view').classList.add('v-hidden');
     document.getElementById('presets-view').classList.remove('v-hidden');
     document.getElementById('bc-folder').textContent=name;
@@ -1294,8 +1463,8 @@ function renderPresetList(list){
       +'<div class="pcard-body"><div class="pcard-name">'+esc(p.name)+'</div>'+desc
       +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span>'+badge+'</div></div>'
       +'<div class="pcard-actions">'
-      +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" title="Paste">&#9654;</div>'
-      +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" title="Menu">\u22EF</div>'
+      +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" data-tooltip="'+esc(t('tooltip.paste'))+'">&#9654;</div>'
+      +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" data-tooltip="'+esc(t('tooltip.menu'))+'">\u22EF</div>'
       +'</div></div>';
   });
   c.innerHTML=h;
@@ -1396,7 +1565,7 @@ function applyFolderColor(color){
 function openIconPicker(fid){
   iconPickerTarget=fid;
   var f=vState.folders.filter(function(x){return x.id===fid;})[0];var cur=f?f.icon:'folder';
-  var h='';ICON_LIST.forEach(function(n){var a=n===cur?' active':'';h+='<div class="ip-btn'+a+'" data-icon="'+esc(n)+'" title="'+esc(n)+'"><div class="ip-icon" style="-webkit-mask-image:url(\'icons/'+esc(n)+'.svg\');mask-image:url(\'icons/'+esc(n)+'.svg\')"></div></div>';});
+  var h='';ICON_LIST.forEach(function(n){var a=n===cur?' active':'';h+='<div class="ip-btn'+a+'" data-icon="'+esc(n)+'" data-tooltip="'+esc(n)+'"><div class="ip-icon" style="-webkit-mask-image:url(\'icons/'+esc(n)+'.svg\');mask-image:url(\'icons/'+esc(n)+'.svg\')"></div></div>';});
   document.getElementById('ip-grid').innerHTML=h;
   var picker=document.getElementById('icon-picker');
   var card=document.querySelector('.fcard[data-id="'+fid+'"]');
@@ -1555,11 +1724,24 @@ function doSaveSettings(){pyCall('save_settings',JSON.stringify(cfg)).then(funct
    BLOQUE JS 22b — CÓDIGO COMPARTIBLE (MCOPY: encode/decode)
 ════════════════════════════════════════════════════════════════════════════ */
 
+var QR_CHAR_LIMIT = 2000; // por encima de esto el QR deja de ser legible de forma confiable
+var currentCodeMeta = { type: null, name: '', icon: '', color: '' };
+
 function doShowCode(presetId) {
     pyCall('encode_preset', String(presetId)).then(function(r) {
         if (!r || !r.ok) { toast(r ? r.error : 'Error', 'err'); return; }
         document.getElementById('code-output').value = r.code;
         updateCodeScale(r.chars);
+
+        var p = allPresets.filter(function(x) { return x.id === presetId; })[0];
+        var inRealFolder = (vState.view === 'presets' && vState.folderId !== 'unorg' && vState.folderId !== 'all');
+        currentCodeMeta = {
+            type:  'preset',
+            name:  p ? p.name : '',
+            icon:  inRealFolder ? (vState.folderIcon || 'folder') : 'box',
+            color: inRealFolder ? (vState.folderColor || cfg.accent) : cfg.accent
+        };
+        resetQRSection();
         document.getElementById('code-overlay').classList.add('open');
     });
 }
@@ -1568,18 +1750,110 @@ function updateCodeScale(chars) {
     var MAX = 5000;
     var pct = Math.min(chars / MAX * 100, 100);
     document.getElementById('code-scale-bar').style.setProperty('--scale-pos', pct.toFixed(1) + '%');
-    document.getElementById('code-chars').textContent = chars.toLocaleString() + ' caracteres';
+    document.getElementById('code-chars').textContent = chars.toLocaleString() + ' ' + t('code.chars.suffix');
     var hint;
     if (chars <= 800)       { hint = t('code.hint.light'); }
     else if (chars <= 2000) { hint = t('code.hint.medium'); }
     else if (chars <= 4000) { hint = t('code.hint.heavy'); }
     else                    { hint = t('code.hint.max'); }
     document.getElementById('code-hint').textContent = hint;
+
+    var genBtn = document.getElementById('qr-generate-btn');
+    var limitNote = document.getElementById('qr-limit-note');
+    if (chars > QR_CHAR_LIMIT) {
+        genBtn.classList.add('disabled');
+        limitNote.classList.add('visible');
+    } else {
+        genBtn.classList.remove('disabled');
+        limitNote.classList.remove('visible');
+    }
+}
+
+function resetQRSection() {
+    document.getElementById('qr-canvas-wrap').classList.remove('visible');
+    document.getElementById('qr-canvas-wrap').innerHTML = '';
+    document.getElementById('qr-label').classList.remove('visible');
+    document.getElementById('qr-save-row').classList.remove('visible');
+}
+
+function doGenerateQR() {
+    if (document.getElementById('qr-generate-btn').classList.contains('disabled')) return;
+    var code = document.getElementById('code-output').value;
+    if (!code) return;
+
+    var wrap = document.getElementById('qr-canvas-wrap');
+    wrap.innerHTML = '';
+    wrap.classList.add('visible');
+
+    try {
+        new QRCode(wrap, {
+            text: code,
+            width: 200,
+            height: 200,
+            colorDark: '#000000',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+        });
+    } catch (e) {
+        toast('Error al generar QR', 'err');
+        wrap.classList.remove('visible');
+        return;
+    }
+
+    var labelEl = document.getElementById('qr-label');
+    var nameEl  = document.getElementById('qr-label-name');
+    var iconEl  = document.getElementById('qr-label-icon');
+    nameEl.textContent = currentCodeMeta.name || '';
+    var dk = darkenColor(currentCodeMeta.color || cfg.accent, .62);
+    iconEl.style.backgroundColor = dk;
+    iconEl.style.maskImage = "url('icons/" + (currentCodeMeta.icon || 'box') + ".svg')";
+    iconEl.style.webkitMaskImage = "url('icons/" + (currentCodeMeta.icon || 'box') + ".svg')";
+    labelEl.classList.add('visible');
+    document.getElementById('qr-save-row').classList.add('visible');
+}
+
+function doSaveQR() {
+    var canvas = document.querySelector('#qr-canvas-wrap canvas');
+    if (!canvas) return;
+
+    var padding = 24;
+    var labelHeight = 40;
+    var W = canvas.width + padding * 2;
+    var H = canvas.height + padding * 2 + labelHeight;
+
+    var out = document.createElement('canvas');
+    out.width = W;
+    out.height = H;
+    var ctx = out.getContext('2d');
+
+    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sf').trim() || '#111111';
+    var txColor = getComputedStyle(document.documentElement).getPropertyValue('--tx').trim() || '#f0f0f0';
+
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(padding - 8, padding - 8, canvas.width + 16, canvas.height + 16);
+    ctx.drawImage(canvas, padding, padding);
+
+    ctx.fillStyle = txColor;
+    ctx.font = '700 13px sans-serif';
+    ctx.textAlign = 'center';
+    var label = currentCodeMeta.name || 'MCopy';
+    ctx.fillText(label, W / 2, padding * 2 + canvas.height + 22);
+
+    var link = document.createElement('a');
+    link.download = (label.toLowerCase().replace(/\s+/g, '_') || 'mcopy_qr') + '.png';
+    link.href = out.toDataURL('image/png');
+    link.click();
+    toast(t('qr.saved'), 'ok');
 }
 
 function closeCodeModal() {
     document.getElementById('code-overlay').classList.remove('open');
     document.getElementById('code-output').value = '';
+    resetQRSection();
+    currentCodeMeta = { type: null, name: '', icon: '', color: '' };
 }
 
 function openPasteCodeDialog() {
@@ -1649,9 +1923,9 @@ document.getElementById('folders-grid').addEventListener('click',function(e){
   var card=e.target.closest('.fcard');
   if(!card)return;
   var fid=card.dataset.id;
-  if(fid==='all'){gotoPresets('all',t('folder.all'),cfg.accent,'solid');}
-  else if(fid==='unorg'){gotoPresets('unorg',t('folder.unorg'),'#808080','tab');}
-  else{var f=vState.folders.filter(function(x){return x.id===parseInt(fid,10);})[0];if(f)gotoPresets(f.id,f.name,f.color,f.style);}
+  if(fid==='all'){gotoPresets('all',t('folder.all'),cfg.accent,'solid','grid');}
+  else if(fid==='unorg'){gotoPresets('unorg',t('folder.unorg'),'#808080','tab','box');}
+  else{var f=vState.folders.filter(function(x){return x.id===parseInt(fid,10);})[0];if(f)gotoPresets(f.id,f.name,f.color,f.style,f.icon);}
 });
 
 // Presets list
@@ -1757,6 +2031,18 @@ document.getElementById('code-copy-btn').addEventListener('click', function(e) {
         document.execCommand('copy');
         toast(t('toast.code.copied'), 'ok');
     }
+});
+
+/* — QR generation — */
+document.getElementById('qr-generate-btn').addEventListener('mousedown', function(e) { e.stopPropagation(); });
+document.getElementById('qr-generate-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    doGenerateQR();
+});
+document.getElementById('qr-save-btn').addEventListener('mousedown', function(e) { e.stopPropagation(); });
+document.getElementById('qr-save-btn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    doSaveQR();
 });
 
 /* — Paste code dialog — */

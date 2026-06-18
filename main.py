@@ -569,6 +569,17 @@ class Backend(QObject):
         except Exception as e:
             return json.dumps({"ok": False, "error": str(e)})
 
+    @Slot(str, result=str)
+    def copy_text_to_clipboard(self, text):
+        """Copia texto arbitrario al portapapeles del sistema (usado por el code modal)."""
+        try:
+            ok = clipboard_set_text(text)
+            if ok:
+                return json.dumps({"ok": True})
+            return json.dumps({"ok": False, "error": "No se pudo escribir en el portapapeles"})
+        except Exception as e:
+            return json.dumps({"ok": False, "error": str(e)})
+
     # ── Código comprimido (share) ─────────────────────────────────────────────
 
     @Slot(str, result=str)

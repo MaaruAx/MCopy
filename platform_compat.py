@@ -55,26 +55,14 @@ def clipboard_get_text():
     """Lee el portapapeles como texto. Devuelve str o None si falla."""
     try:
         if _OS == "Windows":
+            import win32clipboard
+            win32clipboard.OpenClipboard()
             try:
-                import win32clipboard
-                win32clipboard.OpenClipboard()
-                try:
-                    if win32clipboard.IsClipboardFormatAvailable(win32clipboard.CF_UNICODETEXT):
-                        return win32clipboard.GetClipboardData(win32clipboard.CF_UNICODETEXT)
-                    return None
-                finally:
-                    win32clipboard.CloseClipboard()
-            except ImportError:
-                # Fallback via tkinter si pywin32 no está instalado
-                try:
-                    import tkinter as tk
-                    root = tk.Tk()
-                    root.withdraw()
-                    text = root.clipboard_get()
-                    root.destroy()
-                    return text
-                except Exception:
-                    return None
+                if win32clipboard.IsClipboardFormatAvailable(win32clipboard.CF_UNICODETEXT):
+                    return win32clipboard.GetClipboardData(win32clipboard.CF_UNICODETEXT)
+                return None
+            finally:
+                win32clipboard.CloseClipboard()
 
         elif _OS == "Darwin":
             r = subprocess.run(["pbpaste"], capture_output=True, text=True, timeout=5)
@@ -105,29 +93,14 @@ def clipboard_set_text(text: str) -> bool:
     """Escribe texto en el portapapeles. Devuelve True si tuvo éxito."""
     try:
         if _OS == "Windows":
+            import win32clipboard
+            win32clipboard.OpenClipboard()
             try:
-                import win32clipboard
-                win32clipboard.OpenClipboard()
-                try:
-                    win32clipboard.EmptyClipboard()
-                    win32clipboard.SetClipboardData(win32clipboard.CF_UNICODETEXT, text)
-                    return True
-                finally:
-                    win32clipboard.CloseClipboard()
-            except ImportError:
-                try:
-                    import tkinter as tk
-                    root = tk.Tk()
-                    root.withdraw()
-                    root.clipboard_clear()
-                    root.clipboard_append(text)
-                    root.update()
-                    # Mantener el root vivo brevemente para que el clipboard persista
-                    root.after(8000, root.destroy)
-                    root.mainloop()
-                    return True
-                except Exception:
-                    return False
+                win32clipboard.EmptyClipboard()
+                win32clipboard.SetClipboardData(win32clipboard.CF_UNICODETEXT, text)
+                return True
+            finally:
+                win32clipboard.CloseClipboard()
 
         elif _OS == "Darwin":
             r = subprocess.run(["pbcopy"], input=text, text=True, timeout=5)

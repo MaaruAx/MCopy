@@ -621,7 +621,7 @@ textarea{resize:none;}
 @keyframes folderIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .fcard-anim{animation:folderIn .18s ease;}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="lib/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -1781,6 +1781,11 @@ function doGenerateQR() {
     var code = document.getElementById('code-output').value;
     if (!code) return;
 
+    if (typeof QRCode === 'undefined') {
+        toast('Error: librería QR no cargó (lib/qrcode.min.js no encontrado)', 'err');
+        return;
+    }
+
     var wrap = document.getElementById('qr-canvas-wrap');
     wrap.innerHTML = '';
     wrap.classList.add('visible');
@@ -1795,7 +1800,8 @@ function doGenerateQR() {
             correctLevel: QRCode.CorrectLevel.M
         });
     } catch (e) {
-        toast('Error al generar QR', 'err');
+        var detail = (e && (e.message || e.toString())) || 'desconocido';
+        toast('Error al generar QR: ' + detail, 'err');
         wrap.classList.remove('visible');
         return;
     }
@@ -2022,15 +2028,20 @@ document.getElementById('code-copy-btn').addEventListener('mousedown',function(e
 document.getElementById('code-copy-btn').addEventListener('click', function(e) {
     e.stopPropagation();
     var code = document.getElementById('code-output').value;
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(code).then(function() {
+    pyCall('copy_text_to_clipboard', code).then(function(r) {
+        if (r && r.ok) {
             toast(t('toast.code.copied'), 'ok');
-        });
-    } else {
-        document.getElementById('code-output').select();
-        document.execCommand('copy');
-        toast(t('toast.code.copied'), 'ok');
-    }
+        } else {
+            // Fallback: intentar vía execCommand del navegador
+            try {
+                document.getElementById('code-output').select();
+                document.execCommand('copy');
+                toast(t('toast.code.copied'), 'ok');
+            } catch (e2) {
+                toast((r && r.error) || 'Error al copiar', 'err');
+            }
+        }
+    });
 });
 
 /* — QR generation — */

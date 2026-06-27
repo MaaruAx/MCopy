@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <style>
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 1 — FONTS
+   BLOCK 1 — FONTS
 ════════════════════════════════════════════════════════════════════════════ */
 @font-face { font-family:'Monaspace Neon'; src:url('fonts/MonaspaceNeonVar.woff2') format('woff2'); font-weight:100 900; font-display:block; }
 @font-face { font-family:'Barlow Condensed'; src:url('fonts/BarlowCondensed-Regular.ttf') format('truetype'); font-weight:400; font-display:block; }
@@ -14,7 +14,7 @@
 /* VARIABLES */
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 2 — VARIABLES (tema MMarket por defecto)
+   BLOCK 2 — VARIABLES (default MMarket theme)
 ════════════════════════════════════════════════════════════════════════════ */
 :root {
   --bg:#0a0a0a; --sf:#111111; --sf2:#181818; --sf3:#222222;
@@ -28,7 +28,7 @@
   --logo-weight:900; --logo-wght:900;
 }
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 3 — RESET BASE
+   BLOCK 3 — BASE RESET
 ════════════════════════════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html,body{width:100%;height:100%;overflow:hidden;}
@@ -44,7 +44,7 @@ textarea{resize:none;}
 ::-webkit-scrollbar-thumb:hover{background:var(--tx3);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 4 — TOPBAR
+   BLOCK 4 — TOPBAR
 ════════════════════════════════════════════════════════════════════════════ */
 #topbar{height:40px;min-height:40px;display:flex;align-items:center;padding:0 9px 0 13px;background:var(--sf);border-bottom:2px solid var(--bd);flex-shrink:0;cursor:default;}
 #logo-block{display:flex;flex-direction:column;justify-content:center;gap:2px;}
@@ -58,20 +58,20 @@ textarea{resize:none;}
 .wbtn.wsettings:hover{color:var(--ac);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 5 — LAYOUT PRINCIPAL
+   BLOCK 5 — MAIN LAYOUT
 ════════════════════════════════════════════════════════════════════════════ */
 #main{flex:1;display:flex;overflow:hidden;min-height:0;}
 #left{width:282px;min-width:282px;max-width:282px;display:flex;flex-direction:column;padding:11px 11px 9px;gap:7px;overflow-y:auto;overflow-x:hidden;border-right:2px solid var(--bd);flex-shrink:0;}
 #right{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 6 — PANEL IZQUIERDO — controles de captura y formulario
+   BLOCK 6 — LEFT PANEL — capture controls and form
 ════════════════════════════════════════════════════════════════════════════ */
 .sl{display:flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:700;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--ac);flex-shrink:0;}
 .sl::after{content:'';flex:1;height:1px;background:var(--bd);}
 .act-btn{width:100%;border:2px solid var(--bd);border-radius:var(--r);padding:8px 11px 7px;background:var(--sf);cursor:pointer;transition:background var(--tr),border-color var(--tr),filter var(--tr);text-align:left;display:block;flex-shrink:0;}
-.act-btn:hover:not(.disabled){background:var(--sf2);border-color:var(--bd2);}
-.act-btn:active:not(.disabled){background:var(--bg);}
+.act-btn:hover:not(.disabled):not(.primary){background:var(--sf2);border-color:var(--bd2);}
+.act-btn:active:not(.disabled):not(.primary){background:var(--bg);}
 .act-btn.primary{background:var(--ac);border-color:var(--ac);}
 .act-btn.primary:hover:not(.disabled){filter:brightness(.88);}
 .act-btn.primary:active:not(.disabled){filter:brightness(.78);}
@@ -102,7 +102,7 @@ textarea{resize:none;}
 #clear-btn:hover{border-color:var(--bd2);color:var(--tx);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 7 — PANEL DERECHO — toolbar (breadcrumb + search + sort)
+   BLOCK 7 — RIGHT PANEL — toolbar (breadcrumb + search + sort)
 ════════════════════════════════════════════════════════════════════════════ */
 #right-toolbar{display:flex;flex-direction:column;border-bottom:2px solid var(--bd);background:var(--sf);flex-shrink:0;}
 #breadcrumb{display:none;align-items:center;gap:5px;padding:7px 11px 0;font-size:10px;user-select:none;-webkit-user-select:none;}
@@ -121,7 +121,7 @@ textarea{resize:none;}
 #sort-btn:hover{border-color:var(--ac);color:var(--ac);}
 #import-btn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:16px;color:var(--tx3);cursor:pointer;transition:color var(--tr),background var(--tr);flex-shrink:0;}
 #import-btn:hover{background:var(--sf3);}
-/* ─ Icono del botón importar (reemplazable con icons/import.svg) ──────────── */
+/* ─ Import button icon (replaceable with icons/import.svg) ────────────── */
 .import-btn-icon {
     width: 16px; height: 16px;
     background-color: var(--tx3);
@@ -138,7 +138,7 @@ textarea{resize:none;}
 #import-btn:hover .import-btn-icon { background-color: var(--ac); }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 8 — PANEL DERECHO — contenedor de vistas
+   BLOCK 8 — RIGHT PANEL — view container
 ════════════════════════════════════════════════════════════════════════════ */
 #right-content{flex:1;position:relative;overflow:hidden;min-height:0;}
 #folders-view,#presets-view{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;transition:opacity .15s ease,transform .15s ease;}
@@ -148,7 +148,7 @@ textarea{resize:none;}
 #presets-view.v-hidden{opacity:0;transform:translateX(16px);pointer-events:none;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 9 — CARPETAS — grid y tarjetas
+   BLOCK 9 — FOLDERS — grid and cards
 ════════════════════════════════════════════════════════════════════════════ */
 #folders-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;padding:12px;align-content:start;}
 
@@ -177,7 +177,7 @@ textarea{resize:none;}
 
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 10 — PRESETS — lista y tarjetas
+   BLOCK 10 — PRESETS — list and cards
 ════════════════════════════════════════════════════════════════════════════ */
 #presets-list{flex:1;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;}
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--tx3);min-height:200px;}
@@ -208,7 +208,7 @@ textarea{resize:none;}
 .pcard-btn.pbdots:hover{color:var(--tx2);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 11 — STATUSBAR
+   BLOCK 11 — STATUSBAR
 ════════════════════════════════════════════════════════════════════════════ */
 #statusbar{height:26px;min-height:26px;display:flex;align-items:center;gap:7px;padding:0 11px;background:var(--sf);border-top:2px solid var(--bd);flex-shrink:0;}
 #sb-dot{width:6px;height:6px;border-radius:50%;background:var(--tx3);flex-shrink:0;transition:background var(--tr);}
@@ -216,7 +216,7 @@ textarea{resize:none;}
 #sb-version{font-size:8px;color:var(--tx3);letter-spacing:.05em;opacity:.45;flex-shrink:0;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 12 — CONTEXT MENU
+   BLOCK 12 — CONTEXT MENU
 ════════════════════════════════════════════════════════════════════════════ */
 #ctx-menu{position:fixed;background:var(--sf2);border:2px solid var(--bd2);border-radius:var(--r);padding:4px 0;min-width:192px;z-index:500;display:none;box-shadow:0 8px 28px rgba(0,0,0,.55);}
 #ctx-menu.open{display:block;}
@@ -226,7 +226,7 @@ textarea{resize:none;}
 .ctx-sep{height:1px;background:var(--bd);margin:4px 0;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 13 — COLOR PICKER
+   BLOCK 13 — COLOR PICKER
 ════════════════════════════════════════════════════════════════════════════ */
 #color-picker{position:fixed;background:var(--sf2);border:2px solid var(--bd2);border-radius:var(--r);padding:10px;z-index:600;display:none;box-shadow:0 8px 28px rgba(0,0,0,.55);width:204px;}
 #color-picker.open{display:block;}
@@ -241,7 +241,7 @@ textarea{resize:none;}
 #cp-apply:hover{border-color:var(--ac);color:var(--ac);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 14 — ICON PICKER
+   BLOCK 14 — ICON PICKER
 ════════════════════════════════════════════════════════════════════════════ */
 #icon-picker{position:fixed;background:var(--sf2);border:2px solid var(--bd2);border-radius:var(--r);padding:10px;z-index:600;display:none;box-shadow:0 8px 28px rgba(0,0,0,.55);width:228px;}
 #icon-picker.open{display:block;}
@@ -252,7 +252,7 @@ textarea{resize:none;}
 .ip-icon{width:18px;height:18px;background-color:var(--tx2);-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-size:contain;mask-repeat:no-repeat;mask-position:center;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 15 — CONFIRM DIALOG
+   BLOCK 15 — CONFIRM DIALOG
 ════════════════════════════════════════════════════════════════════════════ */
 #confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:550;}
 #confirm-overlay.open{display:flex;}
@@ -267,7 +267,7 @@ textarea{resize:none;}
 .cbtn-ok:hover{filter:brightness(.88);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 16 — MOVE DIALOG
+   BLOCK 16 — MOVE DIALOG
 ════════════════════════════════════════════════════════════════════════════ */
 #move-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:550;}
 #move-overlay.open{display:flex;}
@@ -284,7 +284,7 @@ textarea{resize:none;}
 .mbtn-cancel:hover{border-color:var(--bd2);color:var(--tx);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 17 — DROP OVERLAY
+   BLOCK 17 — DROP OVERLAY
 ════════════════════════════════════════════════════════════════════════════ */
 #drop-overlay{position:absolute;inset:0;background:rgba(0,0,0,.48);border:3px dashed var(--ac);border-radius:var(--r);display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px;z-index:100;pointer-events:none;}
 #drop-overlay.active{display:flex;}
@@ -292,7 +292,7 @@ textarea{resize:none;}
 .drop-text{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ac);}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 18 — OVERLAY DE AJUSTES
+   BLOCK 18 — SETTINGS OVERLAY
 ════════════════════════════════════════════════════════════════════════════ */
 #s-overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;z-index:300;}
 #s-overlay.open{display:flex;}
@@ -332,7 +332,7 @@ textarea{resize:none;}
 .s-empty-note{font-size:9px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:10px 0;opacity:.6;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 19 — CODE MODAL
+   BLOCK 19 — CODE MODAL
 ════════════════════════════════════════════════════════════════════════════ */
 #code-overlay {
     position: fixed; inset: 0;
@@ -443,7 +443,7 @@ textarea{resize:none;}
     line-height: 1.5; font-style: italic;
 }
 
-/* ─ Sección QR ───────────────────────────────────────────────────────────── */
+/* ─ QR section ────────────────────────────────────────────────────── */
 #qr-section {
     display: flex; flex-direction: column; gap: 10px;
     padding-top: 12px;
@@ -503,7 +503,7 @@ textarea{resize:none;}
 
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 20 — PASTE CODE DIALOG
+   BLOCK 20 — PASTE CODE DIALOG
 ════════════════════════════════════════════════════════════════════════════ */
 #paste-code-overlay {
     position: fixed; inset: 0;
@@ -572,7 +572,7 @@ textarea{resize:none;}
 #paste-code-ok:hover { filter: brightness(.88); }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 20 — TOOLTIPS PERSONALIZADOS
+   BLOCK 21 — CUSTOM TOOLTIPS
 ════════════════════════════════════════════════════════════════════════════ */
 [data-tooltip] { position: relative; }
 [data-tooltip]::after {
@@ -606,7 +606,7 @@ textarea{resize:none;}
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 21 — TOASTS
+   BLOCK 22 — TOASTS
 ════════════════════════════════════════════════════════════════════════════ */
 #toasts{position:fixed;bottom:32px;right:13px;z-index:700;display:flex;flex-direction:column;gap:5px;pointer-events:none;}
 .toast{padding:7px 13px;border:2px solid var(--bd);border-radius:var(--r);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--sf);color:var(--tx2);animation:tslide .16s ease;white-space:nowrap;}
@@ -616,7 +616,7 @@ textarea{resize:none;}
 @keyframes tslide{from{transform:translateX(14px);opacity:0}to{transform:translateX(0);opacity:1}}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE 20 — ANIMACIONES
+   BLOCK 23 — ANIMATIONS
 ════════════════════════════════════════════════════════════════════════════ */
 @keyframes folderIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .fcard-anim{animation:folderIn .18s ease;}
@@ -824,7 +824,7 @@ textarea{resize:none;}
   </div>
 </div>
 
-<!-- ══ BLOQUE HTML 10 — CODE MODAL ═════════════════════════════════════════ -->
+<!-- ══ BLOCK HTML 10 — CODE MODAL ═════════════════════════════════════════ -->
 <div id="code-overlay">
   <div id="code-box">
     <div id="code-hdr">
@@ -868,7 +868,7 @@ textarea{resize:none;}
   </div>
 </div>
 
-<!-- ══ BLOQUE HTML 11 — PASTE CODE DIALOG ══════════════════════════════════ -->
+<!-- ══ BLOCK HTML 11 — PASTE CODE DIALOG ══════════════════════════════════ -->
 <div id="paste-code-overlay">
   <div id="paste-code-box">
     <div id="paste-code-hdr">
@@ -890,7 +890,7 @@ textarea{resize:none;}
 
 <script>
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 1 — i18n
+   BLOCK JS 1 — I18N
 ════════════════════════════════════════════════════════════════════════════ */
 var I18N = {
   es:{
@@ -921,11 +921,14 @@ var I18N = {
     'sb.writing':'Escribiendo en portapapeles...','sb.saving':'Guardado:',
     'sb.backend.err':'Backend no disponible',
     'toast.captured':'Datos capturados','toast.clipboard':'Portapapeles listo \u2014 Ctrl+V en Fusion',
+    'sb.paste.clipboard':'Portapapeles listo \u2014 Ctrl+V en Fusion',
+    'sb.paste.scripting':'Pegado directo en Fusion',
+    'toast.scripting.pasted':'Nodos pegados en Fusion',
     'toast.saved':'Preset guardado','toast.deleted':'Preset eliminado',
     'toast.folder.deleted':'Carpeta eliminada','toast.folder.duplicated':'Carpeta duplicada',
     'toast.moved':'Movido','toast.exported':'Exportado','toast.imported':'Importado',
     'toast.settings':'Ajustes guardados','toast.hex.err':'Hex inv\u00e1lido \u2014 usa #rrggbb',
-    'toast.scripting':'Scripting API: funci\u00f3n Pro (pr\u00f3ximamente)',
+    'toast.scripting':'Modo Scripting activo \u2014 captura y pegado directo en Fusion',
     'validate.name':'El nombre es obligatorio',
     'validate.no.data':'Captura nodos primero con el bot\u00f3n COPIAR',
     'validate.select':'Selecciona un preset primero',
@@ -970,6 +973,29 @@ var I18N = {
     'drop.invalid.file':'Archivo .mcopy inv\u00e1lido',
     'err.decode':'Error al decodificar',
     'err.save':'Error al guardar',
+    'err.NAME_REQUIRED':'El nombre es obligatorio',
+    'err.FUSION_DATA_REQUIRED':'No hay datos de Fusion',
+    'err.PRESET_NOT_FOUND':'Preset no encontrado',
+    'err.FOLDER_NOT_FOUND':'Carpeta no encontrada',
+    'err.INVALID_STYLE':'Estilo no v\u00e1lido',
+    'err.CLIPBOARD_EMPTY':'Portapapeles vac\u00edo \u2014 Ctrl+C en Fusion primero',
+    'err.CLIPBOARD_WRITE_FAILED':'No se pudo escribir en el portapapeles',
+    'err.INVALID_CODE_FORMAT':'C\u00f3digo inv\u00e1lido \u2014 debe empezar con MCOPY:',
+    'err.INVALID_CODE_CORRUPT':'C\u00f3digo corrupto o inv\u00e1lido',
+    'err.INVALID_CODE_TOO_SHORT':'C\u00f3digo demasiado corto',
+    'err.INVALID_CODE_CHECKSUM':'Checksum inv\u00e1lido \u2014 c\u00f3digo da\u00f1ado',
+    'err.UNSUPPORTED_VERSION':'Versi\u00f3n no soportada',
+    'err.UNKNOWN_TYPE':'Tipo no reconocido',
+    'err.SCRIPTING_MODULE_NOT_FOUND':'No se encontr\u00f3 el m\u00f3dulo de scripting de Resolve',
+    'err.SCRIPTING_NOT_CONNECTED':'Sin conexi\u00f3n con Resolve \u2014 \u00bfest\u00e1 abierto?',
+    'err.SCRIPTING_NO_COMP':'Abre un clip en la p\u00e1gina Fusion primero',
+    'err.SCRIPTING_NO_SELECTION':'Selecciona uno o m\u00e1s nodos en Fusion',
+    'err.SCRIPTING_CAPTURE_FAILED':'No se pudieron capturar los nodos v\u00eda scripting',
+    'err.SCRIPTING_INVALID_DATA':'Datos de preset inv\u00e1lidos para pegar',
+    'err.SCRIPTING_PASTE_FAILED':'No se pudo pegar v\u00eda scripting',
+    'err.UNKNOWN_ERROR':'Error inesperado \u2014 revisa el log de MCopy',
+    'err.QR_LIBRARY_MISSING':'No se carg\u00f3 la librer\u00eda QR (no se encontr\u00f3 lib/qrcode.min.js)',
+    'err.QR_GENERATE_FAILED':'Error al generar el QR: {detail}',
     'qr.generate':'Generar c\u00f3digo QR',
     'qr.save':'Guardar imagen',
     'qr.limit.note':'El c\u00f3digo es muy largo para un QR legible \u2014 usa copiar c\u00f3digo o exportar .mcopy',
@@ -1009,11 +1035,14 @@ var I18N = {
     'sb.captured':'Data captured \u2014 fill the fields and save',
     'sb.writing':'Writing to clipboard...','sb.saving':'Saved:','sb.backend.err':'Backend unavailable',
     'toast.captured':'Data captured','toast.clipboard':'Clipboard ready \u2014 Ctrl+V in Fusion',
+    'sb.paste.clipboard':'Clipboard ready \u2014 Ctrl+V in Fusion',
+    'sb.paste.scripting':'Pasted directly into Fusion',
+    'toast.scripting.pasted':'Nodes pasted into Fusion',
     'toast.saved':'Preset saved','toast.deleted':'Preset deleted',
     'toast.folder.deleted':'Folder deleted','toast.folder.duplicated':'Folder duplicated',
     'toast.moved':'Moved','toast.exported':'Exported','toast.imported':'Imported',
     'toast.settings':'Settings saved','toast.hex.err':'Invalid hex \u2014 use #rrggbb',
-    'toast.scripting':'Scripting API: Pro feature (coming soon)',
+    'toast.scripting':'Scripting mode active \u2014 capture and paste happen directly in Fusion',
     'validate.name':'Name is required','validate.no.data':'Capture nodes first with COPY button',
     'validate.select':'Select a preset first',
     'cs.ready':'Data ready ({n} bytes) \u2014 save the preset',
@@ -1057,6 +1086,29 @@ var I18N = {
     'drop.invalid.file':'Invalid .mcopy file',
     'err.decode':'Error decoding',
     'err.save':'Error saving',
+    'err.NAME_REQUIRED':'The name is required',
+    'err.FUSION_DATA_REQUIRED':'No Fusion data available',
+    'err.PRESET_NOT_FOUND':'Preset not found',
+    'err.FOLDER_NOT_FOUND':'Folder not found',
+    'err.INVALID_STYLE':'Invalid style',
+    'err.CLIPBOARD_EMPTY':'Clipboard empty \u2014 Ctrl+C in Fusion first',
+    'err.CLIPBOARD_WRITE_FAILED':'Could not write to the clipboard',
+    'err.INVALID_CODE_FORMAT':'Invalid code \u2014 must start with MCOPY:',
+    'err.INVALID_CODE_CORRUPT':'Corrupt or invalid code',
+    'err.INVALID_CODE_TOO_SHORT':'Code too short',
+    'err.INVALID_CODE_CHECKSUM':'Invalid checksum \u2014 corrupted code',
+    'err.UNSUPPORTED_VERSION':'Unsupported version',
+    'err.UNKNOWN_TYPE':'Unrecognized type',
+    'err.SCRIPTING_MODULE_NOT_FOUND':'Resolve scripting module not found',
+    'err.SCRIPTING_NOT_CONNECTED':'Not connected to Resolve \u2014 is it running?',
+    'err.SCRIPTING_NO_COMP':'Open a clip on the Fusion page first',
+    'err.SCRIPTING_NO_SELECTION':'Select one or more nodes in Fusion',
+    'err.SCRIPTING_CAPTURE_FAILED':'Could not capture the nodes via scripting',
+    'err.SCRIPTING_INVALID_DATA':'Invalid preset data to paste',
+    'err.SCRIPTING_PASTE_FAILED':'Could not paste via scripting',
+    'err.UNKNOWN_ERROR':'Unexpected error \u2014 check the MCopy log',
+    'err.QR_LIBRARY_MISSING':'QR library failed to load (lib/qrcode.min.js not found)',
+    'err.QR_GENERATE_FAILED':'Error generating QR: {detail}',
     'qr.generate':'Generate QR code',
     'qr.save':'Save image',
     'qr.limit.note':'Code is too long for a readable QR \u2014 use copy code or export .mcopy',
@@ -1095,11 +1147,14 @@ var I18N = {
     'sb.ready':'Bereit','sb.capturing':'Zwischenablage lesen...','sb.captured':'Daten erfasst \u2014 Felder ausf\u00fcllen',
     'sb.writing':'In Zwischenablage schreiben...','sb.saving':'Gespeichert:','sb.backend.err':'Backend nicht verf\u00fcgbar',
     'toast.captured':'Daten erfasst','toast.clipboard':'Zwischenablage bereit \u2014 Strg+V',
+    'sb.paste.clipboard':'Zwischenablage bereit \u2014 Strg+V in Fusion',
+    'sb.paste.scripting':'Direkt in Fusion eingef\u00fcgt',
+    'toast.scripting.pasted':'Nodes in Fusion eingef\u00fcgt',
     'toast.saved':'Preset gespeichert','toast.deleted':'Preset gel\u00f6scht',
     'toast.folder.deleted':'Ordner gel\u00f6scht','toast.folder.duplicated':'Ordner dupliziert',
     'toast.moved':'Verschoben','toast.exported':'Exportiert','toast.imported':'Importiert',
     'toast.settings':'Einstellungen gespeichert','toast.hex.err':'Ung\u00fcltiger Hex \u2014 #rrggbb',
-    'toast.scripting':'Scripting API: Pro-Funktion (demn\u00e4chst)',
+    'toast.scripting':'Scripting-Modus aktiv \u2014 Erfassen und Einf\u00fcgen direkt in Fusion',
     'validate.name':'Name erforderlich','validate.no.data':'Erst Nodes mit KOPIEREN erfassen',
     'validate.select':'Erst ein Preset ausw\u00e4hlen',
     'cs.ready':'Daten bereit ({n} Bytes) \u2014 Preset speichern',
@@ -1143,6 +1198,29 @@ var I18N = {
     'drop.invalid.file':'Ung\u00fcltige .mcopy-Datei',
     'err.decode':'Dekodierungsfehler',
     'err.save':'Speicherfehler',
+    'err.NAME_REQUIRED':'Der Name ist erforderlich',
+    'err.FUSION_DATA_REQUIRED':'Keine Fusion-Daten vorhanden',
+    'err.PRESET_NOT_FOUND':'Preset nicht gefunden',
+    'err.FOLDER_NOT_FOUND':'Ordner nicht gefunden',
+    'err.INVALID_STYLE':'Ung\u00fcltiger Stil',
+    'err.CLIPBOARD_EMPTY':'Zwischenablage leer \u2014 zuerst Strg+C in Fusion',
+    'err.CLIPBOARD_WRITE_FAILED':'Konnte nicht in die Zwischenablage schreiben',
+    'err.INVALID_CODE_FORMAT':'Ung\u00fcltiger Code \u2014 muss mit MCOPY: beginnen',
+    'err.INVALID_CODE_CORRUPT':'Besch\u00e4digter oder ung\u00fcltiger Code',
+    'err.INVALID_CODE_TOO_SHORT':'Code zu kurz',
+    'err.INVALID_CODE_CHECKSUM':'Ung\u00fcltige Pr\u00fcfsumme \u2014 Code besch\u00e4digt',
+    'err.UNSUPPORTED_VERSION':'Version nicht unterst\u00fctzt',
+    'err.UNKNOWN_TYPE':'Unbekannter Typ',
+    'err.SCRIPTING_MODULE_NOT_FOUND':'Resolve-Scripting-Modul nicht gefunden',
+    'err.SCRIPTING_NOT_CONNECTED':'Keine Verbindung zu Resolve \u2014 l\u00e4uft es?',
+    'err.SCRIPTING_NO_COMP':'\u00d6ffne zuerst einen Clip auf der Fusion-Seite',
+    'err.SCRIPTING_NO_SELECTION':'W\u00e4hle einen oder mehrere Nodes in Fusion aus',
+    'err.SCRIPTING_CAPTURE_FAILED':'Nodes konnten nicht per Scripting erfasst werden',
+    'err.SCRIPTING_INVALID_DATA':'Ung\u00fcltige Presetdaten zum Einf\u00fcgen',
+    'err.SCRIPTING_PASTE_FAILED':'Einf\u00fcgen per Scripting fehlgeschlagen',
+    'err.UNKNOWN_ERROR':'Unerwarteter Fehler \u2014 MCopy-Log pr\u00fcfen',
+    'err.QR_LIBRARY_MISSING':'QR-Bibliothek konnte nicht geladen werden (lib/qrcode.min.js nicht gefunden)',
+    'err.QR_GENERATE_FAILED':'Fehler beim Erzeugen des QR-Codes: {detail}',
     'qr.generate':'QR-Code generieren',
     'qr.save':'Bild speichern',
     'qr.limit.note':'Code ist zu lang f\u00fcr einen lesbaren QR \u2014 Code kopieren oder .mcopy exportieren',
@@ -1187,11 +1265,14 @@ var I18N = {
     'sb.ready':'\u0924\u0948\u092f\u093e\u0930','sb.capturing':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092a\u095d...','sb.captured':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930',
     'sb.writing':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092e\u0947\u0902 \u0932\u093f\u0916...','sb.saving':'\u0938\u0947\u0935 \u0915\u093f\u092f\u093e:','sb.backend.err':'\u092c\u0948\u0915\u090f\u0902\u0921 \u0928\u0939\u0940\u0902',
     'toast.captured':'\u0921\u0947\u091f\u093e \u0915\u0948\u092a\u094d\u091a\u0930','toast.clipboard':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u0924\u0948\u092f\u093e\u0930',
+    'sb.paste.clipboard':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u0924\u0948\u092f\u093e\u0930 \u2014 Fusion \u092e\u0947\u0902 Ctrl+V \u0915\u0930\u0947\u0902',
+    'sb.paste.scripting':'Fusion \u092e\u0947\u0902 \u0938\u0940\u0927\u0947 \u092a\u0947\u0938\u094d\u091f \u0939\u0941\u0906',
+    'toast.scripting.pasted':'\u0928\u094b\u0921\u094d\u0938 Fusion \u092e\u0947\u0902 \u092a\u0947\u0938\u094d\u091f \u0939\u0941\u0908',
     'toast.saved':'\u0938\u0947\u0935 \u0915\u093f\u092f\u093e','toast.deleted':'\u0939\u091f\u093e\u092f\u093e',
     'toast.folder.deleted':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0939\u091f\u093e\u092f\u093e','toast.folder.duplicated':'\u0921\u0941\u092a\u094d\u0932\u093f\u0915\u0947\u091f',
     'toast.moved':'\u0938\u094d\u0925\u093e\u0928\u093e\u0902\u0924\u0930\u093f\u0924','toast.exported':'\u090f\u0915\u094d\u0938\u092a\u094b\u0930\u094d\u091f','toast.imported':'\u0906\u092f\u093e\u0924',
     'toast.settings':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938 \u0938\u0947\u0935',
-    'toast.hex.err':'\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb','toast.scripting':'Scripting API: Pro',
+    'toast.hex.err':'\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb','toast.scripting':'\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 \u092e\u094b\u0921 \u0938\u0915\u094d\u0930\u093f\u092f \u2014 Fusion \u092e\u0947\u0902 \u0938\u0940\u0927\u0947 \u0915\u0948\u092a\u094d\u091a\u0930/\u092a\u0947\u0938\u094d\u091f',
     'validate.name':'\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915','validate.no.data':'\u092a\u0939\u0932\u0947 COPY \u0915\u0930\u0947\u0902',
     'validate.select':'\u092a\u0939\u0932\u0947 \u0915\u094b\u0908 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
     'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes)','count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',    'section.code':'\u0915\u094b\u0921',
@@ -1234,6 +1315,29 @@ var I18N = {
     'drop.invalid.file':'\u0905\u092e\u093e\u0928\u094d\u092f .mcopy \u092b\u093c\u093e\u0907\u0932',
     'err.decode':'\u0921\u093f\u0915\u094b\u0921 \u0924\u094d\u0930\u0941\u091f\u093f',
     'err.save':'\u0938\u0939\u0947\u091c\u0928\u0947 \u092e\u0947\u0902 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'err.NAME_REQUIRED':'\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915 \u0939\u0948',
+    'err.FUSION_DATA_REQUIRED':'\u0915\u094b\u0908 Fusion \u0921\u0947\u091f\u093e \u0909\u0915\u0930\u093e',
+    'err.PRESET_NOT_FOUND':'\u0938\u0939\u0947\u091c\u0928\u0947 \u092e\u0947\u0902 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'err.FOLDER_NOT_FOUND':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u093e',
+    'err.INVALID_STYLE':'\u0905\u092e\u093e\u0928\u094d\u092f \u0938\u094d\u091f\u093e\u0907\u0932',
+    'err.CLIPBOARD_EMPTY':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u0916\u093e\u0932\u0940 \u0939\u0948',
+    'err.CLIPBOARD_WRITE_FAILED':'\u0915\u094d\u0932\u093f\u092a\u092c\u094b\u0930\u094d\u0921 \u092e\u0947\u0902 \u0932\u093f\u0916\u093e \u0928\u0939\u0940\u0902 \u091c\u093e \u0938\u0915\u093e',
+    'err.INVALID_CODE_FORMAT':'\u0905\u092e\u093e\u0928\u094d\u092f \u0915\u094b\u0921 \u2014 MCOPY: \u0938\u0947 \u0936\u0941\u0930\u0942 \u0939\u094b\u0928\u093e \u091a\u093e\u0939\u093f\u0917',
+    'err.INVALID_CODE_CORRUPT':'\u0916\u0930\u093e\u092c \u092f\u093e \u0905\u092e\u093e\u0928\u094d\u092f \u0915\u094b\u0921',
+    'err.INVALID_CODE_TOO_SHORT':'\u0915\u094b\u0921 \u092c\u0939\u0941\u0924 \u091b\u094b\u091f\u093e \u0939\u0948',
+    'err.INVALID_CODE_CHECKSUM':'\u0905\u092e\u093e\u0928\u094d\u092f \u091a\u0947\u0915\u0938\u092e \u2014 \u0915\u094b\u0921 \u0915\u094d\u0937\u0924\u093f\u0917\u094d\u0930\u0938\u094d\u0924 \u0939\u0948',
+    'err.UNSUPPORTED_VERSION':'\u0905\u0938\u092e\u0930\u094d\u0925\u093f\u0924 \u0935\u0930\u094d\u0936\u0928',
+    'err.UNKNOWN_TYPE':'\u0905\u091c\u094d\u091e\u093e\u0924 \u092a\u094d\u0930\u0915\u093e\u0930',
+    'err.SCRIPTING_MODULE_NOT_FOUND':'Resolve \u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 \u092e\u0949\u0921\u094d\u092f\u0942\u0932 \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u093e',
+    'err.SCRIPTING_NOT_CONNECTED':'Resolve \u0938\u0947 \u0915\u0928\u0947\u0915\u094d\u0936\u0928 \u0928\u0939\u0940\u0902 \u0939\u0948',
+    'err.SCRIPTING_NO_COMP':'\u092a\u0939\u0932\u0947 Fusion \u092a\u0947\u091c \u092a\u0930 \u090f\u0915 \u0915\u094d\u0932\u093f\u092a \u0916\u094b\u0932\u0947\u0902',
+    'err.SCRIPTING_NO_SELECTION':'Fusion \u092e\u0947\u0902 \u0928\u094b\u0921\u094d\u0938 \u091a\u0941\u0928\u0947\u0902',
+    'err.SCRIPTING_CAPTURE_FAILED':'\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 \u0938\u0947 \u0915\u0948\u092a\u094d\u091a\u0930 \u0928\u0939\u0940\u0902 \u0939\u094b \u0938\u0915\u093e',
+    'err.SCRIPTING_INVALID_DATA':'\u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0928\u0947 \u0915\u0947 \u0932\u093f\u0939\u0947 \u0905\u092e\u093e\u0928\u094d\u092f \u0921\u0947\u091f\u093e',
+    'err.SCRIPTING_PASTE_FAILED':'\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 \u0938\u0947 \u092a\u0947\u0938\u094d\u091f \u0928\u0939\u0940\u0902 \u0939\u094b \u0938\u0915\u093e',
+    'err.UNKNOWN_ERROR':'\u0905\u092a\u094d\u0930\u0924\u094d\u092f\u093e\u0936\u093f\u0924 \u0924\u094d\u0930\u0941\u091f\u093f',
+    'err.QR_LIBRARY_MISSING':'QR \u0932\u093e\u0907\u092c\u094d\u0930\u0947\u0930\u0940 \u0932\u094b\u0921 \u0928\u0939\u0940\u0902 \u0939\u0941\u0908 (lib/qrcode.min.js \u0928\u0939\u0940\u0902 \u092e\u093f\u0932\u093e)',
+    'err.QR_GENERATE_FAILED':'QR \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0924\u094d\u0930\u0941\u091f\u093f: {detail}',
     'qr.generate':'QR \u0915\u094b\u0921 \u092c\u0928\u093e\u0913\u0902',
     'qr.save':'\u091a\u093f\u0924\u094d\u0930 \u0938\u0939\u0947\u091c\u0947\u0902',
     'qr.limit.note':'\u0915\u094b\u0921 \u092c\u0939\u0941\u0924 \u0932\u0902\u092c\u093e \u0939\u0948 \u2014 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902 \u092f\u093e .mcopy \u0928\u093f\u0930\u094d\u092f\u093e\u0924 \u0915\u0930\u0947\u0902',
@@ -1252,6 +1356,7 @@ var I18N = {
 };
 
 function t(k,v){var l=cfg.lang||'es',s=(I18N[l]&&I18N[l][k])||(I18N['es'][k])||k;if(v)for(var x in v)s=s.replace('{'+x+'}',v[x]);return s;}
+function errMsg(code){if(!code)code='UNKNOWN_ERROR';var key='err.'+code,s=t(key);return s===key?t('err.UNKNOWN_ERROR'):s;}
 function applyI18n(lang){
   var S=I18N[lang]||I18N['es'];
   document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(S[k]!==undefined)el.textContent=S[k];});
@@ -1261,7 +1366,7 @@ function applyI18n(lang){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 2 — TEMAS Y FUENTES
+   BLOCK JS 2 — THEMES AND FONTS
 ════════════════════════════════════════════════════════════════════════════ */
 var THEMES={
   mmarket:{vars:{'--bg':'#0a0a0a','--sf':'#111111','--sf2':'#181818','--sf3':'#222222','--bd':'#2a2a2a','--bd2':'#3a3a3a','--tx':'#f0f0f0','--tx2':'#888888','--tx3':'#555555','--red':'#e05c5c','--grn':'#5ce07a','--blu':'#5c9ee0'},accents:['#f5c842','#5ce07a','#5c9ee0','#e05c5c','#b48ae0','#e08a5c'],def:'#f5c842'},
@@ -1277,18 +1382,18 @@ var SORT_LABELS={recent:'\u2193 Rec',name_asc:'A\u2192Z',name_desc:'Z\u2192A',ol
 var ICON_LIST=['folder','star','bookmark','heart','tag','box','lock','palette','gradient','contrast','sparkles','wand','zap','layers','blend','mask','eye','move','wind','grid','arrows','text','film','camera'];
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 3 — ESTADO GLOBAL
+   BLOCK JS 3 — GLOBAL STATE
 ════════════════════════════════════════════════════════════════════════════ */
 var cfg={theme:'mmarket',accent:'#f5c842',font:'barlow',mode:'clipboard',lang:'es',folder_style:'tab'};
 var vState={view:'folders',folderId:null,folderName:'',folderColor:'',folderIcon:'',sortMode:'recent',folders:[],totalCount:0,unorgCount:0};
-var pendingData=null, selectedId=null, allPresets=[], searchTimer=null;
+var pendingData=null, pendingSource='clipboard', selectedId=null, allPresets=[], searchTimer=null;
 var ctxMeta={type:null,id:null}, confirmCallback=null;
 var moveMeta={type:null,sourceId:null};
 var colorPickerTarget=null, iconPickerTarget=null;
 var dragCounter=0;
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 4 — UTILIDADES
+   BLOCK JS 4 — UTILITIES
 ════════════════════════════════════════════════════════════════════════════ */
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function toast(msg,type){var el=document.createElement('div');el.className='toast'+(type?' '+type:'');el.textContent=msg;document.getElementById('toasts').appendChild(el);setTimeout(function(){el.remove();},3400);}
@@ -1299,12 +1404,12 @@ function darkenColor(hex,f){try{var r=parseInt(hex.slice(1,3),16),g=parseInt(hex
 function contrastColor(hex){try{var r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;return(0.2126*r+0.7152*g+0.0722*b)>0.42?'#1a1a1a':'#ffffff';}catch(e){return '#ffffff';}}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 5 — COMUNICACIÓN CON BACKEND
+   BLOCK JS 5 — BACKEND COMMUNICATION
 ════════════════════════════════════════════════════════════════════════════ */
 function pyCall(method){var args=Array.prototype.slice.call(arguments,1);return new Promise(function(resolve){if(!window.backend||typeof window.backend[method]!=='function'){resolve(null);return;}window.backend[method].apply(window.backend,args.concat([function(r){try{resolve(typeof r==='string'?JSON.parse(r):r);}catch(e){resolve(r);}}]));});}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 6 — APLICAR TEMA / ACENTO / FUENTE
+   BLOCK JS 6 — APPLY THEME / ACCENT / FONT
 ════════════════════════════════════════════════════════════════════════════ */
 function applyThemeVars(th){var T=THEMES[th];if(!T)return;for(var v in T.vars)document.documentElement.style.setProperty(v,T.vars[v]);}
 function applyAccent(c){document.documentElement.style.setProperty('--ac',c);}
@@ -1321,7 +1426,7 @@ function syncSettingsUI(){
 function renderSwatches(){var T=THEMES[cfg.theme]||THEMES.mmarket,h='';T.accents.forEach(function(c){var a=c.toLowerCase()===cfg.accent.toLowerCase()?' active':'';h+='<div class="swatch'+a+'" data-color="'+esc(c)+'" style="background:'+esc(c)+'" data-tooltip="'+esc(c)+'"></div>';});document.getElementById('accent-swatches').innerHTML=h;document.getElementById('hex-input').value=cfg.accent;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 7 — NAVEGACIÓN ENTRE VISTAS
+   BLOCK JS 7 — VIEW NAVIGATION
 ════════════════════════════════════════════════════════════════════════════ */
 function gotoFolders(){
   vState.view='folders';vState.folderId=null;
@@ -1361,12 +1466,12 @@ function saveViewState(){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 8 — CARGA DE DATOS
+   BLOCK JS 8 — DATA LOADING
 ════════════════════════════════════════════════════════════════════════════ */
 function loadFolders(){
   var q=document.getElementById('search-input').value.trim();
   (q?pyCall('search_folders',q):pyCall('get_folders')).then(function(r){
-    if(!r||r.error){setStatus(r?r.error:'Error','err');return;}
+    if(!r||r.error){setStatus(r?errMsg(r.error):errMsg(),'err');return;}
     vState.folders=r.folders||[];vState.totalCount=r.total_count||0;vState.unorgCount=r.unorg_count||0;
     renderFolderGrid();
     if(document.getElementById('s-overlay').classList.contains('open'))renderExportTable();
@@ -1377,12 +1482,12 @@ function loadCurrentPresets(){
   var fid=String(vState.folderId),sm=vState.sortMode;
   (q?pyCall('search_folder_presets',fid,q,sm):pyCall('get_folder_presets',fid,sm)).then(function(r){
     if(Array.isArray(r))renderPresetList(r);
-    else if(r&&r.error)setStatus(r.error,'err');
+    else if(r&&r.error)setStatus(errMsg(r.error),'err');
   });
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 9 — RENDER DE CARPETAS
+   BLOCK JS 9 — FOLDER RENDERING
 ════════════════════════════════════════════════════════════════════════════ */
 function makeIconEl(color,icon,size){return '<div class="fcard-icon" style="width:'+size+'px;height:'+size+'px;background-color:'+esc(color)+';-webkit-mask-image:url(\'icons/'+esc(icon)+'.svg\');mask-image:url(\'icons/'+esc(icon)+'.svg\')"></div>';}
 function renderFolderGrid(){
@@ -1397,7 +1502,7 @@ function renderFolderGrid(){
     +'</div></div>';
   // Pinned folders
   vState.folders.filter(function(f){return f.pinned;}).forEach(function(f){h+=makeFolderCard(f);});
-  // Sin clasificar
+  // Unorganized folder card
   if(vState.unorgCount>0){
     h+='<div class="fcard style-tab" data-id="unorg" data-style="tab">'
       +'<div class="fcard-tab" style="background:#888888"></div>'
@@ -1409,7 +1514,7 @@ function renderFolderGrid(){
   }
   // Unpinned folders
   vState.folders.filter(function(f){return !f.pinned;}).forEach(function(f){h+=makeFolderCard(f);});
-  // Nueva carpeta
+  // New folder
   h+='<div class="fcard fcard-new-btn" id="btn-new-folder"><div class="fcard-body fcard-body-new">'
     +'<span style="font-size:26px;color:var(--tx3);line-height:1">+</span>'
     +'<div class="fcard-name" style="color:var(--tx3)">'+esc(t('folder.new'))+'</div>'
@@ -1443,7 +1548,7 @@ function makeFolderCard(f){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 10 — RENDER DE PRESETS
+   BLOCK JS 10 — PRESET RENDERING
 ════════════════════════════════════════════════════════════════════════════ */
 function updateCopyStatus(){var el=document.getElementById('copy-status'),txt=document.getElementById('cs-txt');if(pendingData){el.className='ready';txt.textContent=t('cs.ready',{n:pendingData.length});}else{el.className='';txt.textContent=t('status.idle');}updateSaveBtn();}
 function updateSaveBtn(){document.getElementById('save-btn').classList.toggle('disabled',!(pendingData&&document.getElementById('preset-name').value.trim().length>0));}
@@ -1471,7 +1576,7 @@ function renderPresetList(list){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 11 — CONTEXT MENU
+   BLOCK JS 11 — CONTEXT MENU
 ════════════════════════════════════════════════════════════════════════════ */
 function openCtxMenu(e,type,id){
   e.stopPropagation();ctxMeta.type=type;ctxMeta.id=id;
@@ -1521,7 +1626,7 @@ function handleCtxAction(action){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 12 — RENAME INLINE
+   BLOCK JS 12 — INLINE RENAME
 ════════════════════════════════════════════════════════════════════════════ */
 function startRename(fid){
   var card=document.querySelector('.fcard[data-id="'+fid+'"]');if(!card)return;
@@ -1535,7 +1640,7 @@ function startRename(fid){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 13 — COLOR PICKER
+   BLOCK JS 13 — COLOR PICKER
 ════════════════════════════════════════════════════════════════════════════ */
 function openColorPicker(fid){
   colorPickerTarget=fid;
@@ -1560,7 +1665,7 @@ function applyFolderColor(color){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 14 — ICON PICKER
+   BLOCK JS 14 — ICON PICKER
 ════════════════════════════════════════════════════════════════════════════ */
 function openIconPicker(fid){
   iconPickerTarget=fid;
@@ -1578,13 +1683,13 @@ function openIconPicker(fid){
 function closeIconPicker(){document.getElementById('icon-picker').classList.remove('open');iconPickerTarget=null;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 15 — CONFIRM DIALOG
+   BLOCK JS 15 — CONFIRM DIALOG
 ════════════════════════════════════════════════════════════════════════════ */
 function openConfirm(msg,sub,cb){confirmCallback=cb;document.getElementById('confirm-msg').textContent=msg;document.getElementById('confirm-sub').textContent=sub||'';document.getElementById('confirm-overlay').classList.add('open');}
 function closeConfirm(){document.getElementById('confirm-overlay').classList.remove('open');confirmCallback=null;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 16 — MOVE DIALOG
+   BLOCK JS 16 — MOVE DIALOG
 ════════════════════════════════════════════════════════════════════════════ */
 function openMoveDialog(type,srcId){
   moveMeta.type=type;moveMeta.sourceId=srcId;
@@ -1598,14 +1703,14 @@ function closeMoveDialog(){document.getElementById('move-overlay').classList.rem
 function handleMoveTarget(targetId){
   closeMoveDialog();
   if(moveMeta.type==='preset'){
-    pyCall('move_preset_to_folder',String(moveMeta.sourceId),String(targetId)).then(function(r){if(r&&r.ok){loadCurrentPresets();toast(t('toast.moved'),'ok');}else toast((r&&r.error)||'Error','err');});
+    pyCall('move_preset_to_folder',String(moveMeta.sourceId),String(targetId)).then(function(r){if(r&&r.ok){loadCurrentPresets();toast(t('toast.moved'),'ok');}else toast(errMsg(r&&r.error),'err');});
   }else{
-    pyCall('move_all_to_folder',String(moveMeta.sourceId),String(targetId)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.moved'),'ok');}else toast((r&&r.error)||'Error','err');});
+    pyCall('move_all_to_folder',String(moveMeta.sourceId),String(targetId)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.moved'),'ok');}else toast(errMsg(r&&r.error),'err');});
   }
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 17 — SORT
+   BLOCK JS 17 — SORT
 ════════════════════════════════════════════════════════════════════════════ */
 function cycleSortMode(){
   var i=SORT_CYCLE.indexOf(vState.sortMode);vState.sortMode=SORT_CYCLE[(i+1)%SORT_CYCLE.length];
@@ -1618,11 +1723,11 @@ function cycleSortMode(){
 function updateSortBtn(){document.getElementById('sort-btn').textContent=SORT_LABELS[vState.sortMode]||SORT_LABELS.recent;}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 18 — ACCIONES DE CARPETA
+   BLOCK JS 18 — FOLDER ACTIONS
 ════════════════════════════════════════════════════════════════════════════ */
 function togglePin(fid){var f=vState.folders.filter(function(x){return x.id===fid;})[0];if(!f)return;pyCall('update_folder',JSON.stringify({id:fid,pinned:!f.pinned})).then(loadFolders);}
-function doDuplicateFolder(fid){pyCall('duplicate_folder',String(fid)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.folder.duplicated'),'ok');}else toast((r&&r.error)||'Error','err');});}
-function doDeleteFolder(fid){pyCall('delete_folder',String(fid)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.folder.deleted'),'');}else toast((r&&r.error)||'Error','err');});}
+function doDuplicateFolder(fid){pyCall('duplicate_folder',String(fid)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.folder.duplicated'),'ok');}else toast(errMsg(r&&r.error),'err');});}
+function doDeleteFolder(fid){pyCall('delete_folder',String(fid)).then(function(r){if(r&&r.ok){loadFolders();toast(t('toast.folder.deleted'),'');}else toast(errMsg(r&&r.error),'err');});}
 function doCreateFolder(){
   pyCall('create_folder',JSON.stringify({name:t('folder.new'),color:cfg.accent,icon:'folder',style:cfg.folder_style||'tab'})).then(function(r){
     if(r&&r.ok){loadFolders();setTimeout(function(){startRename(r.id);},220);}
@@ -1630,29 +1735,29 @@ function doCreateFolder(){
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 19 — ACCIONES DE PRESET
+   BLOCK JS 19 — PRESET ACTIONS
 ════════════════════════════════════════════════════════════════════════════ */
-function doDeletePreset(pid){pyCall('delete_preset',String(pid)).then(function(r){if(r&&r.ok){if(selectedId===pid){selectedId=null;updatePasteBtn();}loadCurrentPresets();toast(t('toast.deleted'),'');}else toast((r&&r.error)||'Error','err');});}
+function doDeletePreset(pid){pyCall('delete_preset',String(pid)).then(function(r){if(r&&r.ok){if(selectedId===pid){selectedId=null;updatePasteBtn();}loadCurrentPresets();toast(t('toast.deleted'),'');}else toast(errMsg(r&&r.error),'err');});}
 function doSelectPreset(id){selectedId=id===selectedId?null:id;updatePasteBtn();renderPresetList(allPresets);}
-function doQuickPaste(id){setStatus(t('sb.writing'),'info');pyCall('paste_nodes',String(id)).then(function(r){if(!r)return;if(r.ok){setStatus((r.msg||t('sb.ready'))+(r.name?' \u2014 '+r.name:''),'ok');toast(t('toast.clipboard'),'ok');}else{setStatus(r.error||t('sb.backend.err'),'err');toast(r.error||t('sb.backend.err'),'err');}});}
+function doQuickPaste(id){setStatus(t('sb.writing'),'info');pyCall('paste_nodes',String(id)).then(function(r){if(!r)return;if(r.ok){var viaKey=r.via==='scripting'?'sb.paste.scripting':'sb.paste.clipboard';setStatus(t(viaKey)+(r.name?' \u2014 '+r.name:''),'ok');toast(t(r.via==='scripting'?'toast.scripting.pasted':'toast.clipboard'),'ok');}else{setStatus(errMsg(r.error),'err');toast(errMsg(r.error),'err');}});}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 20 — IMPORT / EXPORT
+   BLOCK JS 20 — IMPORT / EXPORT
 ════════════════════════════════════════════════════════════════════════════ */
 function doExportPreset(id){
   pyCall('export_preset_data',String(id)).then(function(r){
-    if(!r||!r.ok){toast(r?r.error:'Error','err');return;}
+    if(!r||!r.ok){toast(r?errMsg(r.error):errMsg(),'err');return;}
     var p=allPresets.filter(function(x){return x.id===id;})[0];
     var fname=(p?p.name.toLowerCase().replace(/\s+/g,'_'):'preset')+'.mcopy';
-    pyCall('save_export_file',fname,r.data).then(function(res){if(res&&res.ok)toast(t('toast.exported'),'ok');else if(res&&!res.cancelled)toast(res.error||'Error','err');});
+    pyCall('save_export_file',fname,r.data).then(function(res){if(res&&res.ok)toast(t('toast.exported'),'ok');else if(res&&!res.cancelled)toast(errMsg(res&&res.error),'err');});
   });
 }
 function doExportFolder(id){
   pyCall('export_folder_data',String(id)).then(function(r){
-    if(!r||!r.ok){toast(r?r.error:'Error','err');return;}
+    if(!r||!r.ok){toast(r?errMsg(r.error):errMsg(),'err');return;}
     var f=vState.folders.filter(function(x){return x.id===id;})[0];
     var fname=(f?f.name.toLowerCase().replace(/\s+/g,'_'):'carpeta')+'.mcopy';
-    pyCall('save_export_file',fname,r.data).then(function(res){if(res&&res.ok)toast(t('toast.exported'),'ok');else if(res&&!res.cancelled)toast(res.error||'Error','err');});
+    pyCall('save_export_file',fname,r.data).then(function(res){if(res&&res.ok)toast(t('toast.exported'),'ok');else if(res&&!res.cancelled)toast(errMsg(res&&res.error),'err');});
   });
 }
 function doImportFromData(data){
@@ -1660,19 +1765,19 @@ function doImportFromData(data){
   pyCall('import_mcopy',JSON.stringify(data),fid).then(function(r){
     if(!r)return;
     if(r.ok){toast(t('toast.imported'),'ok');if(vState.view==='folders')loadFolders();else loadCurrentPresets();}
-    else toast(r.error||'Error al importar','err');
+    else toast(errMsg(r.error),'err');
   });
 }
 function doImportDialog(){
   pyCall('open_import_dialog').then(function(r){
     if(!r||r.cancelled)return;
-    if(!r.ok){toast(r.error||'Error','err');return;}
+    if(!r.ok){toast(errMsg(r.error),'err');return;}
     doImportFromData(r.data);
   });
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 21 — ACCIONES DEL PANEL IZQUIERDO
+   BLOCK JS 21 — LEFT PANEL ACTIONS
 ════════════════════════════════════════════════════════════════════════════ */
 function doCopy(){
   var btn=document.getElementById('copy-btn');if(btn.classList.contains('loading'))return;
@@ -1680,8 +1785,8 @@ function doCopy(){
   pyCall('copy_nodes').then(function(r){
     btn.classList.remove('loading');
     if(!r){setStatus(t('sb.backend.err'),'err');return;}
-    if(r.ok){pendingData=r.data;updateCopyStatus();setStatus(t('sb.captured'),'ok');toast(t('toast.captured'),'ok');document.getElementById('preset-name').focus();}
-    else{setStatus(r.error||t('sb.backend.err'),'err');toast(r.error||t('sb.backend.err'),'err');}
+    if(r.ok){pendingData=r.data;pendingSource=r.via||'clipboard';updateCopyStatus();setStatus(t('sb.captured'),'ok');toast(t('toast.captured'),'ok');document.getElementById('preset-name').focus();}
+    else{setStatus(errMsg(r.error),'err');toast(errMsg(r.error),'err');}
   });
 }
 function doPaste(){
@@ -1689,8 +1794,8 @@ function doPaste(){
   setStatus(t('sb.writing'),'info');
   pyCall('paste_nodes',String(selectedId)).then(function(r){
     if(!r){setStatus(t('sb.backend.err'),'err');return;}
-    if(r.ok){setStatus((r.msg||t('sb.ready'))+(r.name?' \u2014 '+r.name:''),'ok');toast(t('toast.clipboard'),'ok');}
-    else{setStatus(r.error||t('sb.backend.err'),'err');toast(r.error||t('sb.backend.err'),'err');}
+    if(r.ok){var viaKey=r.via==='scripting'?'sb.paste.scripting':'sb.paste.clipboard';setStatus(t(viaKey)+(r.name?' \u2014 '+r.name:''),'ok');toast(t(r.via==='scripting'?'toast.scripting.pasted':'toast.clipboard'),'ok');}
+    else{setStatus(errMsg(r.error),'err');toast(errMsg(r.error),'err');}
   });
 }
 function doSave(){
@@ -1700,16 +1805,16 @@ function doSave(){
   if(!pendingData){toast(t('validate.no.data'),'warn');return;}
   var fid=null;
   if(vState.view==='presets'&&typeof vState.folderId==='number')fid=vState.folderId;
-  pyCall('save_preset',JSON.stringify({name:name,description:desc,fusion_data:pendingData,folder_id:fid})).then(function(r){
+  pyCall('save_preset',JSON.stringify({name:name,description:desc,fusion_data:pendingData,source:pendingSource,folder_id:fid})).then(function(r){
     if(!r)return;
     if(r.ok){toast(t('toast.saved'),'ok');setStatus(t('sb.saving')+' '+name,'ok');doClear();if(vState.view==='folders')loadFolders();else loadCurrentPresets();}
-    else toast(r.error||t('sb.backend.err'),'err');
+    else toast(errMsg(r.error),'err');
   });
 }
-function doClear(){document.getElementById('preset-name').value='';document.getElementById('preset-desc').value='';pendingData=null;updateCopyStatus();setStatus(t('sb.ready'),'');}
+function doClear(){document.getElementById('preset-name').value='';document.getElementById('preset-desc').value='';pendingData=null;pendingSource='clipboard';updateCopyStatus();setStatus(t('sb.ready'),'');}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 22 — AJUSTES
+   BLOCK JS 22 — SETTINGS
 ════════════════════════════════════════════════════════════════════════════ */
 function renderExportTable(){
   var c=document.getElementById('s-export-table');
@@ -1721,15 +1826,15 @@ function doSaveSettings(){pyCall('save_settings',JSON.stringify(cfg)).then(funct
 
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 22b — CÓDIGO COMPARTIBLE (MCOPY: encode/decode)
+   BLOCK JS 23 — SHAREABLE CODE (MCOPY: encode/decode)
 ════════════════════════════════════════════════════════════════════════════ */
 
-var QR_CHAR_LIMIT = 2000; // por encima de esto el QR deja de ser legible de forma confiable
+var QR_CHAR_LIMIT = 2000; // above this threshold the QR stops being reliably readable
 var currentCodeMeta = { type: null, name: '', icon: '', color: '' };
 
 function doShowCode(presetId) {
     pyCall('encode_preset', String(presetId)).then(function(r) {
-        if (!r || !r.ok) { toast(r ? r.error : 'Error', 'err'); return; }
+        if (!r || !r.ok) { toast(r ? errMsg(r.error) : errMsg(), 'err'); return; }
         document.getElementById('code-output').value = r.code;
         updateCodeScale(r.chars);
 
@@ -1782,7 +1887,7 @@ function doGenerateQR() {
     if (!code) return;
 
     if (typeof QRCode === 'undefined') {
-        toast('Error: librería QR no cargó (lib/qrcode.min.js no encontrado)', 'err');
+        toast(t('err.QR_LIBRARY_MISSING'), 'err');
         return;
     }
 
@@ -1800,8 +1905,8 @@ function doGenerateQR() {
             correctLevel: QRCode.CorrectLevel.M
         });
     } catch (e) {
-        var detail = (e && (e.message || e.toString())) || 'desconocido';
-        toast('Error al generar QR: ' + detail, 'err');
+        var detail = (e && (e.message || e.toString())) || t('err.UNKNOWN_ERROR');
+        toast(t('err.QR_GENERATE_FAILED', {detail: detail}), 'err');
         wrap.classList.remove('visible');
         return;
     }
@@ -1886,7 +1991,7 @@ function doImportFromCode(code) {
     }
     pyCall('decode_preset_code', code).then(function(r) {
         if (!r || !r.ok) {
-            errEl.textContent = r ? r.error : t('err.decode');
+            errEl.textContent = r ? errMsg(r.error) : t('err.decode');
             return;
         }
         var fid = (vState.view === 'presets' && typeof vState.folderId === 'number')
@@ -1903,14 +2008,14 @@ function doImportFromCode(code) {
                 if (vState.view === 'folders') loadFolders();
                 else loadCurrentPresets();
             } else {
-                errEl.textContent = res ? res.error : t('err.save');
+                errEl.textContent = res ? errMsg(res.error) : t('err.save');
             }
         });
     });
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 23 — EVENT LISTENERS
+   BLOCK JS 24 — EVENT LISTENERS
 ════════════════════════════════════════════════════════════════════════════ */
 document.getElementById('btn-close').addEventListener('click',function(){if(window.backend)window.backend.close_window();});
 document.getElementById('btn-min').addEventListener('click',function(){if(window.backend)window.backend.minimize_window();});
@@ -2032,13 +2137,13 @@ document.getElementById('code-copy-btn').addEventListener('click', function(e) {
         if (r && r.ok) {
             toast(t('toast.code.copied'), 'ok');
         } else {
-            // Fallback: intentar vía execCommand del navegador
+            // Fallback: try the browser's execCommand
             try {
                 document.getElementById('code-output').select();
                 document.execCommand('copy');
                 toast(t('toast.code.copied'), 'ok');
             } catch (e2) {
-                toast((r && r.error) || 'Error al copiar', 'err');
+                toast(errMsg(r&&r.error),'err');
             }
         }
     });
@@ -2089,7 +2194,7 @@ rightEl.addEventListener('drop',function(e){
 });
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOQUE JS 24 — INICIALIZACIÓN
+   BLOCK JS 25 — INITIALIZATION
 ════════════════════════════════════════════════════════════════════════════ */
 function onBackendReady(){
   pyCall('get_settings').then(function(s){

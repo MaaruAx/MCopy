@@ -6,7 +6,9 @@ and the DaVinci Resolve / Fusion scripting bridge (Scripting mode).
 
 from __future__ import annotations
 
+import contextlib
 import logging
+import os
 import platform
 import subprocess
 import sys
@@ -147,6 +149,31 @@ def clipboard_set_text(text: str) -> bool:
         return False
 
 
+@contextlib.contextmanager
+def _suppress_native_stderr():
+    """Resolve's embedded scripting bridge (fusionscript) sometimes writes
+    internal traceback noise straight to the process's OS-level stderr file
+    descriptor on certain API calls -- this is a quirk of the bridge itself,
+    not a catchable Python exception, so try/except can't silence it. This
+    redirects just that file descriptor for the duration of the call and
+    restores it immediately after, regardless of what happens inside."""
+    try:
+        stderr_fd = sys.stderr.fileno()
+    except (AttributeError, OSError, ValueError):
+        yield
+        return
+
+    saved_fd = os.dup(stderr_fd)
+    devnull_fd = os.open(os.devnull, os.O_WRONLY)
+    try:
+        os.dup2(devnull_fd, stderr_fd)
+        yield
+    finally:
+        os.dup2(saved_fd, stderr_fd)
+        os.close(devnull_fd)
+        os.close(saved_fd)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # DaVinci Resolve / Fusion scripting bridge ("Scripting" mode)
 #
@@ -165,6 +192,17 @@ def _import_dvr_module() -> Optional[Any]:
     global _dvr_module
     if _dvr_module is not None:
         return _dvr_module
+
+    # fusionscript's native module expects OrderedDict to be available as a
+    # builtin (no import needed) on Python 3.10+. Resolve's own embedded
+    # interpreter has this implicitly; an external process doesn't, which is
+    # what made CopySettings() fail with "NameError: OrderedDict" while
+    # simpler calls (GetToolList, Paste) kept working. Validated fix, ported
+    # from MFlow's resolve_connection.py.
+    import builtins
+    from collections import OrderedDict as _OrderedDict
+    if not hasattr(builtins, "OrderedDict"):
+        builtins.OrderedDict = _OrderedDict
 
     for path in get_resolve_module_paths():
         if path.is_dir():
@@ -195,17 +233,17 @@ def get_fusion_comp() -> tuple[Optional[Any], Optional[str]]:
         logger.warning("dvr.scriptapp('Resolve') raised an exception")
         return None, "SCRIPTING_NOT_CONNECTED"
 
-    if not resolve:
+    if resolve is None:
         return None, "SCRIPTING_NOT_CONNECTED"
 
     try:
         fusion = resolve.Fusion()
-        comp = fusion.GetCurrentComp() if fusion else None
+        comp = fusion.GetCurrentComp() if fusion is not None else None
     except Exception:
         logger.warning("resolve.Fusion()/GetCurrentComp() raised an exception")
         return None, "SCRIPTING_NOT_CONNECTED"
 
-    if not comp:
+    if comp is None:
         return None, "SCRIPTING_NO_COMP"
 
     return comp, None
@@ -219,12 +257,17 @@ def capture_selected_nodes() -> tuple[Optional[str], Optional[str]]:
         return None, error
 
     try:
-        selected = comp.GetToolList(True)
-        if not selected:
-            return None, "SCRIPTING_NO_SELECTION"
+        with _suppress_native_stderr():
+            selected = comp.GetToolList(True)
+            # The object Fusion returns here doesn't reliably behave like a
+            # normal Python falsy value when empty (an empty selection can
+            # come back as something Python still considers truthy), so
+            # check the actual count rather than relying on `not selected`.
+            if selected is None or len(selected) == 0:
+                return None, "SCRIPTING_NO_SELECTION"
 
-        settings_table = comp.CopySettings(selected)
-        text = _dvr_module.writestring(settings_table)
+            settings_table = comp.CopySettings(selected)
+            text = _dvr_module.writestring(settings_table)
         if not text:
             return None, "SCRIPTING_CAPTURE_FAILED"
         return text, None
@@ -241,10 +284,11 @@ def paste_fusion_data(text: str) -> tuple[bool, Optional[str]]:
         return False, error
 
     try:
-        settings_table = _dvr_module.readstring(text)
-        if not settings_table:
-            return False, "SCRIPTING_INVALID_DATA"
-        ok = bool(comp.Paste(settings_table))
+        with _suppress_native_stderr():
+            settings_table = _dvr_module.readstring(text)
+            if settings_table is None:
+                return False, "SCRIPTING_INVALID_DATA"
+            ok = bool(comp.Paste(settings_table))
         return ok, (None if ok else "SCRIPTING_PASTE_FAILED")
     except Exception:
         logger.exception("paste_fusion_data failed")

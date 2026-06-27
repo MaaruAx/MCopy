@@ -196,9 +196,6 @@ textarea{resize:none;}
 .pcard-desc{font-size:11px;color:var(--tx2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35;}
 .pcard-meta{display:flex;align-items:center;gap:5px;margin-top:3px;}
 .pcard-date{font-size:9px;color:var(--tx3);letter-spacing:.02em;}
-.badge{font-size:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 5px;border-radius:3px;border:1px solid;}
-.badge-cb{background:rgba(255,255,255,.04);color:var(--tx3);border-color:var(--bd2);}
-.badge-api{background:rgba(92,158,224,.08);color:var(--blu);border-color:rgba(92,158,224,.3);}
 .pcard-actions{display:flex;align-items:center;gap:2px;flex-shrink:0;}
 .pcard-btn{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:12px;color:var(--tx3);cursor:pointer;transition:color var(--tr),background var(--tr);}
 .pcard-btn:hover{color:var(--tx);background:var(--sf3);}
@@ -1561,12 +1558,11 @@ function renderPresetList(list){
   var h='';
   allPresets.forEach(function(p){
     var sel=p.id===selectedId?' selected':'';
-    var badge=p.source==='scripting'?'<span class="badge badge-api">API</span>':'<span class="badge badge-cb">CB</span>';
     var desc=p.description?'<div class="pcard-desc">'+esc(p.description)+'</div>':'';
     h+='<div class="pcard'+sel+'" data-id="'+p.id+'">'
       +'<div class="pcard-dot"></div>'
       +'<div class="pcard-body"><div class="pcard-name">'+esc(p.name)+'</div>'+desc
-      +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span>'+badge+'</div></div>'
+      +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span></div></div>'
       +'<div class="pcard-actions">'
       +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" data-tooltip="'+esc(t('tooltip.paste'))+'">&#9654;</div>'
       +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" data-tooltip="'+esc(t('tooltip.menu'))+'">\u22EF</div>'

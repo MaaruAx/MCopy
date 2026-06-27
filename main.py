@@ -1055,7 +1055,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setApplicationName("MCopy")
     app.setOrganizationName("MMarket")
-    app.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
     app.setAttribute(Qt.AA_ShareOpenGLContexts, True)
 
     window = MCopyWindow()

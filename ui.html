@@ -100,6 +100,11 @@ textarea{resize:none;}
 #save-btn.disabled{opacity:.35;cursor:not-allowed;}
 #clear-btn{padding:7px 13px;background:var(--sf2);color:var(--tx2);border:2px solid var(--bd);border-radius:var(--r);font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;transition:border-color var(--tr),color var(--tr);}
 #clear-btn:hover{border-color:var(--bd2);color:var(--tx);}
+#preset-nodes-list{display:flex;flex-direction:column;gap:3px;max-height:150px;overflow-y:auto;flex-shrink:0;}
+.node-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;background:var(--sf2);border-radius:4px;}
+.node-name{font-size:11px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+.node-type{font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--tx3);background:rgba(255,255,255,.05);padding:2px 6px;border-radius:3px;flex-shrink:0;}
+.nodes-empty{font-size:9px;color:var(--tx3);letter-spacing:.03em;text-transform:uppercase;padding:4px 1px;line-height:1.4;}
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK 7 — RIGHT PANEL — toolbar (breadcrumb + search + sort)
@@ -119,23 +124,6 @@ textarea{resize:none;}
 #sort-btn{display:none;flex-shrink:0;align-items:center;padding:4px 9px;border:2px solid var(--bd);border-radius:var(--r);background:var(--sf2);color:var(--tx3);font-size:9px;font-weight:700;font-family:var(--font-display);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:border-color var(--tr),color var(--tr);white-space:nowrap;}
 #sort-btn.visible{display:flex;}
 #sort-btn:hover{border-color:var(--ac);color:var(--ac);}
-#import-btn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:16px;color:var(--tx3);cursor:pointer;transition:color var(--tr),background var(--tr);flex-shrink:0;}
-#import-btn:hover{background:var(--sf3);}
-/* ─ Import button icon (replaceable with icons/import.svg) ────────────── */
-.import-btn-icon {
-    width: 16px; height: 16px;
-    background-color: var(--tx3);
-    -webkit-mask-image: url('icons/import.svg');
-    mask-image: url('icons/import.svg');
-    -webkit-mask-size: contain;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-size: contain;
-    mask-repeat: no-repeat;
-    mask-position: center;
-    transition: background-color var(--tr);
-}
-#import-btn:hover .import-btn-icon { background-color: var(--ac); }
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK 8 — RIGHT PANEL — view container
@@ -188,8 +176,9 @@ textarea{resize:none;}
 .pcard:hover{background:var(--sf);}
 .pcard.selected{background:var(--sf);}
 .pcard.selected::before{background:var(--ac);}
-.pcard-dot{width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0;opacity:.55;transition:opacity var(--tr);margin-left:3px;}
-.pcard.selected .pcard-dot{opacity:1;}
+.pcard-icon-wrap{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.75;transition:opacity var(--tr);}
+.pcard.selected .pcard-icon-wrap{opacity:1;}
+.pcard-icon{width:17px;height:17px;-webkit-mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;mask-size:contain;mask-repeat:no-repeat;mask-position:center;flex-shrink:0;}
 .pcard-body{flex:1;min-width:0;}
 .pcard-name{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2;transition:color var(--tr);}
 .pcard.selected .pcard-name{color:var(--ac);}
@@ -324,7 +313,7 @@ textarea{resize:none;}
 .s-export-row{display:flex;align-items:center;gap:8px;padding:5px 7px;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);}
 .s-export-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .s-export-name{flex:1;font-size:11px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.s-export-btn{padding:3px 8px;background:var(--sf3);border:1px solid var(--bd2);border-radius:3px;color:var(--tx3);font-size:9px;font-weight:700;font-family:var(--font-display);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:border-color var(--tr),color var(--tr);flex-shrink:0;}
+.s-export-btn{padding:5px 8px;background:var(--sf3);border:1px solid var(--bd2);border-radius:3px;color:var(--tx3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color var(--tr),color var(--tr);flex-shrink:0;}
 .s-export-btn:hover{border-color:var(--ac);color:var(--ac);}
 .s-empty-note{font-size:9px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:10px 0;opacity:.6;}
 
@@ -500,76 +489,7 @@ textarea{resize:none;}
 
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOCK 20 — PASTE CODE DIALOG
-════════════════════════════════════════════════════════════════════════════ */
-#paste-code-overlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,.82);
-    display: none; align-items: center; justify-content: center;
-    z-index: 560;
-}
-#paste-code-overlay.open { display: flex; }
-#paste-code-box {
-    background: var(--sf);
-    border: 2px solid var(--bd);
-    border-radius: var(--r);
-    width: 360px;
-    display: flex; flex-direction: column;
-    box-shadow: 0 16px 52px rgba(0,0,0,.65);
-    overflow: hidden;
-}
-#paste-code-hdr {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 11px 15px;
-    border-bottom: 2px solid var(--bd);
-    font-family: var(--font-display); font-weight: 900;
-    font-variation-settings: 'wght' 900;
-    font-size: 14px; letter-spacing: .04em; text-transform: uppercase; color: var(--ac);
-}
-#paste-code-close { font-size: 13px; color: var(--tx3); cursor: pointer; transition: color var(--tr); }
-#paste-code-close:hover { color: var(--red); }
-#paste-code-body { padding: 12px 15px; display: flex; flex-direction: column; gap: 8px; }
-#paste-code-input {
-    width: 100%; height: 80px;
-    background: var(--sf2); border: 2px solid var(--bd); border-radius: var(--r);
-    color: var(--tx); font-family: var(--font-mono); font-size: 10px;
-    padding: 7px 9px; line-height: 1.5; resize: none;
-    user-select: text; -webkit-user-select: text;
-    transition: border-color var(--tr);
-}
-#paste-code-input:focus { border-color: var(--ac); outline: none; }
-#paste-code-input::placeholder { color: var(--tx3); }
-#paste-code-err {
-    font-size: 9px; color: var(--red); letter-spacing: .04em;
-    min-height: 14px; font-weight: 700; text-transform: uppercase;
-}
-#paste-code-footer {
-    padding: 9px 15px;
-    border-top: 2px solid var(--bd);
-    display: flex; justify-content: flex-end; gap: 7px;
-}
-#paste-code-cancel {
-    padding: 7px 16px;
-    background: var(--sf2); color: var(--tx2);
-    border: 2px solid var(--bd); border-radius: var(--r);
-    font-family: var(--font-display); font-size: 11px; font-weight: 700;
-    letter-spacing: .04em; text-transform: uppercase;
-    cursor: pointer; transition: border-color var(--tr), color var(--tr);
-}
-#paste-code-cancel:hover { border-color: var(--bd2); color: var(--tx); }
-#paste-code-ok {
-    padding: 7px 20px;
-    background: var(--ac); color: #000;
-    border: 2px solid var(--ac); border-radius: var(--r);
-    font-family: var(--font-display); font-size: 11px; font-weight: 900;
-    font-variation-settings: 'wght' 900;
-    letter-spacing: .04em; text-transform: uppercase;
-    cursor: pointer; transition: filter var(--tr);
-}
-#paste-code-ok:hover { filter: brightness(.88); }
-
-/* ════════════════════════════════════════════════════════════════════════════
-   BLOCK 21 — CUSTOM TOOLTIPS
+   BLOCK 20 — CUSTOM TOOLTIPS
 ════════════════════════════════════════════════════════════════════════════ */
 [data-tooltip] { position: relative; }
 [data-tooltip]::after {
@@ -601,9 +521,16 @@ textarea{resize:none;}
     bottom: auto;
     top: calc(100% + 6px);
 }
+/* Tooltips en la lista de presets — apuntan hacia abajo, porque #presets-list
+   tiene overflow-y:auto y un tooltip hacia arriba en las primeras filas
+   queda recortado por ese borde (se ve "tapado" por la toolbar). */
+#presets-list [data-tooltip]::after {
+    bottom: auto;
+    top: calc(100% + 6px);
+}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOCK 22 — TOASTS
+   BLOCK 21 — TOASTS
 ════════════════════════════════════════════════════════════════════════════ */
 #toasts{position:fixed;bottom:32px;right:13px;z-index:700;display:flex;flex-direction:column;gap:5px;pointer-events:none;}
 .toast{padding:7px 13px;border:2px solid var(--bd);border-radius:var(--r);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--sf);color:var(--tx2);animation:tslide .16s ease;white-space:nowrap;}
@@ -613,7 +540,7 @@ textarea{resize:none;}
 @keyframes tslide{from{transform:translateX(14px);opacity:0}to{transform:translateX(0);opacity:1}}
 
 /* ════════════════════════════════════════════════════════════════════════════
-   BLOCK 23 — ANIMATIONS
+   BLOCK 22 — ANIMATIONS
 ════════════════════════════════════════════════════════════════════════════ */
 @keyframes folderIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 .fcard-anim{animation:folderIn .18s ease;}
@@ -629,7 +556,7 @@ textarea{resize:none;}
     <div class="logo-sub" data-i18n="logo.sub">para DaVinci Resolve &middot; Fusion</div>
   </div>
   <div id="topbar-right">
-    <div class="wbtn wsettings" id="btn-settings" data-i18n-tooltip="tooltip.settings" data-tooltip="Settings">&#9881;</div>
+    <div class="wbtn wsettings" id="btn-settings" data-i18n-tooltip="tooltip.settings" data-tooltip="Settings"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M4 20h3v-2h4v4h2v-4h4v2h-2v4H9v-4H7v2H2v-5h2v3Zm18 2h-5v-2h3v-3h2v5ZM6 11H2v2h4v4H4v-2H0V9h4V7h2v4Zm14-2h4v6h-4v2h-2v-4h4v-2h-4V7h2v2Zm-6 7h-4v-2h4v2Zm-4-2H8v-4h2v4Zm6 0h-2v-4h2v4Zm-2-4h-4V8h4v2ZM7 4H4v3H2V2h5v2Zm8 0h2V2h5v5h-2V4h-3v2h-4V2h-2v4H7V4h2V0h6v4Z"/></svg></div>
     <div class="wbtn" id="btn-min" data-i18n-tooltip="tooltip.minimize" data-tooltip="Minimize">&#8211;</div>
     <div class="wbtn wclose" id="btn-close" data-i18n-tooltip="tooltip.close" data-tooltip="Close">&#10005;</div>
   </div>
@@ -664,12 +591,11 @@ textarea{resize:none;}
       <button id="save-btn" class="disabled" data-i18n="btn.save">Guardar</button>
       <button id="clear-btn" data-i18n="btn.clear">Limpiar</button>
     </div>
-
-    <div class="sl" data-i18n="section.code">C&oacute;digo</div>
-    <div class="act-btn" id="paste-code-trigger-btn">
-      <span class="lbl" data-i18n="btn.paste.code.label">Pegar c&oacute;digo</span>
-      <span class="sub" data-i18n="btn.paste.code.sub">Importar preset desde MCOPY:...</span>
+    <div class="sl" data-i18n="section.nodes">Nodos del preset</div>
+    <div id="preset-nodes-list">
+      <div class="nodes-empty" data-i18n="nodes.empty">Selecciona un preset para ver sus nodos</div>
     </div>
+
   </div>
 
   <div id="right">
@@ -684,7 +610,6 @@ textarea{resize:none;}
         <input type="text" id="search-input" data-i18n-ph="search.folders.ph" placeholder="Buscar carpetas...">
         <span id="search-count"></span>
         <div id="sort-btn">&#8595; Reciente</div>
-        <div id="import-btn" data-i18n-tooltip="tooltip.import" data-tooltip="Import .mcopy"><div class="import-btn-icon"></div></div>
       </div>
     </div>
     <div id="right-content">
@@ -768,7 +693,10 @@ textarea{resize:none;}
       </div>
       <div class="s-group">
         <div class="s-glabel" data-i18n="settings.import">Importar</div>
-        <button id="s-import-btn" class="s-sel" style="flex:none;width:100%" data-i18n="btn.import.file">Seleccionar archivo .mcopy</button>
+        <button id="s-import-btn" class="s-sel" style="flex:none;width:100%;display:flex;align-items:center;justify-content:center;gap:7px">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px;flex-shrink:0"><path d="M19 21H5v-2h14v2ZM5 19H3v-4h2v4Zm16 0h-2v-4h2v4Zm-8-8h4v2h-2v2h-2v2h-2v-2H9v-2H7v-2h4V3h2v8Z"/></svg>
+          <span data-i18n="btn.import.file">Seleccionar archivo .mcopy</span>
+        </button>
       </div>
     </div>
     <div id="s-footer">
@@ -865,24 +793,6 @@ textarea{resize:none;}
   </div>
 </div>
 
-<!-- ══ BLOCK HTML 11 — PASTE CODE DIALOG ══════════════════════════════════ -->
-<div id="paste-code-overlay">
-  <div id="paste-code-box">
-    <div id="paste-code-hdr">
-      <span data-i18n="paste.code.title">Pegar c&oacute;digo MCOPY</span>
-      <span id="paste-code-close">&#10005;</span>
-    </div>
-    <div id="paste-code-body">
-      <textarea id="paste-code-input" data-i18n-ph="paste.code.ph" placeholder="Pega aqu&iacute; el c&oacute;digo MCOPY:..." spellcheck="false"></textarea>
-      <div id="paste-code-err"></div>
-    </div>
-    <div id="paste-code-footer">
-      <button id="paste-code-cancel" data-i18n="btn.cancel">Cancelar</button>
-      <button id="paste-code-ok" data-i18n="paste.code.import">Importar</button>
-    </div>
-  </div>
-</div>
-
 <div id="toasts"></div>
 
 <script>
@@ -930,19 +840,13 @@ var I18N = {
     'validate.no.data':'Captura nodos primero con el bot\u00f3n COPIAR',
     'validate.select':'Selecciona un preset primero',
     'cs.ready':'Datos listos ({n} bytes) \u2014 guarda el preset',
-    'count.one':'{n} preset',    'section.code':'C\u00f3digo',
-    'btn.paste.code.label':'Pegar c\u00f3digo',
-    'btn.paste.code.sub':'Importar preset desde MCOPY:...',
+    'count.one':'{n} preset',
     'code.modal.title':'C\u00f3digo del preset',
     'code.copy.btn':'Copiar c\u00f3digo',
     'code.hint.light':'Comparte en cualquier plataforma \u2014 Discord, Reddit, foros',
     'code.hint.medium':'Cabe en Discord y la mayor\u00eda de chats',
     'code.hint.heavy':'Largo \u2014 considera exportar como .mcopy',
     'code.hint.max':'Muy pesado \u2014 usa exportar archivo .mcopy',
-    'paste.code.title':'Pegar c\u00f3digo MCOPY',
-    'paste.code.ph':'Pega aqu\u00ed el c\u00f3digo MCOPY:...',
-    'paste.code.import':'Importar',
-    'paste.code.err.prefix':'El c\u00f3digo debe empezar con MCOPY:',
     'toast.code.copied':'C\u00f3digo copiado',
     'toast.code.imported':'Preset importado desde c\u00f3digo',
     'code.label.light':'Ligero',
@@ -1000,13 +904,15 @@ var I18N = {
     'tooltip.settings':'Ajustes',
     'tooltip.minimize':'Minimizar',
     'tooltip.close':'Cerrar',
-    'tooltip.import':'Importar .mcopy',
     'tooltip.copy':'Copiar',
     'tooltip.sort':'Cambiar orden',
+    'sort.recent':'M\u00e1s reciente','sort.oldest':'M\u00e1s antiguo','sort.name_asc':'Nombre A-Z','sort.name_desc':'Nombre Z-A',
     'tooltip.paste':'Pegar',
     'tooltip.menu':'Men\u00fa',
     'code.chars.suffix':'caracteres',
-    'count.many':'{n} presets'
+    'count.many':'{n} presets',
+    'section.nodes':'Nodos del preset',
+    'nodes.empty':'Selecciona un preset para ver sus nodos'
   },
   en:{
     'logo.sub':'for DaVinci Resolve \u00b7 Fusion','section.capture':'Capture',
@@ -1043,19 +949,13 @@ var I18N = {
     'validate.name':'Name is required','validate.no.data':'Capture nodes first with COPY button',
     'validate.select':'Select a preset first',
     'cs.ready':'Data ready ({n} bytes) \u2014 save the preset',
-    'count.one':'{n} preset',    'section.code':'Code',
-    'btn.paste.code.label':'Paste code',
-    'btn.paste.code.sub':'Import preset from MCOPY:...',
+    'count.one':'{n} preset',
     'code.modal.title':'Preset code',
     'code.copy.btn':'Copy code',
     'code.hint.light':'Share anywhere \u2014 Discord, Reddit, forums',
     'code.hint.medium':'Fits in Discord and most chats',
     'code.hint.heavy':'Long \u2014 consider exporting as .mcopy',
     'code.hint.max':'Very heavy \u2014 use export file .mcopy',
-    'paste.code.title':'Paste MCOPY code',
-    'paste.code.ph':'Paste MCOPY:... code here...',
-    'paste.code.import':'Import',
-    'paste.code.err.prefix':'Code must start with MCOPY:',
     'toast.code.copied':'Code copied',
     'toast.code.imported':'Preset imported from code',
     'code.label.light':'Light',
@@ -1113,13 +1013,15 @@ var I18N = {
     'tooltip.settings':'Settings',
     'tooltip.minimize':'Minimize',
     'tooltip.close':'Close',
-    'tooltip.import':'Import .mcopy',
     'tooltip.copy':'Copy',
     'tooltip.sort':'Change sort order',
+    'sort.recent':'Most recent','sort.oldest':'Oldest','sort.name_asc':'Name A-Z','sort.name_desc':'Name Z-A',
     'tooltip.paste':'Paste',
     'tooltip.menu':'Menu',
     'code.chars.suffix':'characters',
-    'count.many':'{n} presets'
+    'count.many':'{n} presets',
+    'section.nodes':'Preset nodes',
+    'nodes.empty':'Select a preset to see its nodes'
   },
   de:{
     'logo.sub':'f\u00fcr DaVinci Resolve \u00b7 Fusion','section.capture':'Erfassen',
@@ -1155,19 +1057,13 @@ var I18N = {
     'validate.name':'Name erforderlich','validate.no.data':'Erst Nodes mit KOPIEREN erfassen',
     'validate.select':'Erst ein Preset ausw\u00e4hlen',
     'cs.ready':'Daten bereit ({n} Bytes) \u2014 Preset speichern',
-    'count.one':'{n} Preset',    'section.code':'Code',
-    'btn.paste.code.label':'Code einf\u00fcgen',
-    'btn.paste.code.sub':'Preset von MCOPY:... importieren',
+    'count.one':'{n} Preset',
     'code.modal.title':'Preset-Code',
     'code.copy.btn':'Code kopieren',
     'code.hint.light':'\u00dcberall teilen \u2014 Discord, Reddit, Foren',
     'code.hint.medium':'Passt in Discord und die meisten Chats',
     'code.hint.heavy':'Lang \u2014 als .mcopy exportieren empfohlen',
     'code.hint.max':'Sehr schwer \u2014 .mcopy-Datei verwenden',
-    'paste.code.title':'MCOPY-Code einf\u00fcgen',
-    'paste.code.ph':'MCOPY:... Code hier einf\u00fcgen...',
-    'paste.code.import':'Importieren',
-    'paste.code.err.prefix':'Code muss mit MCOPY: beginnen',
     'toast.code.copied':'Code kopiert',
     'toast.code.imported':'Preset aus Code importiert',
     'code.label.light':'Leicht',
@@ -1225,13 +1121,15 @@ var I18N = {
     'tooltip.settings':'Einstellungen',
     'tooltip.minimize':'Minimieren',
     'tooltip.close':'Schlie\u00dfen',
-    'tooltip.import':'.mcopy importieren',
     'tooltip.copy':'Kopieren',
     'tooltip.sort':'Sortierung \u00e4ndern',
+    'sort.recent':'Neueste','sort.oldest':'\u00c4lteste','sort.name_asc':'Name A-Z','sort.name_desc':'Name Z-A',
     'tooltip.paste':'Einf\u00fcgen',
     'tooltip.menu':'Men\u00fc',
     'code.chars.suffix':'Zeichen',
-    'count.many':'{n} Presets'
+    'count.many':'{n} Presets',
+    'section.nodes':'Preset-Nodes',
+    'nodes.empty':'W\u00e4hle ein Preset, um seine Nodes zu sehen'
   },
   hi:{
     'logo.sub':'DaVinci Resolve \u00b7 Fusion \u0915\u0947 \u0932\u093f\u090f',
@@ -1272,19 +1170,13 @@ var I18N = {
     'toast.hex.err':'\u0905\u092e\u093e\u0928\u094d\u092f \u0939\u0947\u0915\u094d\u0938 \u2014 #rrggbb','toast.scripting':'\u0938\u094d\u0915\u094d\u0930\u093f\u092a\u094d\u091f\u093f\u0902\u0917 \u092e\u094b\u0921 \u0938\u0915\u094d\u0930\u093f\u092f \u2014 Fusion \u092e\u0947\u0902 \u0938\u0940\u0927\u0947 \u0915\u0948\u092a\u094d\u091a\u0930/\u092a\u0947\u0938\u094d\u091f',
     'validate.name':'\u0928\u093e\u092e \u0906\u0935\u0936\u094d\u092f\u0915','validate.no.data':'\u092a\u0939\u0932\u0947 COPY \u0915\u0930\u0947\u0902',
     'validate.select':'\u092a\u0939\u0932\u0947 \u0915\u094b\u0908 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902',
-    'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes)','count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',    'section.code':'\u0915\u094b\u0921',
-    'btn.paste.code.label':'\u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
-    'btn.paste.code.sub':'MCOPY:... \u0938\u0947 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0906\u092f\u093e\u0924',
+    'cs.ready':'\u0921\u0947\u091f\u093e \u0924\u0948\u092f\u093e\u0930 ({n} bytes)','count.one':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',
     'code.modal.title':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0915\u094b\u0921',
     'code.copy.btn':'\u0915\u094b\u0921 \u0915\u0949\u092a\u0940 \u0915\u0930\u0947\u0902',
     'code.hint.light':'\u0915\u0939\u0940\u0902 \u092d\u0940 \u0936\u0947\u092f\u0930 \u0915\u0930\u0947\u0902 \u2014 Discord, Reddit, \u092b\u094b\u0930\u092e',
     'code.hint.medium':'Discord \u0914\u0930 \u0905\u0927\u093f\u0915\u0924\u0930 \u091a\u0948\u091f \u092e\u0947\u0902 \u0906\u0924\u093e \u0939\u0948',
     'code.hint.heavy':'\u0932\u0902\u092c\u093e \u2014 .mcopy \u0928\u093f\u0930\u094d\u092f\u093e\u0924 \u0915\u0930\u0947\u0902',
     'code.hint.max':'\u092c\u0939\u0941\u0924 \u092d\u093e\u0930\u0940 \u2014 .mcopy \u092b\u093c\u093e\u0907\u0932 \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902',
-    'paste.code.title':'MCOPY \u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902',
-    'paste.code.ph':'\u092f\u0939\u093e\u0901 MCOPY:... \u0915\u094b\u0921 \u092a\u0947\u0938\u094d\u091f \u0915\u0930\u0947\u0902...',
-    'paste.code.import':'\u0906\u092f\u093e\u0924',
-    'paste.code.err.prefix':'\u0915\u094b\u0921 MCOPY: \u0938\u0947 \u0936\u0941\u0930\u0942 \u0939\u094b\u0928\u093e \u091a\u093e\u0939\u093f\u090f',
     'toast.code.copied':'\u0915\u094b\u0921 \u0915\u0949\u092a\u0940 \u0939\u0941\u0906',
     'toast.code.imported':'\u0915\u094b\u0921 \u0938\u0947 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0906\u092f\u093e\u0924 \u0915\u093f\u092f\u093e',
     'code.label.light':'\u0939\u0932\u094d\u0915\u093e',
@@ -1342,13 +1234,15 @@ var I18N = {
     'tooltip.settings':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938',
     'tooltip.minimize':'\u0928\u094d\u092f\u0942\u0928\u0924\u0930',
     'tooltip.close':'\u092c\u0902\u0926 \u0915\u0930\u0947\u0902',
-    'tooltip.import':'.mcopy \u0906\u092f\u093e\u0924',
     'tooltip.copy':'\u0915\u0949\u092a\u0940',
     'tooltip.sort':'\u0915\u094d\u0930\u092e \u092c\u0926\u0932\u0947\u0902',
+    'sort.recent':'\u0938\u092c\u0938\u0947 \u0928\u090f','sort.oldest':'\u0938\u092c\u0938\u0947 \u092a\u0941\u0930\u093e\u0928\u0947','sort.name_asc':'\u0928\u093e\u092e A-Z','sort.name_desc':'\u0928\u093e\u092e Z-A',
     'tooltip.paste':'\u092a\u0947\u0938\u094d\u091f',
     'tooltip.menu':'\u092e\u0947\u0928\u0942',
     'code.chars.suffix':'\u0905\u0915\u094d\u0937\u0930',
-    'count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f'
+    'count.many':'{n} \u092a\u094d\u0930\u0940\u0938\u0947\u091f',
+    'section.nodes':'\u092a\u094d\u0930\u0940\u0938\u0947\u091f \u0928\u094b\u0921\u094d\u0938',
+    'nodes.empty':'\u0928\u094b\u0921\u094d\u0938 \u0926\u0947\u0916\u0928\u0947 \u0915\u0947 \u0932\u093f\u0939\u0947 \u090f\u0915 \u092a\u094d\u0930\u0940\u0938\u0947\u091f \u091a\u0941\u0928\u0947\u0902'
   }
 };
 
@@ -1375,7 +1269,12 @@ var FONTS={
   monaspace:{display:"'Monaspace Neon',monospace",body:"'Monaspace Neon',monospace"}
 };
 var SORT_CYCLE=['recent','name_asc','name_desc','oldest'];
-var SORT_LABELS={recent:'\u2193 Rec',name_asc:'A\u2192Z',name_desc:'Z\u2192A',oldest:'\u2191 Old'};
+var SORT_ICONS={
+  recent:'<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M6 3h2v18H6z"/><path d="M4 17h6v2H4zm-2-2h10v2H2zm8-2h6v-2h-6zm0-4h9V7h-9zm0-4h12V3H10z"/></svg>',
+  oldest:'<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M6 21h2V3H6z"/><path d="M4 7h6V5H4zM2 9h10V7H2zm8 2h6v2h-6zm0 4h9v2h-9zm0 4h12v2H10z"/></svg>',
+  name_asc:'<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M14 9h7v2h-7zm0-6h7v2h-7zm2 4h2v2h-2zm2-2h2v2h-2zM6 21h2V3H6z"/><path d="M4 7h6V5H4zM2 9h10V7H2zm12 6h2v6h-2zm2-2h3v2h-3zm3 2h2v6h-2zm-3 2h3v2h-3z"/></svg>',
+  name_desc:'<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:13px;height:13px"><path d="M14 3h7v2h-7zm0 6h7v2h-7zm2-2h2v2h-2zm2-2h2v2h-2zM6 3h2v18H6z"/><path d="M4 17h6v2H4zm-2-2h10v2H2zm12 0h2v6h-2zm2-2h3v2h-3zm3 2h2v6h-2zm-3 2h3v2h-3z"/></svg>'
+};
 var ICON_LIST=['folder','star','bookmark','heart','tag','box','lock','palette','gradient','contrast','sparkles','wand','zap','layers','blend','mask','eye','move','wind','grid','arrows','text','film','camera'];
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -1399,6 +1298,7 @@ function relTime(ds){try{var d=new Date(ds.replace(' ','T')+'Z'),s=Math.floor((D
 function validHex(h){return /^#[0-9a-fA-F]{6}$/.test(h);}
 function darkenColor(hex,f){try{var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);r=Math.max(0,Math.min(255,Math.round(r*f)));g=Math.max(0,Math.min(255,Math.round(g*f)));b=Math.max(0,Math.min(255,Math.round(b*f)));return '#'+[r,g,b].map(function(v){return v.toString(16).padStart(2,'0');}).join('');}catch(e){return '#888888';}}
 function contrastColor(hex){try{var r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;return(0.2126*r+0.7152*g+0.0722*b)>0.42?'#1a1a1a':'#ffffff';}catch(e){return '#ffffff';}}
+function hexToRgba(hex,a){try{var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return 'rgba('+r+','+g+','+b+','+a+')';}catch(e){return 'rgba(245,200,66,'+a+')';}}
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK JS 5 — BACKEND COMMUNICATION
@@ -1489,25 +1389,46 @@ function loadCurrentPresets(){
 function makeIconEl(color,icon,size){return '<div class="fcard-icon" style="width:'+size+'px;height:'+size+'px;background-color:'+esc(color)+';-webkit-mask-image:url(\'icons/'+esc(icon)+'.svg\');mask-image:url(\'icons/'+esc(icon)+'.svg\')"></div>';}
 function renderFolderGrid(){
   var g=document.getElementById('folders-grid'),h='';
-  // Todos
+  var gstyle=cfg.folder_style||'tab';
+  // All
   var dk=darkenColor(cfg.accent,.65),tx=contrastColor(cfg.accent);
-  h+='<div class="fcard fcard-all style-solid" data-id="all" data-style="solid" style="border-color:transparent">'
-    +'<div class="fcard-body" style="background:'+cfg.accent+'">'
-    +'<div class="fcard-badge">'+vState.totalCount+'</div>'
-    +'<div class="fcard-icon-wrap">'+makeIconEl(dk,'grid',38)+'</div>'
-    +'<div class="fcard-name" style="color:'+tx+'">'+esc(t('folder.all'))+'</div>'
-    +'</div></div>';
+  if(gstyle==='solid'){
+    h+='<div class="fcard fcard-all style-solid" data-id="all" data-style="solid">'
+      +'<div class="fcard-body" style="background:'+cfg.accent+'">'
+      +'<div class="fcard-badge">'+vState.totalCount+'</div>'
+      +'<div class="fcard-icon-wrap">'+makeIconEl(dk,'grid',38)+'</div>'
+      +'<div class="fcard-name" style="color:'+tx+'">'+esc(t('folder.all'))+'</div>'
+      +'</div></div>';
+  }else{
+    h+='<div class="fcard fcard-all style-tab" data-id="all" data-style="tab">'
+      +'<div class="fcard-tab" style="background:'+cfg.accent+'"></div>'
+      +'<div class="fcard-body">'
+      +'<div class="fcard-badge">'+vState.totalCount+'</div>'
+      +'<div class="fcard-icon-wrap">'+makeIconEl(dk,'grid',36)+'</div>'
+      +'<div class="fcard-name">'+esc(t('folder.all'))+'</div>'
+      +'</div></div>';
+  }
   // Pinned folders
   vState.folders.filter(function(f){return f.pinned;}).forEach(function(f){h+=makeFolderCard(f);});
   // Unorganized folder card
   if(vState.unorgCount>0){
-    h+='<div class="fcard style-tab" data-id="unorg" data-style="tab">'
-      +'<div class="fcard-tab" style="background:#888888"></div>'
-      +'<div class="fcard-body">'
-      +'<div class="fcard-badge">'+vState.unorgCount+'</div>'
-      +'<div class="fcard-icon-wrap">'+makeIconEl(darkenColor('#888888',.6),'box',36)+'</div>'
-      +'<div class="fcard-name">'+esc(t('folder.unorg'))+'</div>'
-      +'</div></div>';
+    var udk=darkenColor('#888888',.6);
+    if(gstyle==='solid'){
+      h+='<div class="fcard style-solid" data-id="unorg" data-style="solid">'
+        +'<div class="fcard-body" style="background:#888888">'
+        +'<div class="fcard-badge">'+vState.unorgCount+'</div>'
+        +'<div class="fcard-icon-wrap">'+makeIconEl(udk,'box',38)+'</div>'
+        +'<div class="fcard-name" style="color:'+contrastColor('#888888')+'">'+esc(t('folder.unorg'))+'</div>'
+        +'</div></div>';
+    }else{
+      h+='<div class="fcard style-tab" data-id="unorg" data-style="tab">'
+        +'<div class="fcard-tab" style="background:#888888"></div>'
+        +'<div class="fcard-body">'
+        +'<div class="fcard-badge">'+vState.unorgCount+'</div>'
+        +'<div class="fcard-icon-wrap">'+makeIconEl(udk,'box',36)+'</div>'
+        +'<div class="fcard-name">'+esc(t('folder.unorg'))+'</div>'
+        +'</div></div>';
+    }
   }
   // Unpinned folders
   vState.folders.filter(function(f){return !f.pinned;}).forEach(function(f){h+=makeFolderCard(f);});
@@ -1559,12 +1480,14 @@ function renderPresetList(list){
   allPresets.forEach(function(p){
     var sel=p.id===selectedId?' selected':'';
     var desc=p.description?'<div class="pcard-desc">'+esc(p.description)+'</div>':'';
+    var iconWrap='<div class="pcard-icon-wrap" style="background:'+hexToRgba(cfg.accent,.14)+'">'
+      +'<div class="pcard-icon" style="background-color:'+esc(cfg.accent)+';-webkit-mask-image:url(\'icons/'+esc(p.icon||'box')+'.svg\');mask-image:url(\'icons/'+esc(p.icon||'box')+'.svg\')"></div></div>';
     h+='<div class="pcard'+sel+'" data-id="'+p.id+'">'
-      +'<div class="pcard-dot"></div>'
+      +iconWrap
       +'<div class="pcard-body"><div class="pcard-name">'+esc(p.name)+'</div>'+desc
       +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span></div></div>'
       +'<div class="pcard-actions">'
-      +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" data-tooltip="'+esc(t('tooltip.paste'))+'">&#9654;</div>'
+      +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" data-tooltip="'+esc(t('tooltip.paste'))+'"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:11px;height:11px"><path d="M11 17v2H9v2H7V3h2v2h2v2h2v2h2v2h2v2h-2v2h-2v2z"/></svg></div>'
       +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" data-tooltip="'+esc(t('tooltip.menu'))+'">\u22EF</div>'
       +'</div></div>';
   });
@@ -1592,7 +1515,8 @@ function openCtxMenu(e,type,id){
       +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item danger" data-action="delete-folder">'+t('ctx.delete')+'</div>';
   }else{
-    menu.innerHTML='<div class="ctx-item" data-action="copy-code">'+t('ctx.copy.code')+'</div>'
+    menu.innerHTML='<div class="ctx-item" data-action="icon">'+t('ctx.change.icon')+'</div>'
+      +'<div class="ctx-item" data-action="copy-code">'+t('ctx.copy.code')+'</div>'
       +'<div class="ctx-item" data-action="export-preset">'+t('ctx.export.preset')+'</div>'
       +'<div class="ctx-item" data-action="move-preset">'+t('ctx.move.preset')+'</div>'
       +'<div class="ctx-sep"></div>'
@@ -1609,7 +1533,7 @@ function handleCtxAction(action){
   closeCtxMenu();var id=ctxMeta.id;
   if(action==='rename'){startRename(id);}
   else if(action==='color'){openColorPicker(id);}
-  else if(action==='icon'){openIconPicker(id);}
+  else if(action==='icon'){openIconPicker(ctxMeta.type,id);}
   else if(action==='pin'){togglePin(id);}
   else if(action==='duplicate'){doDuplicateFolder(id);}
   else if(action==='move-all'){openMoveDialog('folder',id);}
@@ -1663,13 +1587,21 @@ function applyFolderColor(color){
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK JS 14 — ICON PICKER
 ════════════════════════════════════════════════════════════════════════════ */
-function openIconPicker(fid){
-  iconPickerTarget=fid;
-  var f=vState.folders.filter(function(x){return x.id===fid;})[0];var cur=f?f.icon:'folder';
+function openIconPicker(type,id){
+  iconPickerTarget={type:type,id:id};
+  var cur='folder';
+  if(type==='folder'){
+    var f=vState.folders.filter(function(x){return x.id===id;})[0];
+    cur=f?f.icon:'folder';
+  }else{
+    var p=allPresets.filter(function(x){return x.id===id;})[0];
+    cur=p?(p.icon||'box'):'box';
+  }
   var h='';ICON_LIST.forEach(function(n){var a=n===cur?' active':'';h+='<div class="ip-btn'+a+'" data-icon="'+esc(n)+'" data-tooltip="'+esc(n)+'"><div class="ip-icon" style="-webkit-mask-image:url(\'icons/'+esc(n)+'.svg\');mask-image:url(\'icons/'+esc(n)+'.svg\')"></div></div>';});
   document.getElementById('ip-grid').innerHTML=h;
   var picker=document.getElementById('icon-picker');
-  var card=document.querySelector('.fcard[data-id="'+fid+'"]');
+  var selector=type==='folder'?'.fcard[data-id="'+id+'"]':'.pcard[data-id="'+id+'"]';
+  var card=document.querySelector(selector);
   if(card){var r=card.getBoundingClientRect();picker.style.left=r.left+'px';picker.style.top=(r.bottom+4)+'px';}
   picker.classList.add('open');
   var pr=picker.getBoundingClientRect();
@@ -1716,7 +1648,11 @@ function cycleSortMode(){
   setTimeout(function(){loadCurrentPresets();list.style.opacity='1';list.style.transform='translateY(0)';list.style.transition='';},130);
   saveViewState();
 }
-function updateSortBtn(){document.getElementById('sort-btn').textContent=SORT_LABELS[vState.sortMode]||SORT_LABELS.recent;}
+function updateSortBtn(){
+  var btn=document.getElementById('sort-btn');
+  btn.innerHTML=SORT_ICONS[vState.sortMode]||SORT_ICONS.recent;
+  btn.setAttribute('data-tooltip',t('sort.'+vState.sortMode));
+}
 
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK JS 18 — FOLDER ACTIONS
@@ -1733,8 +1669,26 @@ function doCreateFolder(){
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK JS 19 — PRESET ACTIONS
 ════════════════════════════════════════════════════════════════════════════ */
-function doDeletePreset(pid){pyCall('delete_preset',String(pid)).then(function(r){if(r&&r.ok){if(selectedId===pid){selectedId=null;updatePasteBtn();}loadCurrentPresets();toast(t('toast.deleted'),'');}else toast(errMsg(r&&r.error),'err');});}
-function doSelectPreset(id){selectedId=id===selectedId?null:id;updatePasteBtn();renderPresetList(allPresets);}
+function doDeletePreset(pid){pyCall('delete_preset',String(pid)).then(function(r){if(r&&r.ok){if(selectedId===pid){selectedId=null;updatePasteBtn();loadPresetNodes(null);}loadCurrentPresets();toast(t('toast.deleted'),'');}else toast(errMsg(r&&r.error),'err');});}
+function doSelectPreset(id){selectedId=id===selectedId?null:id;updatePasteBtn();renderPresetList(allPresets);loadPresetNodes(selectedId);}
+function renderPresetNodes(nodes){
+  var c=document.getElementById('preset-nodes-list');
+  if(!nodes||!nodes.length){
+    c.innerHTML='<div class="nodes-empty">'+esc(t('nodes.empty'))+'</div>';
+    return;
+  }
+  var h='';
+  nodes.forEach(function(nd){
+    h+='<div class="node-row"><span class="node-name">'+esc(nd.name)+'</span><span class="node-type">'+esc(nd.type)+'</span></div>';
+  });
+  c.innerHTML=h;
+}
+function loadPresetNodes(id){
+  if(id===null){renderPresetNodes([]);return;}
+  pyCall('get_preset_nodes',String(id)).then(function(r){
+    renderPresetNodes(r&&r.ok?r.nodes:[]);
+  });
+}
 function doQuickPaste(id){setStatus(t('sb.writing'),'info');pyCall('paste_nodes',String(id)).then(function(r){if(!r)return;if(r.ok){var viaKey=r.via==='scripting'?'sb.paste.scripting':'sb.paste.clipboard';setStatus(t(viaKey)+(r.name?' \u2014 '+r.name:''),'ok');toast(t(r.via==='scripting'?'toast.scripting.pasted':'toast.clipboard'),'ok');}else{setStatus(errMsg(r.error),'err');toast(errMsg(r.error),'err');}});}
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -1815,7 +1769,7 @@ function doClear(){document.getElementById('preset-name').value='';document.getE
 function renderExportTable(){
   var c=document.getElementById('s-export-table');
   if(!vState.folders.length){c.innerHTML='<div class="s-empty-note">'+esc(t('folder.none'))+'</div>';return;}
-  var h='';vState.folders.forEach(function(f){h+='<div class="s-export-row"><div class="s-export-dot" style="background:'+esc(f.color)+'"></div><div class="s-export-name">'+esc(f.name)+'</div><div class="s-export-btn" data-export-folder="'+f.id+'">'+esc(t('settings.apply').length>3?'Export':'OK')+'</div></div>';});
+  var h='';vState.folders.forEach(function(f){h+='<div class="s-export-row"><div class="s-export-dot" style="background:'+esc(f.color)+'"></div><div class="s-export-name">'+esc(f.name)+'</div><div class="s-export-btn" data-export-folder="'+f.id+'" data-tooltip="'+esc(t('ctx.export.folder'))+'"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:11px;height:11px"><path d="M19 21H5v-2h14v2ZM5 19H3v-4h2v4Zm16 0h-2v-4h2v4ZM13 5h2v2h2v2h-4v8h-2V9H7V7h2V5h2V3h2v2Z"/></svg></div></div>';});
   c.innerHTML=h;
 }
 function doSaveSettings(){pyCall('save_settings',JSON.stringify(cfg)).then(function(){document.getElementById('s-overlay').classList.remove('open');toast(t('toast.settings'),'ok');});}
@@ -1963,31 +1917,14 @@ function closeCodeModal() {
     currentCodeMeta = { type: null, name: '', icon: '', color: '' };
 }
 
-function openPasteCodeDialog() {
-    document.getElementById('paste-code-overlay').classList.add('open');
-    document.getElementById('paste-code-input').value = '';
-    document.getElementById('paste-code-err').textContent = '';
-    setTimeout(function() {
-        document.getElementById('paste-code-input').focus();
-    }, 50);
-}
-
-function closePasteCodeDialog() {
-    document.getElementById('paste-code-overlay').classList.remove('open');
-    document.getElementById('paste-code-input').value = '';
-    document.getElementById('paste-code-err').textContent = '';
-}
-
 function doImportFromCode(code) {
-    var errEl = document.getElementById('paste-code-err');
-    errEl.textContent = '';
     if (!code.startsWith('MCOPY:')) {
-        errEl.textContent = t('paste.code.err.prefix');
+        toast(errMsg('INVALID_CODE_FORMAT'), 'err');
         return;
     }
     pyCall('decode_preset_code', code).then(function(r) {
         if (!r || !r.ok) {
-            errEl.textContent = r ? errMsg(r.error) : t('err.decode');
+            toast(r ? errMsg(r.error) : t('err.decode'), 'err');
             return;
         }
         var fid = (vState.view === 'presets' && typeof vState.folderId === 'number')
@@ -1999,12 +1936,11 @@ function doImportFromCode(code) {
             folder_id:   fid
         })).then(function(res) {
             if (res && res.ok) {
-                closePasteCodeDialog();
                 toast(t('toast.code.imported'), 'ok');
                 if (vState.view === 'folders') loadFolders();
                 else loadCurrentPresets();
             } else {
-                errEl.textContent = res ? errMsg(res.error) : t('err.save');
+                toast(res ? errMsg(res.error) : t('err.save'), 'err');
             }
         });
     });
@@ -2049,7 +1985,6 @@ document.getElementById('bc-root').addEventListener('click',gotoFolders);
 document.getElementById('sort-btn').addEventListener('click',cycleSortMode);
 
 // Import button
-document.getElementById('import-btn').addEventListener('click',doImportDialog);
 
 // Search
 document.getElementById('search-input').addEventListener('input',function(){
@@ -2066,7 +2001,7 @@ document.querySelectorAll('[data-theme]').forEach(function(btn){btn.addEventList
 document.querySelectorAll('[data-font]').forEach(function(btn){btn.addEventListener('click',function(){cfg.font=this.dataset.font;applyFont(cfg.font);document.querySelectorAll('[data-font]').forEach(function(b){b.classList.toggle('active',b.dataset.font===cfg.font);});});});
 document.querySelectorAll('[data-folder-style]').forEach(function(btn){btn.addEventListener('click',function(){cfg.folder_style=this.dataset.folderStyle;document.querySelectorAll('[data-folder-style]').forEach(function(b){b.classList.toggle('active',b.dataset.folderStyle===cfg.folder_style);});pyCall('update_all_folders_style',cfg.folder_style).then(function(){loadFolders();});});});
 document.querySelectorAll('[data-mode]').forEach(function(btn){btn.addEventListener('click',function(){cfg.mode=this.dataset.mode;document.querySelectorAll('[data-mode]').forEach(function(b){b.classList.toggle('active',b.dataset.mode===cfg.mode);});if(cfg.mode==='scripting')toast(t('toast.scripting'),'warn');});});
-document.querySelectorAll('[data-lang]').forEach(function(btn){btn.addEventListener('click',function(){cfg.lang=this.dataset.lang;applyI18n(cfg.lang);document.querySelectorAll('[data-lang]').forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang);});updateCopyStatus();updatePasteBtn();if(vState.view==='folders')renderFolderGrid();else renderPresetList(allPresets);});});
+document.querySelectorAll('[data-lang]').forEach(function(btn){btn.addEventListener('click',function(){cfg.lang=this.dataset.lang;applyI18n(cfg.lang);document.querySelectorAll('[data-lang]').forEach(function(b){b.classList.toggle('active',b.dataset.lang===cfg.lang);});updateCopyStatus();updatePasteBtn();loadPresetNodes(selectedId);if(vState.view==='folders')renderFolderGrid();else renderPresetList(allPresets);});});
 
 // Settings: swatches + hex
 document.getElementById('accent-swatches').addEventListener('click',function(e){var sw=e.target.closest('.swatch');if(!sw)return;cfg.accent=sw.dataset.color;applyAccent(cfg.accent);document.getElementById('hex-input').value=cfg.accent;document.querySelectorAll('.swatch').forEach(function(s){s.classList.toggle('active',s.dataset.color.toLowerCase()===cfg.accent.toLowerCase());});});
@@ -2095,9 +2030,13 @@ document.getElementById('icon-picker').addEventListener('click',function(e){
   e.stopPropagation();
   var btn=e.target.closest('[data-icon]');
   if(!btn||!iconPickerTarget)return;
-  var icon=btn.dataset.icon,fid=iconPickerTarget;
+  var icon=btn.dataset.icon,target=iconPickerTarget;
   closeIconPicker();
-  pyCall('update_folder',JSON.stringify({id:fid,icon:icon})).then(loadFolders);
+  if(target.type==='folder'){
+    pyCall('update_folder',JSON.stringify({id:target.id,icon:icon})).then(loadFolders);
+  }else{
+    pyCall('update_preset',JSON.stringify({id:target.id,icon:icon})).then(loadCurrentPresets);
+  }
 });
 
 // Confirm
@@ -2157,21 +2096,17 @@ document.getElementById('qr-save-btn').addEventListener('click', function(e) {
     doSaveQR();
 });
 
-/* — Paste code dialog — */
-document.getElementById('paste-code-trigger-btn').addEventListener('click', openPasteCodeDialog);
-document.getElementById('paste-code-close').addEventListener('click', closePasteCodeDialog);
-document.getElementById('paste-code-cancel').addEventListener('click', closePasteCodeDialog);
-document.getElementById('paste-code-overlay').addEventListener('click', function(e) {
-    if (e.target === this) closePasteCodeDialog();
-});
-document.getElementById('paste-code-ok').addEventListener('click', function() {
-    var code = document.getElementById('paste-code-input').value.trim();
-    doImportFromCode(code);
-});
-document.getElementById('paste-code-input').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-        document.getElementById('paste-code-ok').click();
-    }
+/* — Global Ctrl+V: detect a pasted MCOPY code anywhere in the interface — */
+document.addEventListener('keydown', function(e) {
+    var isPasteShortcut = (e.ctrlKey || e.metaKey) && (e.key === 'v' || e.key === 'V');
+    if (!isPasteShortcut) return;
+    var tag = ((e.target && e.target.tagName) || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea') return; // let normal text paste happen
+    pyCall('read_clipboard_text').then(function(r) {
+        if (r && r.ok && r.text && r.text.trim().indexOf('MCOPY:') === 0) {
+            doImportFromCode(r.text.trim());
+        }
+    });
 });
 
 var rightEl=document.getElementById('right');

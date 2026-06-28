@@ -20,6 +20,7 @@ else:
 
 import json
 import logging
+import re
 import sqlite3
 import threading
 from logging.handlers import RotatingFileHandler
@@ -103,10 +104,62 @@ def _err(code: str, detail: Optional[str] = None) -> str:
     return json.dumps(payload)
 
 
+_TOOL_HEADER_RE = re.compile(r"([A-Za-z_]\w*)\s*=\s*([A-Za-z_]\w*)\s*\{")
+
+
+def _parse_node_summary(fusion_data: str) -> list[dict[str, str]]:
+    """Extracts {name, type} pairs for the top-level tools in a captured
+    Fusion settings string -- e.g. 'Transform1 = Transform {...}' inside the
+    outer 'Tools = {...}' block. Tracks brace depth so nested constructors
+    (Inputs, OperatorInfo, connected nodes, etc.) are never mistaken for
+    top-level tools, and skips over quoted string content so a stray brace
+    inside an expression, comment, or path doesn't throw the count off."""
+    nodes: list[dict[str, str]] = []
+    match = re.search(r"Tools\s*=\s*\{", fusion_data)
+    if not match:
+        return nodes
+
+    i = match.end()
+    n = len(fusion_data)
+    depth = 1  # already inside Tools' opening brace
+    in_string: Optional[str] = None  # the quote character we're currently inside, if any
+
+    while i < n and depth > 0:
+        ch = fusion_data[i]
+
+        if in_string:
+            if ch == "\\":
+                i += 2  # skip the escaped character along with the backslash
+                continue
+            if ch == in_string:
+                in_string = None
+            i += 1
+            continue
+
+        if ch == '"' or ch == "'":
+            in_string = ch
+            i += 1
+            continue
+
+        if depth == 1:
+            header = _TOOL_HEADER_RE.match(fusion_data, i)
+            if header:
+                nodes.append({"name": header.group(1), "type": header.group(2)})
+                i = header.end() - 1  # land exactly on the '{' for normal depth handling
+                continue
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+        i += 1
+
+    return nodes
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # DATABASE
 # ══════════════════════════════════════════════════════════════════════════════
-_SCHEMA_VERSION = 2
+_SCHEMA_VERSION = 3
 _db_lock = threading.Lock()
 
 
@@ -132,6 +185,13 @@ def _run_migrations(conn: sqlite3.Connection) -> None:
         if "folder_id" not in columns:
             conn.execute("ALTER TABLE presets ADD COLUMN folder_id INTEGER")
         current = 2
+
+    if current < 3:
+        # v3: presets gained their own icon, shown in the preset list.
+        columns = [row[1] for row in conn.execute("PRAGMA table_info(presets)").fetchall()]
+        if "icon" not in columns:
+            conn.execute("ALTER TABLE presets ADD COLUMN icon TEXT NOT NULL DEFAULT 'box'")
+        current = 3
 
     conn.execute(f"PRAGMA user_version = {_SCHEMA_VERSION}")
     conn.commit()
@@ -160,6 +220,7 @@ def _init_db() -> None:
                     fusion_data TEXT    NOT NULL,
                     source      TEXT    DEFAULT 'clipboard',
                     folder_id   INTEGER,
+                    icon        TEXT    NOT NULL DEFAULT 'box',
                     created_at  TEXT    DEFAULT (datetime('now')),
                     updated_at  TEXT    DEFAULT (datetime('now'))
                 );
@@ -205,7 +266,7 @@ _init_db()
 # ══════════════════════════════════════════════════════════════════════════════
 _DEFAULT_SETTINGS: dict[str, Any] = {
     "theme": "mmarket", "accent": "#f5c842", "font": "barlow",
-    "mode": "clipboard", "lang": "es",
+    "mode": "clipboard", "lang": "en",
     "window_w": 980, "window_h": 650,
     "folder_style": "tab",
     "sort_mode": "recent",
@@ -262,8 +323,8 @@ def _persist_settings(data: dict[str, Any]) -> bool:
 
 
 def _dialog_label(key: str) -> str:
-    lang = _load_settings().get("lang", "es")
-    table = _DIALOG_LABELS.get(lang, _DIALOG_LABELS["es"])
+    lang = _load_settings().get("lang", "en")
+    table = _DIALOG_LABELS.get(lang, _DIALOG_LABELS["en"])
     return table.get(key, key)
 
 
@@ -515,17 +576,17 @@ class Backend(QObject):
                 try:
                     if folder_id_str == "all":
                         rows = conn.execute(
-                            f"SELECT id, name, description, source, folder_id, created_at"
+                            f"SELECT id, name, description, source, folder_id, icon, created_at"
                             f" FROM presets ORDER BY {order}"
                         ).fetchall()
                     elif folder_id_str == "unorg":
                         rows = conn.execute(
-                            f"SELECT id, name, description, source, folder_id, created_at"
+                            f"SELECT id, name, description, source, folder_id, icon, created_at"
                             f" FROM presets WHERE folder_id IS NULL ORDER BY {order}"
                         ).fetchall()
                     else:
                         rows = conn.execute(
-                            f"SELECT id, name, description, source, folder_id, created_at"
+                            f"SELECT id, name, description, source, folder_id, icon, created_at"
                             f" FROM presets WHERE folder_id = ? ORDER BY {order}",
                             (int(folder_id_str),)
                         ).fetchall()
@@ -568,7 +629,7 @@ class Backend(QObject):
                         try:
                             fts_query = " ".join(w + "*" for w in terms)
                             rows = conn.execute(
-                                f"SELECT p.id, p.name, p.description, p.source, p.folder_id, p.created_at"
+                                f"SELECT p.id, p.name, p.description, p.source, p.folder_id, p.icon, p.created_at"
                                 f" FROM presets p WHERE p.id IN"
                                 f" (SELECT rowid FROM presets_fts WHERE presets_fts MATCH ?)"
                                 f" {folder_clause} ORDER BY {order}",
@@ -579,7 +640,7 @@ class Backend(QObject):
                             pass  # fall through to LIKE-based search below
                     pattern = f"%{q}%"
                     rows = conn.execute(
-                        f"SELECT id, name, description, source, folder_id, created_at FROM presets p"
+                        f"SELECT id, name, description, source, folder_id, icon, created_at FROM presets p"
                         f" WHERE (name LIKE ? OR description LIKE ?) {folder_clause} ORDER BY {order}",
                         [pattern, pattern] + folder_params
                     ).fetchall()
@@ -685,6 +746,54 @@ class Backend(QObject):
             logger.exception("move_all_to_folder failed")
             return _err(ErrorCode.UNKNOWN_ERROR, str(e))
 
+    @Slot(str, result=str)
+    def update_preset(self, data_json: str) -> str:
+        """Partial update for a preset -- currently just its icon."""
+        try:
+            d = json.loads(data_json)
+            pid = int(d["id"])
+            fields: list[str] = []
+            vals: list[Any] = []
+            if "icon" in d:
+                fields.append("icon = ?")
+                vals.append(str(d["icon"])[:40])
+            if not fields:
+                return json.dumps({"ok": True})
+            vals.append(pid)
+            with _db_lock:
+                conn = _get_conn()
+                try:
+                    conn.execute(f"UPDATE presets SET {', '.join(fields)} WHERE id = ?", vals)
+                    conn.commit()
+                    return json.dumps({"ok": True})
+                finally:
+                    conn.close()
+        except Exception as e:
+            logger.exception("update_preset failed")
+            return _err(ErrorCode.UNKNOWN_ERROR, str(e))
+
+    @Slot(str, result=str)
+    def get_preset_nodes(self, preset_id_str: str) -> str:
+        """Lightweight {name, type} summary of the nodes a preset contains,
+        for display in the UI without sending the full raw fusion_data."""
+        try:
+            pid = int(preset_id_str)
+            with _db_lock:
+                conn = _get_conn()
+                try:
+                    row = conn.execute(
+                        "SELECT fusion_data FROM presets WHERE id = ?", (pid,)
+                    ).fetchone()
+                finally:
+                    conn.close()
+            if not row:
+                return _err(ErrorCode.PRESET_NOT_FOUND)
+            nodes = _parse_node_summary(row["fusion_data"])
+            return json.dumps({"ok": True, "nodes": nodes})
+        except Exception as e:
+            logger.exception("get_preset_nodes failed")
+            return _err(ErrorCode.UNKNOWN_ERROR, str(e))
+
     # ── Nodes (clipboard or Fusion scripting bridge) ────────────────────────
     @Slot(result=str)
     def copy_nodes(self) -> str:
@@ -753,6 +862,19 @@ class Backend(QObject):
             return _err(ErrorCode.CLIPBOARD_WRITE_FAILED)
         except Exception as e:
             logger.exception("copy_text_to_clipboard failed")
+            return _err(ErrorCode.UNKNOWN_ERROR, str(e))
+
+    @Slot(result=str)
+    def read_clipboard_text(self) -> str:
+        """Reads the raw system clipboard text. Used by the global Ctrl+V
+        shortcut to detect a pasted MCOPY: code anywhere in the UI -- this
+        always reads the literal clipboard, independent of the
+        clipboard/scripting capture mode setting."""
+        try:
+            text = clipboard_get_text()
+            return json.dumps({"ok": True, "text": text or ""})
+        except Exception as e:
+            logger.exception("read_clipboard_text failed")
             return _err(ErrorCode.UNKNOWN_ERROR, str(e))
 
     # ── Shareable code (MCOPY:...) ───────────────────────────────────────────

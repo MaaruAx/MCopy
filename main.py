@@ -357,6 +357,30 @@ class Backend(QObject):
         except Exception:
             logger.exception("minimize_window failed")
 
+    @Slot(result=str)
+    def toggle_maximize_window(self) -> str:
+        """Toggles between maximized and normal window state. Returns the
+        resulting state so the UI can swap the maximize/restore icon."""
+        try:
+            if self._win.isMaximized():
+                self._win.showNormal()
+                maximized = False
+            else:
+                self._win.showMaximized()
+                maximized = True
+            return json.dumps({"ok": True, "maximized": maximized})
+        except Exception as e:
+            logger.exception("toggle_maximize_window failed")
+            return _err(ErrorCode.UNKNOWN_ERROR, str(e))
+
+    @Slot(result=str)
+    def is_window_maximized(self) -> str:
+        try:
+            return json.dumps({"ok": True, "maximized": self._win.isMaximized()})
+        except Exception as e:
+            logger.exception("is_window_maximized failed")
+            return _err(ErrorCode.UNKNOWN_ERROR, str(e))
+
     @Slot()
     def close_window(self) -> None:
         try:
@@ -748,17 +772,27 @@ class Backend(QObject):
 
     @Slot(str, result=str)
     def update_preset(self, data_json: str) -> str:
-        """Partial update for a preset -- currently just its icon."""
+        """Partial update for a preset: name, description, and/or icon."""
         try:
             d = json.loads(data_json)
             pid = int(d["id"])
             fields: list[str] = []
             vals: list[Any] = []
+            if "name" in d:
+                name = str(d["name"]).strip()
+                if not name:
+                    return _err(ErrorCode.NAME_REQUIRED)
+                fields.append("name = ?")
+                vals.append(name[:80])
+            if "description" in d:
+                fields.append("description = ?")
+                vals.append(str(d["description"]).strip()[:300])
             if "icon" in d:
                 fields.append("icon = ?")
                 vals.append(str(d["icon"])[:40])
             if not fields:
                 return json.dumps({"ok": True})
+            fields.append("updated_at = datetime('now')")
             vals.append(pid)
             with _db_lock:
                 conn = _get_conn()

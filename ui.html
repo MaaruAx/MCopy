@@ -49,7 +49,7 @@ textarea{resize:none;}
 #topbar{height:40px;min-height:40px;display:flex;align-items:center;padding:0 9px 0 13px;background:var(--sf);border-bottom:2px solid var(--bd);flex-shrink:0;cursor:default;}
 #logo-block{display:flex;flex-direction:column;justify-content:center;gap:2px;}
 .logo{font-family:var(--font-display);font-weight:var(--logo-weight);font-variation-settings:'wght' var(--logo-wght);font-size:19px;letter-spacing:.01em;text-transform:uppercase;color:var(--tx);line-height:1;}
-.logo em{color:var(--ac);font-style:normal;}
+.logo em{color:var(--ac);font-style:normal;font-size:inherit;font-weight:inherit;font-variation-settings:inherit;}
 .logo-sub{font-size:8px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;line-height:1;}
 #topbar-right{display:flex;align-items:center;gap:2px;margin-left:auto;}
 .wbtn{width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:13px;color:var(--tx3);cursor:pointer;transition:color var(--tr),background var(--tr);flex-shrink:0;}
@@ -100,7 +100,7 @@ textarea{resize:none;}
 #save-btn.disabled{opacity:.35;cursor:not-allowed;}
 #clear-btn{padding:7px 13px;background:var(--sf2);color:var(--tx2);border:2px solid var(--bd);border-radius:var(--r);font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.03em;text-transform:uppercase;cursor:pointer;transition:border-color var(--tr),color var(--tr);}
 #clear-btn:hover{border-color:var(--bd2);color:var(--tx);}
-#preset-nodes-list{display:flex;flex-direction:column;gap:3px;max-height:150px;overflow-y:auto;flex-shrink:0;}
+#preset-nodes-list{display:flex;flex-direction:column;gap:3px;flex:1;min-height:60px;overflow-y:auto;}
 .node-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;background:var(--sf2);border-radius:4px;}
 .node-name{font-size:11px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
 .node-type{font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--tx3);background:rgba(255,255,255,.05);padding:2px 6px;border-radius:3px;flex-shrink:0;}
@@ -118,7 +118,7 @@ textarea{resize:none;}
 .bc-cur{color:var(--ac);font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;}
 #search-wrap{display:flex;align-items:center;gap:7px;padding:8px 11px;}
 .search-ico{color:var(--tx3);font-size:16px;flex-shrink:0;line-height:1;}
-#search-input{flex:1;background:none;border:none;color:var(--tx);font-size:12px;}
+#search-input{flex:1;min-width:0;background:none;border:none;color:var(--tx);font-size:12px;}
 #search-input::placeholder{color:var(--tx3);}
 #search-count{font-size:10px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;white-space:nowrap;}
 #sort-btn{display:none;flex-shrink:0;align-items:center;padding:4px 9px;border:2px solid var(--bd);border-radius:var(--r);background:var(--sf2);color:var(--tx3);font-size:9px;font-weight:700;font-family:var(--font-display);letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:border-color var(--tr),color var(--tr);white-space:nowrap;}
@@ -183,6 +183,8 @@ textarea{resize:none;}
 .pcard-name{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2;transition:color var(--tr);}
 .pcard.selected .pcard-name{color:var(--ac);}
 .pcard-desc{font-size:11px;color:var(--tx2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35;}
+.pcard-rename-input{width:100%;background:var(--sf);border:1px solid var(--ac);border-radius:3px;color:var(--ac);font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.03em;text-transform:uppercase;padding:1px 4px;outline:none;user-select:text;-webkit-user-select:text;}
+.pcard-desc-input{width:100%;background:var(--sf);border:1px solid var(--bd2);border-radius:3px;color:var(--tx2);font-size:11px;font-family:var(--font-body);padding:3px 5px;margin-top:2px;outline:none;resize:none;user-select:text;-webkit-user-select:text;}
 .pcard-meta{display:flex;align-items:center;gap:5px;margin-top:3px;}
 .pcard-date{font-size:9px;color:var(--tx3);letter-spacing:.02em;}
 .pcard-actions{display:flex;align-items:center;gap:2px;flex-shrink:0;}
@@ -558,6 +560,9 @@ textarea{resize:none;}
   <div id="topbar-right">
     <div class="wbtn wsettings" id="btn-settings" data-i18n-tooltip="tooltip.settings" data-tooltip="Settings"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M4 20h3v-2h4v4h2v-4h4v2h-2v4H9v-4H7v2H2v-5h2v3Zm18 2h-5v-2h3v-3h2v5ZM6 11H2v2h4v4H4v-2H0V9h4V7h2v4Zm14-2h4v6h-4v2h-2v-4h4v-2h-4V7h2v2Zm-6 7h-4v-2h4v2Zm-4-2H8v-4h2v4Zm6 0h-2v-4h2v4Zm-2-4h-4V8h4v2ZM7 4H4v3H2V2h5v2Zm8 0h2V2h5v5h-2V4h-3v2h-4V2h-2v4H7V4h2V0h6v4Z"/></svg></div>
     <div class="wbtn" id="btn-min" data-i18n-tooltip="tooltip.minimize" data-tooltip="Minimize">&#8211;</div>
+    <div class="wbtn" id="btn-max" data-i18n-tooltip="tooltip.maximize" data-tooltip="Maximize">
+      <svg id="max-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:11px;height:11px"><rect x="4" y="4" width="16" height="16"/></svg>
+    </div>
     <div class="wbtn wclose" id="btn-close" data-i18n-tooltip="tooltip.close" data-tooltip="Close">&#10005;</div>
   </div>
 </div>
@@ -859,6 +864,7 @@ var I18N = {
     'ctx.rename':'Renombrar',
     'ctx.change.color':'Cambiar color',
     'ctx.change.icon':'Cambiar icono',
+    'ctx.edit.desc':'Editar descripci\u00f3n',
     'ctx.pin':'Anclar',
     'ctx.unpin':'Desanclar',
     'ctx.duplicate.folder':'Duplicar carpeta',
@@ -903,6 +909,7 @@ var I18N = {
     'qr.saved':'Imagen QR guardada',
     'tooltip.settings':'Ajustes',
     'tooltip.minimize':'Minimizar',
+    'tooltip.maximize':'Maximizar','tooltip.restore':'Restaurar',
     'tooltip.close':'Cerrar',
     'tooltip.copy':'Copiar',
     'tooltip.sort':'Cambiar orden',
@@ -968,6 +975,7 @@ var I18N = {
     'ctx.rename':'Rename',
     'ctx.change.color':'Change color',
     'ctx.change.icon':'Change icon',
+    'ctx.edit.desc':'Edit description',
     'ctx.pin':'Pin',
     'ctx.unpin':'Unpin',
     'ctx.duplicate.folder':'Duplicate folder',
@@ -1012,6 +1020,7 @@ var I18N = {
     'qr.saved':'QR image saved',
     'tooltip.settings':'Settings',
     'tooltip.minimize':'Minimize',
+    'tooltip.maximize':'Maximize','tooltip.restore':'Restore',
     'tooltip.close':'Close',
     'tooltip.copy':'Copy',
     'tooltip.sort':'Change sort order',
@@ -1076,6 +1085,7 @@ var I18N = {
     'ctx.rename':'Umbenennen',
     'ctx.change.color':'Farbe \u00e4ndern',
     'ctx.change.icon':'Symbol \u00e4ndern',
+    'ctx.edit.desc':'Beschreibung bearbeiten',
     'ctx.pin':'Anheften',
     'ctx.unpin':'L\u00f6sen',
     'ctx.duplicate.folder':'Ordner duplizieren',
@@ -1120,6 +1130,7 @@ var I18N = {
     'qr.saved':'QR-Bild gespeichert',
     'tooltip.settings':'Einstellungen',
     'tooltip.minimize':'Minimieren',
+    'tooltip.maximize':'Maximieren','tooltip.restore':'Wiederherstellen',
     'tooltip.close':'Schlie\u00dfen',
     'tooltip.copy':'Kopieren',
     'tooltip.sort':'Sortierung \u00e4ndern',
@@ -1189,6 +1200,7 @@ var I18N = {
     'ctx.rename':'\u0928\u093e\u092e \u092c\u0926\u0932\u0947\u0902',
     'ctx.change.color':'\u0930\u0902\u0917 \u092c\u0926\u0932\u0947\u0902',
     'ctx.change.icon':'\u0906\u0907\u0915\u0949\u0928 \u092c\u0926\u0932\u0947\u0902',
+    'ctx.edit.desc':'\u0935\u093f\u0935\u0930\u0923 \u0938\u0902\u0935\u093e\u0926\u093f\u0924 \u0915\u0930\u0947\u0902',
     'ctx.pin':'\u092a\u093f\u0928 \u0915\u0930\u0947\u0902',
     'ctx.unpin':'\u0905\u0928\u092a\u093f\u0928 \u0915\u0930\u0947\u0902',
     'ctx.duplicate.folder':'\u092b\u093c\u094b\u0932\u094d\u0921\u0930 \u0921\u0941\u092a\u094d\u0932\u093f\u0915\u0947\u091f \u0915\u0930\u0947\u0902',
@@ -1233,6 +1245,7 @@ var I18N = {
     'qr.saved':'QR \u091a\u093f\u0924\u094d\u0930 \u0938\u0939\u0947\u091c\u093e \u0917\u092f\u093e',
     'tooltip.settings':'\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938',
     'tooltip.minimize':'\u0928\u094d\u092f\u0942\u0928\u0924\u0930',
+    'tooltip.maximize':'\u092c\u0921\u093c\u093e \u0915\u0930\u0947\u0902','tooltip.restore':'\u092a\u0941\u0928\u0930\u094d\u0938\u094d\u0925\u093e\u092a\u093f\u0924 \u0915\u0930\u0947\u0902',
     'tooltip.close':'\u092c\u0902\u0926 \u0915\u0930\u0947\u0902',
     'tooltip.copy':'\u0915\u0949\u092a\u0940',
     'tooltip.sort':'\u0915\u094d\u0930\u092e \u092c\u0926\u0932\u0947\u0902',
@@ -1488,7 +1501,7 @@ function renderPresetList(list){
       +'<div class="pcard-meta"><span class="pcard-date">'+relTime(p.created_at)+'</span></div></div>'
       +'<div class="pcard-actions">'
       +'<div class="pcard-btn pbpaste" data-paste="'+p.id+'" data-tooltip="'+esc(t('tooltip.paste'))+'"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="width:11px;height:11px"><path d="M11 17v2H9v2H7V3h2v2h2v2h2v2h2v2h2v2h-2v2h-2v2z"/></svg></div>'
-      +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" data-tooltip="'+esc(t('tooltip.menu'))+'">\u22EF</div>'
+      +'<div class="pcard-btn pbdots" data-pdots="'+p.id+'" data-tooltip="'+esc(t('tooltip.menu'))+'"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:12px;height:12px"><path d="M7 15H1V9h6v6Zm8 0H9V9h6v6Zm4-4v2h2v-2h-2ZM3 13h2v-2H3v2Zm8 0h2v-2h-2v2Zm12 2h-6V9h6v6Z"/></svg></div>'
       +'</div></div>';
   });
   c.innerHTML=h;
@@ -1515,7 +1528,10 @@ function openCtxMenu(e,type,id){
       +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item danger" data-action="delete-folder">'+t('ctx.delete')+'</div>';
   }else{
-    menu.innerHTML='<div class="ctx-item" data-action="icon">'+t('ctx.change.icon')+'</div>'
+    menu.innerHTML='<div class="ctx-item" data-action="rename">'+t('ctx.rename')+'</div>'
+      +'<div class="ctx-item" data-action="edit-desc">'+t('ctx.edit.desc')+'</div>'
+      +'<div class="ctx-item" data-action="icon">'+t('ctx.change.icon')+'</div>'
+      +'<div class="ctx-sep"></div>'
       +'<div class="ctx-item" data-action="copy-code">'+t('ctx.copy.code')+'</div>'
       +'<div class="ctx-item" data-action="export-preset">'+t('ctx.export.preset')+'</div>'
       +'<div class="ctx-item" data-action="move-preset">'+t('ctx.move.preset')+'</div>'
@@ -1531,7 +1547,8 @@ function openCtxMenu(e,type,id){
 function closeCtxMenu(){document.getElementById('ctx-menu').classList.remove('open');}
 function handleCtxAction(action){
   closeCtxMenu();var id=ctxMeta.id;
-  if(action==='rename'){startRename(id);}
+  if(action==='rename'){if(ctxMeta.type==='folder')startRename(id);else startRenamePreset(id);}
+  else if(action==='edit-desc'){startEditDescription(id);}
   else if(action==='color'){openColorPicker(id);}
   else if(action==='icon'){openIconPicker(ctxMeta.type,id);}
   else if(action==='pin'){togglePin(id);}
@@ -1557,6 +1574,46 @@ function startRename(fid){
   function commit(){var n=inp.value.trim()||cur;var ne=document.createElement('div');ne.className='fcard-name';ne.textContent=n;if(inp.parentNode)inp.replaceWith(ne);if(n!==cur)pyCall('update_folder',JSON.stringify({id:fid,name:n})).then(loadFolders);}
   inp.addEventListener('blur',commit);
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();inp.blur();}if(e.key==='Escape'){inp.value=cur;inp.blur();}});
+}
+function startRenamePreset(pid){
+  var card=document.querySelector('.pcard[data-id="'+pid+'"]');if(!card)return;
+  var nameEl=card.querySelector('.pcard-name');if(!nameEl)return;
+  var cur=nameEl.textContent;
+  var inp=document.createElement('input');inp.type='text';inp.className='pcard-rename-input';inp.value=cur;inp.maxLength=80;
+  nameEl.replaceWith(inp);inp.select();inp.focus();
+  inp.addEventListener('click',function(e){e.stopPropagation();});
+  inp.addEventListener('mousedown',function(e){e.stopPropagation();});
+  function commit(){
+    var n=inp.value.trim()||cur;
+    var ne=document.createElement('div');ne.className='pcard-name';ne.textContent=n;
+    if(inp.parentNode)inp.replaceWith(ne);
+    if(n!==cur)pyCall('update_preset',JSON.stringify({id:pid,name:n})).then(function(r){if(r&&r.ok)loadCurrentPresets();else toast(errMsg(r&&r.error),'err');});
+  }
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();inp.blur();}if(e.key==='Escape'){inp.value=cur;inp.blur();}});
+}
+function startEditDescription(pid){
+  var card=document.querySelector('.pcard[data-id="'+pid+'"]');if(!card)return;
+  var body=card.querySelector('.pcard-body');if(!body)return;
+  var descEl=body.querySelector('.pcard-desc');
+  var cur=descEl?descEl.textContent:'';
+  var ta=document.createElement('textarea');ta.className='pcard-desc-input';ta.value=cur;ta.maxLength=300;ta.rows=2;
+  if(descEl)descEl.replaceWith(ta);
+  else body.querySelector('.pcard-name').insertAdjacentElement('afterend',ta);
+  ta.focus();ta.select();
+  ta.addEventListener('click',function(e){e.stopPropagation();});
+  ta.addEventListener('mousedown',function(e){e.stopPropagation();});
+  function commit(){
+    var n=ta.value.trim();
+    if(n){var ne=document.createElement('div');ne.className='pcard-desc';ne.textContent=n;if(ta.parentNode)ta.replaceWith(ne);}
+    else if(ta.parentNode){ta.remove();}
+    if(n!==cur)pyCall('update_preset',JSON.stringify({id:pid,description:n})).then(function(r){if(r&&r.ok)loadCurrentPresets();else toast(errMsg(r&&r.error),'err');});
+  }
+  ta.addEventListener('blur',commit);
+  ta.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();ta.blur();}
+    if(e.key==='Escape'){ta.value=cur;ta.blur();}
+  });
 }
 
 /* ════════════════════════════════════════════════════════════════════════════
@@ -1951,6 +2008,19 @@ function doImportFromCode(code) {
 ════════════════════════════════════════════════════════════════════════════ */
 document.getElementById('btn-close').addEventListener('click',function(){if(window.backend)window.backend.close_window();});
 document.getElementById('btn-min').addEventListener('click',function(){if(window.backend)window.backend.minimize_window();});
+document.getElementById('btn-max').addEventListener('click',function(){
+  pyCall('toggle_maximize_window').then(function(r){if(r&&r.ok)setMaximizeIcon(r.maximized);});
+});
+function setMaximizeIcon(maximized){
+  var icon=document.getElementById('max-icon'),btn=document.getElementById('btn-max');
+  if(maximized){
+    icon.innerHTML='<rect x="7" y="7" width="13" height="13"/><path d="M4 17V4h13"/>';
+    btn.setAttribute('data-tooltip',t('tooltip.restore'));
+  }else{
+    icon.innerHTML='<rect x="4" y="4" width="16" height="16"/>';
+    btn.setAttribute('data-tooltip',t('tooltip.maximize'));
+  }
+}
 document.getElementById('topbar').addEventListener('mousedown',function(e){if(e.button!==0||e.target.closest('#topbar-right'))return;if(window.backend)window.backend.start_move();});
 document.getElementById('copy-btn').addEventListener('click',doCopy);
 document.getElementById('paste-btn').addEventListener('click',function(){if(!this.classList.contains('disabled'))doPaste();});

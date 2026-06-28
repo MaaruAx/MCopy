@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <style>
@@ -309,10 +309,10 @@ textarea{resize:none;}
 #s-save{padding:7px 24px;background:var(--ac);color:#000;border:2px solid var(--ac);border-radius:var(--r);font-family:var(--font-display);font-weight:900;font-variation-settings:'wght' 900;font-size:12px;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:filter var(--tr);}
 #s-save:hover{filter:brightness(.88);}
 /* Settings export table */
-.s-export-table{display:flex;flex-direction:column;gap:4px;max-height:150px;overflow-y:auto;}
-.s-export-row{display:flex;align-items:center;gap:8px;padding:5px 7px;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);}
+.s-export-table{display:flex;flex-direction:column;gap:4px;max-height:150px;overflow-y:auto;overflow-x:hidden;}
+.s-export-row{display:flex;align-items:center;gap:8px;padding:5px 7px;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);min-width:0;}
 .s-export-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.s-export-name{flex:1;font-size:11px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-export-name{flex:1;min-width:0;font-size:11px;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .s-export-btn{padding:5px 8px;background:var(--sf3);border:1px solid var(--bd2);border-radius:3px;color:var(--tx3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color var(--tr),color var(--tr);flex-shrink:0;}
 .s-export-btn:hover{border-color:var(--ac);color:var(--ac);}
 .s-empty-note{font-size:9px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;text-align:center;padding:10px 0;opacity:.6;}
@@ -616,7 +616,7 @@ textarea{resize:none;}
       <div id="folders-view"><div id="folders-grid"></div></div>
       <div id="presets-view" class="v-hidden"><div id="presets-list"></div></div>
       <div id="drop-overlay">
-        <div class="drop-icon">&#8675;</div>
+        <div class="drop-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" style="width:38px;height:38px"><path d="M19 21H5v-2h14v2ZM5 19H3v-4h2v4Zm16 0h-2v-4h2v4Zm-8-8h4v2h-2v2h-2v2h-2v-2H9v-2H7v-2h4V3h2v8Z"/></svg></div>
         <div class="drop-text" data-i18n="drop.text">Suelta el archivo .mcopy</div>
       </div>
     </div>
@@ -1246,7 +1246,7 @@ var I18N = {
   }
 };
 
-function t(k,v){var l=cfg.lang||'es',s=(I18N[l]&&I18N[l][k])||(I18N['es'][k])||k;if(v)for(var x in v)s=s.replace('{'+x+'}',v[x]);return s;}
+function t(k,v){var l=cfg.lang||'en',s=(I18N[l]&&I18N[l][k])||(I18N['en'][k])||k;if(v)for(var x in v)s=s.replace('{'+x+'}',v[x]);return s;}
 function errMsg(code){if(!code)code='UNKNOWN_ERROR';var key='err.'+code,s=t(key);return s===key?t('err.UNKNOWN_ERROR'):s;}
 function applyI18n(lang){
   var S=I18N[lang]||I18N['es'];
@@ -1280,7 +1280,7 @@ var ICON_LIST=['folder','star','bookmark','heart','tag','box','lock','palette','
 /* ════════════════════════════════════════════════════════════════════════════
    BLOCK JS 3 — GLOBAL STATE
 ════════════════════════════════════════════════════════════════════════════ */
-var cfg={theme:'mmarket',accent:'#f5c842',font:'barlow',mode:'clipboard',lang:'es',folder_style:'tab'};
+var cfg={theme:'mmarket',accent:'#f5c842',font:'barlow',mode:'clipboard',lang:'en',folder_style:'tab'};
 var vState={view:'folders',folderId:null,folderName:'',folderColor:'',folderIcon:'',sortMode:'recent',folders:[],totalCount:0,unorgCount:0};
 var pendingData=null, pendingSource='clipboard', selectedId=null, allPresets=[], searchTimer=null;
 var ctxMeta={type:null,id:null}, confirmCallback=null;
